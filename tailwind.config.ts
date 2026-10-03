@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Arial', 'Helvetica', 'sans-serif'],
+        mono: ['"SFMono-Regular"', 'Consolas', '"Liberation Mono"', 'monospace'],
+      },
       colors: {
         slate: {
           950: '#020617',

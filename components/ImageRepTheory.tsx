@@ -18,141 +18,141 @@ export default function ImageRepTheory() {
   ).toFixed(1);
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8 shadow-xl">
+    <div className="bg-paper border border-zinc-200 rounded-md p-6 lg:p-8">
       {/* Header */}
-      <div className="border-b border-slate-800 pb-5">
+      <div className="border-b border-zinc-200 pb-5">
         <div className="flex flex-wrap items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyan-950 text-cyan-400 border border-cyan-800">
-            Statistical Representativity
+          <span className="px-2.5 py-0.5 rounded-md text-xs font-semibold bg-zinc-50 text-zinc-700 border border-zinc-200">
+            ImageRep theory
           </span>
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300">
+          <span className="px-2.5 py-0.5 rounded-md text-xs font-semibold bg-zinc-100 text-zinc-800">
             Dahari et al. (2025) · Advanced Science
           </span>
           <a
             href="https://github.com/tldr-group/Representativity"
             target="_blank"
             rel="noreferrer"
-            className="text-xs text-cyan-400 hover:text-cyan-300 font-mono underline"
+            className="text-xs text-zinc-700 hover:text-zinc-700 font-mono underline"
           >
             GitHub: ImageRep ↗
           </a>
         </div>
-        <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
-          Microstructural Representativity: Area Fraction (A), Two-Point Correlation <LatexFormula formula={"S_2(r)"} />, & CLS
+        <h2 className="text-2xl lg:text-3xl font-semibold text-zinc-950 tracking-tight">
+          Sampling uncertainty: <LatexFormula formula={"S_2(r)"} />
         </h2>
-        <p className="text-sm text-slate-400 mt-1 max-w-4xl leading-relaxed">
-          How do we know a single 2D SEM slice is representative of the whole battery roll? Following
-          the landmark work by <strong>Dahari, Docherty, Kench, & Cooper (2025)</strong>, we quantify
-          microstructural statistical uncertainty directly from the image’s spatial correlation structure.
+        <p className="text-sm text-zinc-600 mt-1 max-w-4xl leading-relaxed">
+          ImageRep estimates phase-fraction sampling uncertainty from spatial correlation.
+          The method by <strong>Dahari, Docherty, Kench, & Cooper (2025)</strong> is outlined here;
+          the native batch analysis uses whole-field resampling.
         </p>
       </div>
 
       {/* The 3 Core Pillars */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
         {/* Pillar 1: Phase Area Fraction (A) & Confidence Interval */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
+        <div className="bg-paper border border-zinc-200 rounded-md p-5 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-mono font-bold text-cyan-400">PILLAR A</span>
-              <span className="text-[10px] text-slate-500 font-mono">ImageRep Uncertainty</span>
+              <span className="text-xs font-mono font-semibold text-zinc-700">A</span>
+              <span className="text-[10px] text-zinc-500 font-mono">Phase fraction</span>
             </div>
-            <h3 className="text-base font-bold text-white">
-              Phase / Pore Area Fraction (A) & <LatexFormula formula={"\\mathrm{CI}_{95\\%}"} />
+            <h3 className="text-base font-semibold text-zinc-950">
+              Area fraction & <LatexFormula formula={"\\mathrm{CI}_{95\\%}"} />
             </h3>
-            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-              The percentage of the cross-section image belonging to each physical phase: liquid pore
-              (11.16%), active graphite (84.34%), and carbon-binder domain (CBD).
+            <p className="text-xs text-zinc-600 mt-2 leading-relaxed">
+              Area assigned to each segmented class. The earlier phase interpretation gives pore
+              (11.16%), graphite (84.34%), and carbon-binder domain (CBD); these identities require validation.
             </p>
-            <div className="mt-3 p-3 bg-slate-900/90 rounded-lg border border-slate-800 text-xs">
-              <span className="text-cyan-300 font-semibold block">Dahari et al. Confidence Bound:</span>
-              <span className="text-slate-300 mt-1 block">
-                Unlike simple pixel counting, ImageRep applies moving-block bootstrap statistics to output a
-                <strong> 95% Confidence Interval (<LatexFormula formula={"\\mathrm{CI}_{95\\%} = \\pm 2.26\\%"} />)</strong>, guaranteeing whether sample variations
-                are true process shifts or sampling noise.
+            <div className="mt-3 p-3 bg-paper rounded-md border border-zinc-200 text-xs">
+              <span className="text-zinc-700 font-semibold block">Sampling interval:</span>
+              <span className="text-zinc-800 mt-1 block">
+                Spatial correlation informs a phase-fraction uncertainty estimate. The displayed
+                <strong> 95% interval (<LatexFormula formula={"\\mathrm{CI}_{95\\%} = \\pm 2.26\\%"} />)</strong> concerns image sampling,
+                conditional on the segmentation and statistical assumptions.
               </span>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-emerald-400">
-            Batch 3 Baseline: <LatexFormula formula={"\\varepsilon = 11.16\\% \\pm 2.26\\%\\;(p > 0.05)"} />
+          <div className="mt-4 pt-3 border-t border-zinc-200 text-[11px] font-mono text-zinc-700">
+            Earlier Batch 3 estimate: <LatexFormula formula={"\\varepsilon = 11.16\\% \\pm 2.26\\%\\;(p > 0.05)"} />
           </div>
         </div>
 
         {/* Pillar 2: Two-Point Correlation S2(r) */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
+        <div className="bg-paper border border-zinc-200 rounded-md p-5 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-mono font-bold text-cyan-400">PILLAR B1</span>
-              <span className="text-[10px] text-slate-500 font-mono">FFT-Accelerated</span>
+              <span className="text-xs font-mono font-semibold text-zinc-700">B1</span>
+              <span className="text-[10px] text-zinc-500 font-mono">FFT estimate</span>
             </div>
-            <h3 className="text-base font-bold text-white">
-              Two-Point Correlation <LatexFormula formula={"S_2(r)"} />
+            <h3 className="text-base font-semibold text-zinc-950">
+              Two-point correlation <LatexFormula formula={"S_2(r)"} />
             </h3>
-            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-              Captures the exact spatial arrangement of each phase—not just how much is present, but how
-              it is distributed across space.
+            <p className="text-xs text-zinc-600 mt-2 leading-relaxed">
+              Describes how often two pixels at a given separation belong to the same phase.
+              It summarises spatial structure without uniquely determining connectivity.
             </p>
-            <div className="mt-3 p-3 bg-slate-900/90 rounded-lg border border-slate-800 text-xs">
-              <span className="text-cyan-300 font-semibold block">Mathematical Definition:</span>
-              <p className="font-mono text-[11px] text-slate-300 mt-0.5">
+            <div className="mt-3 p-3 bg-paper rounded-md border border-zinc-200 text-xs">
+              <span className="text-zinc-700 font-semibold block">Definition:</span>
+              <p className="font-mono text-[11px] text-zinc-800 mt-0.5">
                 <LatexFormula formula={"S_2(r) = P(x\\in\\text{phase}\\land x+r\\in\\text{phase})"} />
               </p>
-              <span className="text-slate-400 mt-1 block">
-                Calculated via 2D Fast Fourier Transform (FFT) autocovariance:
-                <code className="text-cyan-400 block mt-0.5"><LatexFormula formula={"S_2(r) = \\mathcal{F}^{-1}\\{|\\mathcal{F}\\{M(x)\\}|^2\\}"} /></code>
-                At <LatexFormula formula={"r = 0"} />, <LatexFormula formula={"S_2(0) = \\varepsilon"} />. As <LatexFormula formula={"r\\to\\infty"} />, <LatexFormula formula={"S_2(\\infty)\\to\\varepsilon^2"} />.
+              <span className="text-zinc-600 mt-1 block">
+                Can be estimated using a 2D fast Fourier transform (FFT):
+                <code className="text-zinc-700 block mt-0.5"><LatexFormula formula={"S_2(r) = \\mathcal{F}^{-1}\\{|\\mathcal{F}\\{M(x)\\}|^2\\}"} /></code>
+                At <LatexFormula formula={"r = 0"} />, <LatexFormula formula={"S_2(0) = \\varepsilon"} />. For a decorrelating material, as <LatexFormula formula={"r\\to\\infty"} />, <LatexFormula formula={"S_2(\\infty)\\to\\varepsilon^2"} />.
               </span>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-cyan-400">
-            Proves spatial homogeneity vs clumping
+          <div className="mt-4 pt-3 border-t border-zinc-200 text-[11px] font-mono text-zinc-700">
+            Describes spatial correlation
           </div>
         </div>
 
         {/* Pillar 3: Characteristic Length Scale (CLS) */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
+        <div className="bg-paper border border-zinc-200 rounded-md p-5 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-mono font-bold text-cyan-400">PILLAR B2</span>
-              <span className="text-[10px] text-slate-500 font-mono">Integral Range</span>
+              <span className="text-xs font-mono font-semibold text-zinc-700">B2</span>
+              <span className="text-[10px] text-zinc-500 font-mono">Integral range</span>
             </div>
-            <h3 className="text-base font-bold text-white">
-              Characteristic Length Scale (CLS)
+            <h3 className="text-base font-semibold text-zinc-950">
+              Characteristic length scale (CLS)
             </h3>
-            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-              Derived directly from the decay rate of the Two-Point Correlation <LatexFormula formula={"S_2(r)"} />. Gives a single,
-              compact scalar measure of the microstructure’s characteristic spatial scale.
+            <p className="text-xs text-zinc-600 mt-2 leading-relaxed">
+              Derived from the two-point correlation <LatexFormula formula={"S_2(r)"} />.
+              Summarises the distance over which the segmented structure remains correlated.
             </p>
-            <div className="mt-3 p-3 bg-slate-900/90 rounded-lg border border-slate-800 text-xs">
-              <span className="text-cyan-300 font-semibold block">Physical Interpretation:</span>
-              <span className="text-slate-300 mt-1 block">
-                CLS defines the mean size of contiguous pore clusters. If calendering crushes pores, the
-                CLS shrinks. If particles agglomerate, CLS spikes.
+            <div className="mt-3 p-3 bg-paper rounded-md border border-zinc-200 text-xs">
+              <span className="text-zinc-700 font-semibold block">Interpretation:</span>
+              <span className="text-zinc-800 mt-1 block">
+                CLS describes a correlation scale, rather than a direct pore-cluster diameter.
+                Changes can reflect morphology, phase fraction or segmentation.
               </span>
-              <span className="text-emerald-400 font-mono block mt-1">
-                Batch 3 Measured CLS: 2.76 µm
+              <span className="text-zinc-700 font-mono block mt-1">
+                Earlier Batch 3 CLS estimate: 2.76 µm
               </span>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-purple-400">
+          <div className="mt-4 pt-3 border-t border-zinc-200 text-[11px] font-mono text-zinc-700">
             <LatexFormula formula={"\\mathrm{CLS} = \\int \\frac{S_2(r)-\\varepsilon^2}{\\varepsilon-\\varepsilon^2}\\,dr"} />
           </div>
         </div>
       </div>
 
       {/* Interactive S2(r) Two-Point Correlation Calculator */}
-      <div className="mt-8 bg-slate-950/80 border border-slate-800 rounded-xl p-5">
+      <div className="mt-8 bg-paper border border-zinc-200 rounded-md p-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
           <div>
-            <h4 className="text-sm font-bold text-white">
-              Interactive Two-Point Autocorrelation <LatexFormula formula={"S_2(r)"} /> Decay Curve
+            <h4 className="text-sm font-semibold text-zinc-950">
+              Correlation model <LatexFormula formula={"S_2(r)"} />
             </h4>
-            <p className="text-xs text-slate-400">
-              Drag distance (r) to observe the transition from self-overlap (<LatexFormula formula={"r=0"} />) to random chance (<LatexFormula formula={"r\\to\\infty"} />):
+            <p className="text-xs text-zinc-600">
+              Adjust distance in this exponential model, from self-overlap (<LatexFormula formula={"r=0"} />) to the uncorrelated limit (<LatexFormula formula={"r\\to\\infty"} />):
             </p>
           </div>
           <div className="text-right">
-            <span className="text-xs text-slate-400">Separation Distance (r):</span>
-            <span className="text-base font-mono font-bold text-cyan-400 ml-1.5">
+            <span className="text-xs text-zinc-600">Separation distance (r):</span>
+            <span className="text-base font-mono font-semibold text-zinc-700 ml-1.5">
               {radialR.toFixed(1)} µm
             </span>
           </div>
@@ -165,31 +165,31 @@ export default function ImageRepTheory() {
           step="0.2"
           value={radialR}
           onChange={(e) => setRadialR(parseFloat(e.target.value))}
-          className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+          className="w-full h-2 bg-zinc-100 rounded-md appearance-none cursor-pointer accent-zinc-700"
         />
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 text-center">
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5">
-            <span className="text-[11px] text-slate-400 block"><LatexFormula formula={"S_2(0)"} /> [Self Overlap]</span>
-            <span className="text-sm font-mono font-bold text-white">
+          <div className="bg-paper border border-zinc-200 rounded-md p-2.5">
+            <span className="text-[11px] text-zinc-600 block"><LatexFormula formula={"S_2(0)"} /> [Self-overlap]</span>
+            <span className="text-sm font-mono font-semibold text-zinc-950">
               {s2_0.toFixed(4)} (<LatexFormula formula={"\\varepsilon"} />)
             </span>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5">
-            <span className="text-[11px] text-slate-400 block"><LatexFormula formula={`S_2(r = ${radialR.toFixed(1)}\\,\\mu\\text{m})`} /></span>
-            <span className="text-sm font-mono font-bold text-cyan-400">
+          <div className="bg-paper border border-zinc-200 rounded-md p-2.5">
+            <span className="text-[11px] text-zinc-600 block"><LatexFormula formula={`S_2(r = ${radialR.toFixed(1)}\\,\\mu\\text{m})`} /></span>
+            <span className="text-sm font-mono font-semibold text-zinc-700">
               {s2_r}
             </span>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5">
-            <span className="text-[11px] text-slate-400 block"><LatexFormula formula={"S_2(\\infty)"} /> [Random Limit]</span>
-            <span className="text-sm font-mono font-bold text-slate-400">
+          <div className="bg-paper border border-zinc-200 rounded-md p-2.5">
+            <span className="text-[11px] text-zinc-600 block"><LatexFormula formula={"S_2(\\infty)"} /> [Uncorrelated limit]</span>
+            <span className="text-sm font-mono font-semibold text-zinc-600">
               {s2_inf.toFixed(4)} (<LatexFormula formula={"\\varepsilon^2"} />)
             </span>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5">
-            <span className="text-[11px] text-slate-400 block">Correlation Remaining</span>
-            <span className="text-sm font-mono font-bold text-emerald-400">
+          <div className="bg-paper border border-zinc-200 rounded-md p-2.5">
+            <span className="text-[11px] text-zinc-600 block">Correlation remaining</span>
+            <span className="text-sm font-mono font-semibold text-zinc-700">
               {correlationDecayPct}%
             </span>
           </div>

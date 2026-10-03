@@ -3,13 +3,13 @@ import "./globals.css";
 import "katex/dist/katex.min.css";
 
 export const metadata: Metadata = {
-  title: "Battery Microstructure Characterization & QC Portal",
+  title: "Electrode microstructure analysis",
   description:
-    "Physics-grounded 2D morphological profiling, 3D grain-boundary reconstruction, and TauFactor directional tortuosity analysis for battery electrode quality control.",
+    "SEM measurements, batch comparisons and physical interpretation for electrode material analysis.",
   openGraph: {
-    title: "Battery Microstructure Characterization & QC Portal",
+    title: "Electrode microstructure analysis",
     description:
-      "Interactive 3D orthoslice inspection, feature reduction guide, and candidate batch acceptance protocol.",
+      "Physical descriptors, measurement methods and sampling uncertainty.",
     type: "website",
   },
 };
@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body className="min-h-screen bg-slate-950 font-sans antialiased text-slate-100 flex flex-col">
+    <html lang="en" className="scroll-smooth">
+      <body className="min-h-screen bg-canvas font-sans antialiased text-zinc-950 flex flex-col">
         {children}
       </body>
     </html>

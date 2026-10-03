@@ -74,7 +74,7 @@ export default function FeatureReductionGuide() {
             Feature Reduction: Avoiding the "Curse of Dimensionality"
           </h3>
           <p className="text-xs text-slate-400 mt-0.5">
-            With N = 31 SEM samples, using 17 features guarantees overfitting. We compress to the 5 Orthogonal Physical Drivers.
+            With N = 31 SEM samples, retaining 17 collinear features risks overfitting. We focus on 5 primary transport-governing microstructural descriptors.
           </p>
         </div>
 

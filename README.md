@@ -15,7 +15,7 @@ Developed for **Rudolf-Schwarz Holdings Ltd**.
 
 - **Interactive 3D Digital Twin**: Real-time orthoslice inspection across XY, XZ, and YZ planes with depth scrubbing ($Z = 0$ to $28\ \mu\text{m}$) and 3D isometric cube rendering.
 - **Idiot's Guide to Tortuosity**: Intuitive plain-English breakdown of ion detour factors, why high tortuosity causes lithium dendrite plating, and how to avoid battery thermal runaway.
-- **Dimensionality Reduction to Prevent Overfitting**: Compress 17 collinear SEM morphological features down to 5 orthogonal physical drivers to prevent model overfitting on small sample sizes ($N = 31$).
+- **Microstructural Feature Rationalization**: Focus on 5 primary transport-governing microstructural descriptors to prevent model overfitting on small sample sizes ($N = 31$).
 - **Cloud GPU Accelerated TauFactor**: Solves the complete 3D diffusion flux tensor across all batches in **13.85 seconds** using Modal A10G GPUs.
 - **Automated Candidate Acceptance Matrix**: Production decision rules with statistical confidence intervals to evaluate incoming candidate batches against the Batch 3 baseline reference.
 

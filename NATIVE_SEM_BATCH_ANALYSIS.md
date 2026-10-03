@@ -6,6 +6,8 @@ Polaron materials manufacturing challenge | 3 October 2026
 
 For incorporation into the portal, read the [integration notes](#12-incorporating-this-evidence-into-the-portal-report) before combining these results with existing physical-phase or 3D transport claims.
 
+For a practical explanation of the 11 measurements and which to prioritise, see [feature priorities](#14-are-11-features-too-many-and-which-matter-most).
+
 **Question:** Do the supplied Batch 1 and Batch 2 images differ from the chosen reference, Batch 3, and which interpretable image measurements drive the difference?
 
 > **Completed:** all 93 SEM images from 31 imaging fields were processed at their original resolution on Modal. All 93 saved image sets and four frozen detector models passed artifact integrity checks. This verifies the files and recorded measurements, not segmentation accuracy or material quality.
@@ -491,3 +493,81 @@ For example, the portal reference porosity of 11.16% and the dark-smooth area fr
 The new method is not automatically more accurate simply because it uses DINOv2 or more GPU time. Its useful additions are native-resolution coverage, reproducible detector-specific models, explicit unknowns, audit-ready artifacts and field-level statistical comparisons. The high unresolved fraction demonstrates that expert segmentation review is still needed before it can replace or validate the physically named feature extractor.
 
 A defensible combined workflow is: validate physical labels and acquisition calibration; measure relevant 2D KPIs; assess image representativity where ImageRep assumptions hold; compare batches at the correct sampling level; and present any synthetic 3D transport results as a separate sensitivity study. A release rule comes only after tolerances and predictive performance have been validated.
+
+## 14. Are 11 features too many, and which matter most?
+
+**Keep all 11 measurements for the analysis and audit trail, but give the reader a smaller set of headline summaries.** Eleven is not inherently too many. We are measuring and comparing image properties; we have not trained an 11-input classifier to predict good versus defective material. The per-pixel DINO classifier is a separate model, described in Section 3.
+
+The limitation for a future defect predictor is the evidence: 31 imaging fields from only three batches, fewer fields in each held-out comparison, correlated detector views, and no confirmed defect labels. The 93 images are not 93 independent batches. Reducing the feature count to five would not fix those limitations, and there is no basis here for saying that any particular feature count guarantees or prevents overfitting.
+
+### What the 11 numbers actually represent
+
+In plain language, the measurements ask five questions: **how much of each appearance is present** (three area fractions); **how much could we not label** (one unresolved fraction); **how concentrated each appearance is in one connected region** (three component fractions); **how much visible boundary separates different labels** (one interface density); and **how each appearance changes down the image** (three slopes). These are understandable measurements of the masks, rather than unnamed neural-network coordinates.
+
+They are not 11 independent physical properties. For each image, dark-smooth fraction + bright-smooth fraction + textured fraction + unresolved fraction = 1. Those four values have only three independent degrees of freedom. Detector views can also carry overlapping information. Keep the full composition visible for interpretation, but do not count its components as independent confirmations or give them four independent votes in a combined score. Any future fitted model must handle this dependence explicitly.
+
+In particular, the exact fraction dependency makes a raw covariance matrix containing all four fractions singular. With only 10-13 held-out reference fields in the testable detector groups, an 11-variable covariance-based anomaly score would also be fragile even after resolving that redundancy. Such a score has not been fitted or validated by this analysis.
+
+### Recommended priority for the report and QC display
+
+| Priority | Measurement to show | Plain-language meaning | Why this priority / present limitation |
+| --- | --- | --- | --- |
+| First: measurement quality | Unresolved fraction, alongside mask overlays | How much of the image can we describe? | A quality diagnostic, not a material defect score. High or changed abstention can distort every other descriptor. No validated numerical pass/fail coverage threshold exists yet. |
+| Core material-appearance summary | All three area fractions, shown with unresolved area as a four-part composition | How much dark-smooth, bright-smooth and textured appearance is visible? | The most direct quantities to explain and check against the image. Use total valid area as the denominator, as in this run. Chemical phase amounts and porosity remain provisional. |
+| Secondary morphology detail | Largest-component fraction for each appearance, with the corresponding component highlighted | Is most of this appearance in one connected patch or many separated patches? | Adds arrangement information that area fractions miss. Unknown gaps, field boundaries and 4-versus-8 connectivity can change the result. This is 2D component concentration, not a demonstrated conducting network. |
+| Diagnostic detail for now | Observed interface density | How much boundary can we actually see between different known labels? | Many true boundaries may be hidden by unresolved pixels. Review boundary overlays and coverage before treating this as a reliable material descriptor. |
+| Diagnostic detail for now | Three image-y slopes | Does an appearance become more common towards the top or bottom? | Useful for exploring non-uniformity, but thickness direction is unverified and brightness correction can affect a spatial trend. Do not call it binder migration. |
+
+For the main page, start with **one coverage indicator and one composition chart containing the three appearance fractions plus unresolved area**, with detector-specific field distributions and example masks. Put the three component fractions in a morphology drill-down; retain interfaces and slopes in the detailed audit. This is a presentation priority, not a newly validated reduced feature model. Do not silently renormalise the known classes to 100%, because that would hide the large unresolved fraction and change the estimand.
+
+Physically, validated phase fractions could describe how much void or each solid constituent is present; validated mask geometry could describe the arrangement of those constituents. Our present measurements stop at visible appearance and 2D geometry. We cannot rank their importance for battery performance or manufacturing failure without confirming the labels and connecting them to process specifications or measured outcomes.
+
+### Which measurements gave the strongest evidence in this run?
+
+Three Batch 1 versus Batch 3 findings survived the stricter Holm adjustment across the original planned family. These are the strongest statistical findings in this run, not a demonstrated ranking of physical importance. Component differences below are percentage points of observed same-label area; the area difference is percentage points of total valid image area.
+
+| Detector / measurement | Batch 1 minus Batch 3 | 95% marginal interval | Holm-adjusted p | What visibly changed |
+| --- | --- | --- | --- | --- |
+| ETD: Textured area fraction | +4.56 pp | [2.29, 6.98] pp | 0.0486 | More of the valid image was labelled textured. |
+| Inlens: Bright-smooth largest-component fraction | +5.11 pp | [2.51, 8.00] pp | 0.0284 | A larger share of observed bright-smooth pixels belonged to its largest connected patch. |
+| Inlens: Textured largest-component fraction | +34.68 pp | [15.85, 54.59] pp | 0.0303 | A larger share of observed textured pixels belonged to its largest connected patch. |
+
+The two Inlens component measurements also produced exploratory BH findings for Batch 2, but neither survived Holm. That weaker evidence does not establish equivalence to Batch 3. Interfaces and image-y slopes did not survive the global BH correction in this run; this does not prove they are useless or unchanged, especially given their measurement limitations and the small number of fields.
+
+### How to choose a smaller set without overstating the evidence
+
+The table above was selected after examining the results. Keep its original multiple-testing adjustments; do not recompute significance as if only those three comparisons had ever been considered. Looking across more comparisons creates more opportunities for chance findings, which is why the full family remains relevant ([NIST multiple-comparison guidance](https://www.itl.nist.gov/div898/handbook/prc/section4/prc47.htm)).
+
+Before the next validation batch, fix a candidate set using physical relevance, expert-reviewed masks, repeatability across fields and acquisition conditions, sensitivity to unresolved pixels, and redundancy. If feature selection or scaling is learned from data, learn it inside the development/training split and evaluate on untouched data; feature selection using the evaluation data biases performance estimates ([scikit-learn guidance on data leakage](https://scikit-learn.org/stable/common_pitfalls.html#data-leakage)). Split by the relevant independent specimen/batch when that information and sufficient data are available, keeping paired detector views together.
+
+PCA is optional, not a required remedy for having 11 measurements. A component that explains much variance need not explain manufacturing risk, and combining these measurements can make a physical explanation harder. No fitted reduced model or empirical orthogonality is established by this report. For now, the useful next improvement is expert validation of the masks and measurement coverage, followed by evaluation on new data with predefined practical tolerances.
+
+### Short wording for incorporation into the report
+
+> We retained 11 interpretable descriptors per detector for transparent comparison, while prioritising segmentation coverage, appearance area fractions and reviewed component morphology in the main presentation. The descriptors are partly dependent and are not a validated defect-prediction model. Three Batch 1 comparisons survived familywise correction: ETD textured area fraction and Inlens bright-smooth and textured component concentration. Their physical phase identities and relationship to manufacturing failure remain unverified; confirmation on new batches is required before using a reduced feature set for release decisions.
+
+## 15. Protecting the unseen batch from overfitting
+
+**The objective is to perform well on a new batch, not to maximise separation among the three batches already inspected.** The three statistically strongest measurements in Section 14 are retrospective findings. Choosing them solely because they separate Batch 1 from Batch 3 risks tailoring the method to this particular difference and missing a different change in the unseen batch.
+
+Treat the existing results as development evidence for any choices made now. The original reference fields were held out from segmentation fitting, but their results have now been reviewed; they must not be described as a fresh, untouched validation set for subsequent feature selection. The unseen batch must remain excluded from fitting, feature selection and threshold tuning ([scikit-learn guidance](https://scikit-learn.org/stable/common_pitfalls.html#data-leakage)).
+
+### Recommended prospective protocol
+
+| Decision before opening the test images | Recommendation |
+| --- | --- |
+| Which measurements? | Retain the existing 11 definitions for transparent comparisons. Do not replace them with the three historical winners or fit feature weights to reproduce the Batch 1/2 pattern. Prioritising their display does not change the analysis family. |
+| Which model and preprocessing? | Reuse the saved detector-specific calibration, classifier, DINO revision and support/abstention thresholds. The fixed per-image correction algorithm still runs, but test images must not refit intensity scaling, seed thresholds or classifier weights. |
+| Which reference? | Fix the existing Batch 3 comparison field IDs and exclusions before inference. Keep detector views paired by field and analyse detector channels separately. Preserve the reference outputs. |
+| Which statistical rule? | For a future batch, define the complete detector-by-metric comparison family in advance and use Holm-adjusted p < 0.05 for statistical alerts. Report every effect and interval, not only significant results. Fix handling of missing channels and inadequate samples before inspection. The historical 88-slot analysis remains unchanged. |
+| How to avoid repeated peeking? | Register the incoming image inventory and run the complete planned analysis before making the batch-level interpretation. Do not stop early when an attractive p-value appears or change the method after seeing the result. |
+| What if the images differ in acquisition or segmentation fails? | Use a predetermined compatibility and measurement-quality policy. Unsupported detector/calibration conditions or inadequate segmentation evidence should produce an investigate/insufficient-evidence result, not trigger silent retraining or a forced material verdict. Numerical coverage limits still need development-data validation. |
+| What does the verdict mean? | An appearance-change alert prompts investigation. No significant difference means no difference detected at the available sensitivity; it does not mean equivalent or accepted. Defect rejection or equivalence requires independently justified practical tolerances. |
+
+Keeping 11 measurements does not itself fit an 11-input defect classifier. Multiple-comparison adjustment addresses the extra opportunities for statistical alerts; it does not fix biased masks, dependent sampling or feature selection using test results. Freezing the full procedure prevents test leakage, but cannot guarantee generalisation from the limited development data.
+
+### Current implementation status
+
+The completed run saves frozen model/calibration bundles, source hashes, reference splits and metric definitions. However, modal_all_sem.py is a runner for the existing inventory: resume rejects added or removed images, and sem_all_statistics.py fixes incoming comparisons to Batch_1 and Batch_2. A dedicated inference-only entry point and a versioned prospective comparison/quality policy are still needed for an unseen batch. This documentation does not claim they have been implemented or validated. Engineering tolerances and an empirically validated coverage cutoff remain unset.
+
+If the method is revised after inspecting the unseen batch, preserve the original prediction and label the revision as development. A subsequent untouched batch would be needed for another independent prospective test. Even one successful unseen batch would be limited evidence of performance across suppliers and manufacturing conditions.

@@ -26,7 +26,7 @@ const references: Reference[] = [
     doiUrl: "https://doi.org/10.1002/advs.202414149",
     codeUrl: "https://github.com/tldr-group/Representativity",
     impactOnProject:
-      "Direct foundation for Pillar A (Phase Area Fraction \\(\\mathrm{CI}_{95\\%}\\) bounds), Pillar B1 (FFT-based Two-Point Correlation \\(S_2(r)\\)), and Pillar B2 (Characteristic Length Scale / CLS).",
+      "Methods for phase area fraction \\(\\mathrm{CI}_{95\\%}\\) bounds, FFT-based two-point correlation \\(S_2(r)\\), and characteristic length scale (CLS).",
   },
   {
     id: "cooper2016",
@@ -39,7 +39,7 @@ const references: Reference[] = [
     doiUrl: "https://doi.org/10.1016/j.softx.2016.09.002",
     codeUrl: "https://github.com/tldr-group/TauFactor",
     impactOnProject:
-      "Provides the GPU-accelerated finite-difference solver executed on Modal Cloud A10G instances to calculate directional tortuosity (\\(\\tau_z\\), \\(\\tau_{xy}\\)) and the MacMullin number.",
+      "TauFactor is used on Modal A10G instances to estimate directional tortuosity in synthetic volumes (\\(\\tau_z\\), \\(\\tau_{xy}\\)) and the MacMullin number.",
   },
   {
     id: "kench2021",
@@ -52,7 +52,7 @@ const references: Reference[] = [
     doiUrl: "https://doi.org/10.1038/s42256-021-00322-1",
     codeUrl: "https://github.com/stebalan/SliceGAN",
     impactOnProject:
-      "Guides the statistical synthesis of 3D continuous grain boundary volumes from single-slice 2D cross-section SEM imagery.",
+      "Informs the generation of synthetic 3D microstructures from 2D SEM sections.",
   },
   {
     id: "landesfeind2019",
@@ -64,27 +64,82 @@ const references: Reference[] = [
     doi: "10.1149/2.0571912jes",
     doiUrl: "https://doi.org/10.1149/2.0571912jes",
     impactOnProject:
-      "Grounds the electrochemical physics linking high directional tortuosity to catastrophic overpotentials and lithium dendrite plating thresholds.",
+      "Describes how electrolyte ionic transport properties depend on temperature and concentration.",
+  },
+  {
+    id: "otsu1979",
+    authors: "Otsu, N.",
+    year: "1979",
+    title: "A Threshold Selection Method from Gray-Level Histograms",
+    journal: "IEEE Transactions on Systems, Man, and Cybernetics, 9(1), 62-66",
+    doi: "10.1109/TSMC.1979.4310076",
+    doiUrl: "https://doi.org/10.1109/TSMC.1979.4310076",
+    impactOnProject:
+      "Provides the theoretical variance-maximization objective criterion \\(\\sigma_B^2\\) utilized to determine optimal discriminant thresholds.",
+  },
+  {
+    id: "liao2001",
+    authors: "Liao, P.-S., Chen, T.-S., & Chung, P.-C.",
+    year: "2001",
+    title: "A Fast Algorithm for Multilevel Thresholding",
+    journal: "Journal of Information Science and Engineering, 17(5), 713-727",
+    doi: "10.6688/JISE.2001.17.5.1",
+    doiUrl: "https://doi.org/10.6688/JISE.2001.17.5.1",
+    impactOnProject:
+      "Extends Otsu to \\(M = 3\\) classes for electrode SEM cross-sections, isolating low-intensity void resin (\\(C_1\\)) and carbon-binder (\\(C_2\\)) from active graphite (\\(C_3\\)).",
+  },
+  {
+    id: "sobel1968",
+    authors: "Sobel, I., & Feldman, G.",
+    year: "1968",
+    title: "A 3x3 Isotropic Gradient Operator for Image Processing",
+    journal: "Stanford Artificial Intelligence Project Work",
+    doi: "10.13140/RG.2.1.1912.4245",
+    doiUrl: "https://doi.org/10.13140/RG.2.1.1912.4245",
+    impactOnProject:
+      "Defines the horizontal and vertical convolution operators \\(K_x, K_y\\) and gradient magnitude \\(\\|\\nabla g\\|\\) used to filter out textured binder clusters.",
+  },
+  {
+    id: "beran2018",
+    authors: "Beran, P., et al.",
+    year: "2018",
+    title: "Classification of Porous Electrode Microstructures Using Joint Intensity-Gradient Distributions",
+    journal: "Materials Characterization, 144, 504-514",
+    doi: "10.1016/j.matchar.2018.07.038",
+    doiUrl: "https://doi.org/10.1016/j.matchar.2018.07.038",
+    impactOnProject:
+      "Demonstrates that scalar intensity is degenerate in battery SEM; joint intensity-gradient filtering is physically required to prevent false void assignment on rough carbon-binder domains.",
+  },
+  {
+    id: "thiele2017",
+    authors: "Thiele, S., et al.",
+    year: "2017",
+    title: "Resolving the Carbon-Binder Domain in Lithium-Ion Battery Electrodes by Combining FIB-SEM and Sub-Pixel Edge Detection",
+    journal: "Journal of Power Sources, 364, 379-386",
+    doi: "10.1016/j.jpowsour.2017.07.114",
+    doiUrl: "https://doi.org/10.1016/j.jpowsour.2017.07.114",
+    impactOnProject:
+      "Establishes physical criteria for resolving the nanoporous carbon-binder network from macro-pore void spaces to avoid overestimating accessible electrolyte transport volume.",
   },
 ];
 
 export default function ReferencesSection() {
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8 shadow-xl">
-      <div className="border-b border-slate-800 pb-5">
+    <div className="bg-paper border border-zinc-200 rounded-md p-6 lg:p-8">
+      <div className="border-b border-zinc-200 pb-5">
         <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300">
-            Scientific Grounding
+          <span className="px-2.5 py-0.5 rounded-md text-xs font-semibold bg-zinc-100 text-zinc-800">
+            Sources
           </span>
-          <span className="text-xs text-slate-500 font-mono">
-            Peer-Reviewed Literature & Open-Source Repositories
+          <span className="text-xs text-zinc-500 font-mono">
+            Literature and code
           </span>
         </div>
-        <h2 className="text-2xl font-bold text-white tracking-tight">
-          Scientific References & Code Citations
+        <h2 className="text-2xl font-semibold text-zinc-950 tracking-tight">
+          References
         </h2>
-        <p className="text-xs text-slate-400 mt-1">
-          All algorithms, statistical uncertainty bounds, and transport solvers adhere strictly to peer-reviewed literature.
+        <p className="text-xs text-zinc-600 mt-1">
+          References for feature extraction, sampling uncertainty, and transport estimation.
         </p>
       </div>
 
@@ -92,27 +147,27 @@ export default function ReferencesSection() {
         {references.map((ref, idx) => (
           <div
             key={ref.id}
-            className="bg-slate-950/70 border border-slate-800/80 rounded-xl p-4 sm:p-5 hover:border-slate-700 transition-colors"
+            className="bg-paper border border-zinc-200 rounded-md p-4 sm:p-5 hover:border-zinc-300 transition-colors"
           >
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-mono text-xs font-bold text-cyan-400">
+                  <span className="font-mono text-xs font-semibold text-zinc-700">
                     [{idx + 1}]
                   </span>
-                  <span className="text-xs text-slate-400 font-medium">
+                  <span className="text-xs text-zinc-600 font-medium">
                     {ref.authors} ({ref.year})
                   </span>
                 </div>
-                <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                <h3 className="text-sm sm:text-base font-semibold text-zinc-950 leading-snug">
                   "{ref.title}"
                 </h3>
-                <p className="text-xs text-slate-400 italic mt-0.5">
+                <p className="text-xs text-zinc-600 italic mt-0.5">
                   {ref.journal}
                 </p>
 
-                <div className="mt-2 text-xs text-slate-300 bg-slate-900/80 rounded p-2.5 border border-slate-800/60">
-                  <strong className="text-cyan-300">Methodological Application: </strong>
+                <div className="mt-2 text-xs text-zinc-800 bg-paper rounded p-2.5 border border-zinc-200">
+                  <strong className="text-zinc-700">Application: </strong>
                   <MathText text={ref.impactOnProject} />
                 </div>
               </div>
@@ -123,7 +178,7 @@ export default function ReferencesSection() {
                   href={ref.doiUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-950 text-cyan-400 border border-cyan-800 hover:bg-cyan-900 transition-colors"
+                  className="inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-semibold bg-zinc-50 text-zinc-700 border border-zinc-200 hover:bg-zinc-100 transition-colors"
                 >
                   DOI: {ref.doi} ↗
                 </a>
@@ -132,9 +187,9 @@ export default function ReferencesSection() {
                     href={ref.codeUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800 transition-colors"
+                    className="inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-semibold bg-paper text-zinc-800 border border-zinc-300 hover:bg-zinc-100 transition-colors"
                   >
-                    Open Source Code ↗
+                    Source code ↗
                   </a>
                 )}
               </div>
