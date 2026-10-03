@@ -234,7 +234,7 @@ export default function AppendixPixelIndicatorDerivation() {
                   rough topography creates rapid spatial intensity fluctuations:
                 </p>
                 <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-[11px] text-purple-300">
-                  0.35 ≤ g ≤ 0.60, ‖∇g‖ ≥ 0.12
+                  <LatexFormula formula={"0.35\\le g\\le 0.60,\\;\\|\\nabla g\\|\\ge 0.12"} />
                 </div>
               </div>
             </div>
