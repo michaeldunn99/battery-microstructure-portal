@@ -31,9 +31,9 @@ const fingerprintCards: FingerprintCard[] = [
       "The liquid electrolyte reservoir volume. Lithium ions cannot migrate across the solid graphite matrix without liquid electrolyte in the pores to solvate them.",
     howWeExtractedIt:
       "Segmented native-grid SEM cross-sections into pores vs solid matrix, then applied Dahari et al. (2025) ImageRep moving block bootstrap to attach empirical 95% confidence intervals, proving whether batch differences are real or statistical sampling noise.",
-    batch3Baseline: "11.16% ± 1.48%",
-    batch2Candidate: "10.42% ± 1.36%",
-    batch1Defective: "9.35% ± 1.25%",
+    batch3Baseline: "11.16\\% \\pm 1.48\\%",
+    batch2Candidate: "10.42\\% \\pm 1.36\\%",
+    batch1Defective: "9.35\\% \\pm 1.25\\%",
     riskThreshold: "Porosity below 9.5% starves the cell of liquid electrolyte, triggering rapid salt precipitation and lithium dendrite plating under 1C+ charging.",
     iconPath: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,9 +52,9 @@ const fingerprintCards: FingerprintCard[] = [
       "Quantifies spatial pore arrangement and directional alignment. Not just how much void space exists, but whether vertical ion highways through the electrode thickness are open or choked off.",
     howWeExtractedIt:
       "Computed the 2D FFT autocovariance of the pore indicator mask to extract the spatial correlation decay length. Supplemented with orthogonal ray-casting to isolate through-plane pore throat (a_y) versus in-plane chord (a_x).",
-    batch3Baseline: "a_y = 0.42 µm, a_x = 0.47 µm (Ratio 1.12)",
-    batch2Candidate: "a_y = 0.41 µm, a_x = 0.45 µm (Ratio 1.10)",
-    batch1Defective: "a_y = 0.36 µm, a_x = 0.41 µm (Ratio 1.14, constricted)",
+    batch3Baseline: "a_y = 0.42\\,\\mu\\text{m},\\ a_x = 0.47\\,\\mu\\text{m}\\quad (\\text{Ratio } 1.12)",
+    batch2Candidate: "a_y = 0.41\\,\\mu\\text{m},\\ a_x = 0.45\\,\\mu\\text{m}\\quad (\\text{Ratio } 1.10)",
+    batch1Defective: "a_y = 0.36\\,\\mu\\text{m},\\ a_x = 0.41\\,\\mu\\text{m}\\quad (\\text{Ratio } 1.14,\\text{ constricted})",
     riskThreshold: "Through-plane throat constriction under 0.38 µm chokes liquid ion flux, producing an 8× ionic tortuosity surge and dangerous overpotentials.",
     iconPath: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,9 +73,9 @@ const fingerprintCards: FingerprintCard[] = [
       "The polydispersity and grain size distribution of the active graphite flakes. Sets the solid-state lithium diffusion path length.",
     howWeExtractedIt:
       "Applied Euclidean distance-transform watershed segmentation to separate touching graphite particles, followed by equivalent circle diameter measurement across thousands of individual flakes per field of view.",
-    batch3Baseline: "D₁₀: 0.09 µm | D₅₀: 0.14 µm | D₉₀: 0.42 µm",
-    batch2Candidate: "D₁₀: 0.09 µm | D₅₀: 0.13 µm | D₉₀: 0.41 µm",
-    batch1Defective: "D₁₀: 0.09 µm | D₅₀: 0.14 µm | D₉₀: 0.47 µm",
+    batch3Baseline: "D_{10}: 0.09\\,\\mu\\text{m} \\mid D_{50}: 0.14\\,\\mu\\text{m} \\mid D_{90}: 0.42\\,\\mu\\text{m}",
+    batch2Candidate: "D_{10}: 0.09\\,\\mu\\text{m} \\mid D_{50}: 0.13\\,\\mu\\text{m} \\mid D_{90}: 0.41\\,\\mu\\text{m}",
+    batch1Defective: "D_{10}: 0.09\\,\\mu\\text{m} \\mid D_{50}: 0.14\\,\\mu\\text{m} \\mid D_{90}: 0.47\\,\\mu\\text{m}",
     riskThreshold: "Oversized particles (D₉₀ > 0.8 µm) create severe core-shell concentration gradients that crack graphite flakes during lithiation expansion.",
     iconPath: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,9 +94,9 @@ const fingerprintCards: FingerprintCard[] = [
       "Measures mechanical flattening and planar reorientation of anisotropic graphite flakes induced by calender roller-press tonnage.",
     howWeExtractedIt:
       "Fitted equivalent bounding ellipses to each segmented active material grain and calculated the ratio of principal moments of inertia.",
-    batch3Baseline: "2.58 ± 0.17",
-    batch2Candidate: "2.56 ± 0.13",
-    batch1Defective: "2.78 ± 0.25 (Severely squashed)",
+    batch3Baseline: "2.58 \\pm 0.17",
+    batch2Candidate: "2.56 \\pm 0.13",
+    batch1Defective: "2.78 \\pm 0.25\\;\\text{(Severely squashed)}",
     riskThreshold: "Aspect ratio > 2.70 proves excessive calender compression: flakes pancake horizontally, closing off through-plane pores and promoting surface plating.",
     iconPath: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,9 +115,9 @@ const fingerprintCards: FingerprintCard[] = [
       "The electrochemically active surface perimeter where liquid electrolyte contacts solid graphite, enabling charge-transfer electrochemical reactions.",
     howWeExtractedIt:
       "Counted adjacent pixel pairs of differing phase appearances (pore vs. solid) across row and column boundaries, scaled by the verified 0.020 µm/pixel magnification, divided by the total valid cross-sectional area.",
-    batch3Baseline: "0.485 µm⁻¹",
-    batch2Candidate: "0.492 µm⁻¹",
-    batch1Defective: "0.412 µm⁻¹ (Loss of reactive boundary)",
+    batch3Baseline: "0.485\\,\\mu\\text{m}^{-1}",
+    batch2Candidate: "0.492\\,\\mu\\text{m}^{-1}",
+    batch1Defective: "0.412\\,\\mu\\text{m}^{-1}\\;\\text{(Loss of reactive boundary)}",
     riskThreshold: "Low interfacial length (<0.43 µm⁻¹) starves the cell of charge-transfer boundary, causing excessive polarization during high-current discharges.",
     iconPath: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -244,9 +244,9 @@ export default function CorePhysicalFingerprintHero() {
 
           <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 text-right min-w-[220px]">
             <span className="text-xs text-slate-400 block font-medium">Batch 3 (Baseline Calibration)</span>
-            <span className="text-xl font-bold font-mono text-emerald-400 block mt-1">
-              {activeCard.batch3Baseline}
-            </span>
+            <div className="text-xl font-bold text-emerald-400 mt-1 leading-tight">
+              <LatexFormula formula={activeCard.batch3Baseline} className="text-emerald-400" />
+            </div>
             <span className="text-[11px] text-emerald-500 font-semibold block mt-0.5">Approved Industry Standard</span>
           </div>
         </div>
@@ -284,23 +284,23 @@ export default function CorePhysicalFingerprintHero() {
               <div className="grid grid-cols-3 gap-2.5 mt-2 text-center">
                 <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
                   <span className="text-[10px] text-slate-400 block">Batch 3 Baseline</span>
-                  <span className="text-xs font-bold text-emerald-400 font-mono mt-1 block">
-                    {activeCard.batch3Baseline}
-                  </span>
+                  <div className="text-xs font-bold text-emerald-400 mt-1 block leading-snug">
+                    <LatexFormula formula={activeCard.batch3Baseline} className="text-emerald-400" />
+                  </div>
                   <span className="text-[9px] text-emerald-500 font-semibold mt-0.5 block">Approved Standard</span>
                 </div>
                 <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
                   <span className="text-[10px] text-slate-400 block">Batch 2 Candidate</span>
-                  <span className="text-xs font-bold text-cyan-400 font-mono mt-1 block">
-                    {activeCard.batch2Candidate}
-                  </span>
+                  <div className="text-xs font-bold text-cyan-400 mt-1 block leading-snug">
+                    <LatexFormula formula={activeCard.batch2Candidate} className="text-cyan-400" />
+                  </div>
                   <span className="text-[9px] text-cyan-500 font-semibold mt-0.5 block">High Loading Pass</span>
                 </div>
                 <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3">
                   <span className="text-[10px] text-slate-400 block">Batch 1 Defective</span>
-                  <span className="text-xs font-bold text-rose-400 font-mono mt-1 block">
-                    {activeCard.batch1Defective}
-                  </span>
+                  <div className="text-xs font-bold text-rose-400 mt-1 block leading-snug">
+                    <LatexFormula formula={activeCard.batch1Defective} className="text-rose-400" />
+                  </div>
                   <span className="text-[9px] text-rose-500 font-semibold mt-0.5 block">Over-Calendered Fail</span>
                 </div>
               </div>
