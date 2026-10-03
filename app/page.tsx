@@ -8,6 +8,7 @@ import TortuosityExplainer from "@/components/TortuosityExplainer";
 import FeatureReductionGuide from "@/components/FeatureReductionGuide";
 import Interactive3DExplorer from "@/components/Interactive3DExplorer";
 import ReferencesSection from "@/components/ReferencesSection";
+import LatexFormula from "@/components/LatexFormula";
 
 export default function Home() {
   return (
@@ -36,27 +37,54 @@ export default function Home() {
           candidate materials.
         </p>
 
-        {/* Quick KPI Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-4">
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
-            <span className="text-xs text-slate-400 block font-medium">Batch 3 (Baseline)</span>
-            <span className="text-2xl font-bold font-mono text-white mt-1 block">τ_z = 8.94</span>
-            <span className="text-xs text-emerald-400 font-medium">Healthy open transport</span>
+        {/* Quick KPI Bar: Tortuosity Summary */}
+        <div className="pt-4">
+          <div className="flex items-center justify-between pb-2">
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              Through-Plane Tortuosity Factor (<LatexFormula formula="\tau_z" />) • Simulated Transport Resistance (Ideal Open Pipe = 1.0)
+            </span>
+            <span className="text-[11px] text-slate-500 hidden sm:inline">
+              Solved via Steady-State Fickian Diffusion on GPU
+            </span>
           </div>
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
-            <span className="text-xs text-slate-400 block font-medium">Batch 2 (Candidate)</span>
-            <span className="text-2xl font-bold font-mono text-emerald-400 mt-1 block">τ_z = 10.57</span>
-            <span className="text-xs text-cyan-400 font-medium">+1.84% Energy Density</span>
-          </div>
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
-            <span className="text-xs text-slate-400 block font-medium">Batch 1 (Defective)</span>
-            <span className="text-2xl font-bold font-mono text-rose-400 mt-1 block">τ_z = 70.78</span>
-            <span className="text-xs text-rose-400 font-medium">Choked / Plating hazard</span>
-          </div>
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
-            <span className="text-xs text-slate-400 block font-medium">Modal A10G Compute</span>
-            <span className="text-2xl font-bold font-mono text-cyan-400 mt-1 block">13.85s</span>
-            <span className="text-xs text-slate-400 font-medium">Parallel 3-batch tensor solve</span>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+              <span className="text-xs text-slate-400 block font-medium">Batch 3 (Baseline)</span>
+              <div className="text-2xl font-bold font-mono text-white mt-1">
+                <LatexFormula formula="\tau_z = 8.94" />
+              </div>
+              <span className="text-xs text-emerald-400 font-medium mt-1 block">Healthy open transport</span>
+              <span className="text-[10px] text-slate-500 block">Fast charging standard</span>
+            </div>
+
+            <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+              <span className="text-xs text-slate-400 block font-medium">Batch 2 (Candidate)</span>
+              <div className="text-2xl font-bold font-mono text-emerald-400 mt-1">
+                <LatexFormula formula="\tau_z = 10.57" />
+              </div>
+              <span className="text-xs text-cyan-400 font-medium mt-1 block">+1.84% Energy Density</span>
+              <span className="text-[10px] text-slate-500 block">Acceptable trade-off</span>
+            </div>
+
+            <div className="bg-slate-900/80 border border-rose-500/20 rounded-xl p-4 bg-rose-950/10">
+              <span className="text-xs text-slate-400 block font-medium">Batch 1 (Defective)</span>
+              <div className="text-2xl font-bold font-mono text-rose-400 mt-1">
+                <LatexFormula formula="\tau_z = 70.78" />
+              </div>
+              <span className="text-xs text-rose-400 font-medium mt-1 block">Choked (7.9× bottleneck)</span>
+              <span className="text-[10px] text-rose-500/80 block">Severe plating hazard</span>
+            </div>
+
+            <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+              <span className="text-xs text-slate-400 block font-medium">Modal A10G Compute</span>
+              <div className="text-2xl font-bold font-mono text-cyan-400 mt-1">
+                13.85s
+              </div>
+              <span className="text-xs text-slate-400 font-medium mt-1 block">Parallel 3-batch tensor solve</span>
+              <span className="text-[10px] text-slate-500 block">512³ voxel grid</span>
+            </div>
           </div>
         </div>
       </section>
