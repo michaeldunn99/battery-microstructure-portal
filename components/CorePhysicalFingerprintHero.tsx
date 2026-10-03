@@ -162,12 +162,12 @@ export default function CorePhysicalFingerprintHero() {
         </div>
 
         <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mt-4">
-          The 5 Physical Factors We Extracted — And How We Extracted Them
+          Which Physical Features Did We Extract — How We Mapped to Them & Why
         </h2>
         <p className="text-sm sm:text-base text-slate-300 mt-2 max-w-4xl leading-relaxed">
-          When inspecting battery electrodes, we avoid black-box embeddings. Instead, we extract
-          five peer-reviewed, orthogonal physical factors with direct electrochemical meaning—grounded in 
-          2D cross-sectional SEM physics and verified representativity statistics.
+          Every feature in our dataset maps deterministically from calibrated 2D cross-sectional SEM pixels (0.020 µm/pixel) 
+          to a physical transport mechanism in an operating battery. We do not use uninterpretable neural network embeddings. 
+          Here are the 5 core physical descriptors, exactly how each was extracted, and why it governs battery performance.
         </p>
       </div>
 
@@ -257,7 +257,7 @@ export default function CorePhysicalFingerprintHero() {
             <div>
               <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                1. What This Factor Means Physically in a Battery
+                1. Why We Extracted It (Electrochemical & Physical Meaning)
               </h4>
               <p className="text-xs text-slate-300 mt-2 leading-relaxed bg-slate-900/50 p-4 rounded-xl border border-slate-800/80">
                 {activeCard.physicalMeaning}
@@ -267,7 +267,7 @@ export default function CorePhysicalFingerprintHero() {
             <div>
               <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                2. How We Extracted It from Raw SEM Cross-Sections
+                2. How We Mapped to It from Raw SEM Pixels (Extraction Method)
               </h4>
               <p className="text-xs text-slate-300 mt-2 leading-relaxed bg-slate-900/50 p-4 rounded-xl border border-slate-800/80">
                 {activeCard.howWeExtractedIt}
