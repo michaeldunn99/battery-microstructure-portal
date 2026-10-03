@@ -2,6 +2,7 @@ import CorePhysicalFingerprintHero from "@/components/CorePhysicalFingerprintHer
 import MicrostructureFeatureTaxonomy from "@/components/MicrostructureFeatureTaxonomy";
 import FeatureVectorGenesis from "@/components/FeatureVectorGenesis";
 import ImageRepTheory from "@/components/ImageRepTheory";
+import AppendixPixelIndicatorDerivation from "@/components/AppendixPixelIndicatorDerivation";
 import ReferencesSection from "@/components/ReferencesSection";
 
 export default function Home() {
@@ -52,7 +53,12 @@ export default function Home() {
         <ImageRepTheory />
       </section>
 
-      {/* 5. Scientific References & Literature Citations */}
+      {/* 5. Technical Appendix: Mathematical Definition & Provenance of the Binary Indicator Function */}
+      <section id="appendix-indicator">
+        <AppendixPixelIndicatorDerivation />
+      </section>
+
+      {/* 6. Scientific References & Literature Citations */}
       <section id="references">
         <ReferencesSection />
       </section>
