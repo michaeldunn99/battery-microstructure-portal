@@ -31,7 +31,7 @@ export default function AppendixPixelIndicatorDerivation() {
         </h2>
         <p className="text-sm sm:text-base text-slate-300 mt-2 max-w-4xl leading-relaxed">
           Every physical metric in our dataset originates from the binary phase indicator function{" "}
-          <span className="font-mono text-cyan-300 font-semibold">I(x, y) ∈ &#123;0, 1&#125;</span>. 
+          <span className="font-mono text-cyan-300 font-semibold"><LatexFormula formula={"I(x,y)\\in\\{0,1\\}"} /></span>.
           Below is the exact mathematical formulation, physical contrast mechanism, code implementation, 
           and literature provenance explaining literally what determines whether a pixel is assigned 0 or 1.
         </p>
@@ -92,14 +92,14 @@ export default function AppendixPixelIndicatorDerivation() {
 
             <p className="text-sm text-slate-300 leading-relaxed">
               At native spatial resolution (<span className="text-cyan-300 font-mono">0.020 µm/pixel</span>), 
-              the indicator function <span className="font-mono text-cyan-300">I_pore(x, y)</span> partitions the cross-section 
+              the indicator function <span className="font-mono text-cyan-300"><LatexFormula formula={"I_{\\text{pore}}(x,y)"} /></span> partitions the cross-section
               into void space versus solid active matrix:
             </p>
 
             {/* LaTeX Display Formula */}
             <div className="p-5 rounded-2xl bg-slate-900 border border-cyan-500/30 shadow-inner flex flex-col items-center justify-center gap-3">
               <div className="text-base sm:text-xl text-cyan-300 font-medium overflow-x-auto py-2">
-                <LatexFormula formula="I_{\text{pore}}(x, y) = \begin{cases} 1 & \text{if } (x, y) \in \mathcal{W}_{\text{pore}} \;\land\; \mathcal{S}(x, y) \ge \tau_{\text{supp}} \;\land\; (x, y) \notin \partial\mathcal{B} \;\land\; \mathcal{V}(x, y) \\ 0 & \text{otherwise (solid graphite, CBD, boundary, or artifact)} \end{cases}" />
+                <LatexFormula formula={"I_{\\text{pore}}(x, y) = \\begin{cases} 1 & \\text{if } (x, y) \\in \\mathcal{W}_{\\text{pore}} \\;\\land\\; \\mathcal{S}(x, y) \\ge \\tau_{\\text{supp}} \\;\\land\\; (x, y) \\notin \\partial\\mathcal{B} \\;\\land\\; \\mathcal{V}(x, y) \\\\ 0 & \\text{otherwise (solid graphite, CBD, boundary, or artifact)} \\end{cases}"} />
               </div>
             </div>
 
@@ -111,23 +111,23 @@ export default function AppendixPixelIndicatorDerivation() {
                   Pixels initialized as definite pore seeds must simultaneously satisfy darkness and smoothness:
                 </p>
                 <div className="py-2 text-cyan-200">
-                  <LatexFormula formula="\text{Seed}(x, y) = \Big( g(x, y) < t_1 - \Delta \Big) \;\land\; \Big( \|\nabla g(x, y)\| \le \gamma_1 \Big)" />
+                  <LatexFormula formula={"\\text{Seed}(x, y) = \\Big( g(x, y) < t_1 - \\Delta \\Big) \\;\\land\\; \\Big( \\|\\nabla g(x, y)\\| \\le \\gamma_1 \\Big)"} />
                 </div>
                 <p className="text-slate-400">
-                  Where <span className="text-slate-200 font-mono">g(x,y)</span> is normalized grayscale intensity,{" "}
-                  <span className="text-slate-200 font-mono">t_1</span> is the multi-Otsu void threshold,{" "}
-                  <span className="text-slate-200 font-mono">Δ = 0.025</span> is the security margin, and{" "}
-                  <span className="text-slate-200 font-mono">γ_1</span> is the 40th percentile gradient ceiling.
+                  Where <span className="text-slate-200 font-mono"><LatexFormula formula={"g(x,y)"} /></span> is normalized grayscale intensity,{" "}
+                  <span className="text-slate-200 font-mono"><LatexFormula formula={"t_1"} /></span> is the multi-Otsu void threshold,{" "}
+                  <span className="text-slate-200 font-mono"><LatexFormula formula={"\\Delta = 0.025"} /></span> is the security margin, and{" "}
+                  <span className="text-slate-200 font-mono"><LatexFormula formula={"\\gamma_1"} /></span> is the 40th percentile gradient ceiling.
                 </p>
               </div>
 
               <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
-                <span className="font-bold text-cyan-400 font-mono block">2. Watershed Basin Growth (W_pore)</span>
+                <span className="font-bold text-cyan-400 font-mono block">2. Watershed Basin Growth <LatexFormula formula={"\\mathcal{W}_{\\text{pore}}"} /></span>
                 <p className="text-slate-300 leading-relaxed">
                   Seed markers expand across adjacent pixels along the topographic gradient surface:
                 </p>
                 <div className="py-2 text-cyan-200">
-                  <LatexFormula formula="\mathcal{W}\big(\|\nabla g\|, \text{Seeds}\big) \implies \text{Boundary stops at } \max \|\nabla g\|" />
+                  <LatexFormula formula={"\\mathcal{W}\\big(\\|\\nabla g\\|, \\text{Seeds}\\big) \\implies \\text{Boundary stops at } \\max \\|\\nabla g\\|"} />
                 </div>
                 <p className="text-slate-400">
                   Watershed expansion stops where the spatial gradient reaches its local inflection ridge, marking 
@@ -136,12 +136,12 @@ export default function AppendixPixelIndicatorDerivation() {
               </div>
 
               <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
-                <span className="font-bold text-purple-400 font-mono block">3. Heuristic Support Score S(x, y) ≥ 0.35</span>
+                <span className="font-bold text-purple-400 font-mono block">3. Heuristic Support Score <LatexFormula formula={"\\mathcal{S}(x,y)\\ge 0.35"} /></span>
                 <p className="text-slate-300 leading-relaxed">
                   To prevent ambiguous bleeding, every pixel must exceed minimum support:
                 </p>
                 <div className="py-2 text-purple-200">
-                  <LatexFormula formula="\mathcal{S}(x, y) = \sqrt{\frac{t_1 + \Delta - g(x, y)}{2\Delta} \cdot \frac{\gamma_2 - \|\nabla g(x, y)\|}{\gamma_2 - \gamma_1}} \cdot \left(1 - \frac{d_{\text{seed}}}{d_{\max}}\right)" />
+                  <LatexFormula formula={"\\mathcal{S}(x, y) = \\sqrt{\\frac{t_1 + \\Delta - g(x, y)}{2\\Delta} \\cdot \\frac{\\gamma_2 - \\|\\nabla g(x, y)\\|}{\\gamma_2 - \\gamma_1}} \\cdot \\left(1 - \\frac{d_{\\text{seed}}}{d_{\\max}}\\right)"} />
                 </div>
                 <p className="text-slate-400">
                   If support drops below <span className="text-purple-300 font-mono">0.35</span>, or the pixel is farther than 96 pixels from a seed, 
@@ -155,10 +155,10 @@ export default function AppendixPixelIndicatorDerivation() {
                   Eliminates mixed-pixel partial volume effects along phase edges:
                 </p>
                 <div className="py-2 text-amber-200">
-                  <LatexFormula formula="(x, y) \notin \partial\mathcal{B} \quad \text{and} \quad \mathcal{V}(x, y) = \text{True}" />
+                  <LatexFormula formula={"(x, y) \\notin \\partial\\mathcal{B} \\quad \\text{and} \\quad \\mathcal{V}(x, y) = \\text{True}"} />
                 </div>
                 <p className="text-slate-400">
-                  A 1-pixel morphological dilation along all phase transitions (<span className="text-amber-300 font-mono">∂B</span>) 
+                  A 1-pixel morphological dilation along all phase transitions (<span className="text-amber-300 font-mono"><LatexFormula formula={"\\partial\\mathcal{B}"} /></span>)
                   is excluded to ensure no optical halo or beam-skirting artifact inflates porosity.
                 </p>
               </div>
@@ -198,7 +198,7 @@ export default function AppendixPixelIndicatorDerivation() {
                   extremely low signal:
                 </p>
                 <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-[11px] text-cyan-300">
-                  g(x, y) &lt; 0.28, ‖∇g‖ ≤ 0.04
+                  <LatexFormula formula={"g(x,y)<0.28,\\;\\|\\nabla g\\|\\le 0.04"} />
                 </div>
               </div>
 
@@ -216,7 +216,7 @@ export default function AppendixPixelIndicatorDerivation() {
                   Generates strong secondary electron escape and consistent backscatter yield:
                 </p>
                 <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-[11px] text-emerald-300">
-                  g(x, y) &gt; 0.65, ‖∇g‖ ≤ 0.05
+                  <LatexFormula formula={"g(x,y)>0.65,\\;\\|\\nabla g\\|\\le 0.05"} />
                 </div>
               </div>
 
@@ -385,7 +385,7 @@ phi_pore = np.sum(I_pore) / np.sum(valid)`}
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   Established the rigorous mathematical framework of using spatial autocorrelation of binary indicator functions 
-                  <span className="font-mono text-purple-300"> S_2(r) = ⟨I(x)·I(x+r)⟩</span> to characterize porous materials, 
+                  <span className="font-mono text-purple-300"><LatexFormula formula={"S_2(r)=\\langle I(x)\\cdot I(x+r)\\rangle"} /></span> to characterize porous materials,
                   anisotropy, and characteristic cluster lengths without geometric assumption.
                 </p>
                 <div className="text-[11px] text-slate-400 font-mono">
