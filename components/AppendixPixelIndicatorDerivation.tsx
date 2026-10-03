@@ -18,9 +18,9 @@ export default function AppendixPixelIndicatorDerivation() {
           <span className="px-3 py-1 rounded-md text-xs font-semibold bg-zinc-100 text-zinc-800 border border-zinc-300">
             Multi-Otsu &amp; Sobel Gradient Derivation
           </span>
-          <span className="px-3 py-1 rounded-md text-xs font-mono text-zinc-700 bg-zinc-50 border border-zinc-200">
-            HR-Dv2 / sem_physics.py
-          </span>
+          <a href="https://github.com/tldr-group/HR-Dv2" target="_blank" rel="noreferrer" className="text-xs text-zinc-700 underline underline-offset-4 hover:text-zinc-950">
+            GitHub: HR-Dv2 ↗
+          </a>
         </div>
 
         <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-950 tracking-tight mt-2">
@@ -389,7 +389,7 @@ export default function AppendixPixelIndicatorDerivation() {
           <div className="bg-paper border border-zinc-200 rounded-md p-6 lg:p-8 space-y-6">
             <h3 className="text-lg sm:text-xl font-semibold text-zinc-950 tracking-tight flex items-center gap-2">
               <span className="w-2 h-2 rounded-md bg-zinc-400" />
-              Annotated Implementation: HR-Dv2/sem_physics.py
+              Implementation example
             </h3>
 
             <p className="text-sm text-zinc-800 leading-relaxed">
@@ -398,7 +398,7 @@ export default function AppendixPixelIndicatorDerivation() {
 
             <div className="bg-paper border border-zinc-200 rounded-md overflow-hidden font-mono text-xs text-zinc-800">
               <div className="bg-paper px-4 py-2 border-b border-zinc-200 flex items-center justify-between">
-                <span className="text-zinc-600 text-[11px]">HR-Dv2/sem_physics.py (Lines 405–455)</span>
+                <a href="https://github.com/tldr-group/HR-Dv2" target="_blank" rel="noreferrer" className="text-zinc-600 text-[11px] underline underline-offset-4">HR-Dv2 on GitHub ↗</a>
                 <span className="text-zinc-700 text-[11px]">Python 3.10 / NumPy / SciPy / skimage</span>
               </div>
               <pre className="p-5 overflow-x-auto leading-relaxed text-zinc-800">
