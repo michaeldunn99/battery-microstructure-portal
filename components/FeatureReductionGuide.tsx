@@ -1,5 +1,6 @@
 "use client";
 
+import MathText from "./MathText";
 import React, { useState } from "react";
 
 export default function FeatureReductionGuide() {
@@ -8,7 +9,7 @@ export default function FeatureReductionGuide() {
   const coreFeatures = [
     {
       name: "1. Active Material Fraction",
-      symbol: "Vol_AM (%)",
+      symbol: "\\(\\mathrm{Vol}_{\\mathrm{AM}}\\;(\\%)\\)",
       role: "Capacity & Energy Density",
       b3: "84.3%",
       b2: "86.2% (+1.8%)",
@@ -17,7 +18,7 @@ export default function FeatureReductionGuide() {
     },
     {
       name: "2. Total Porosity",
-      symbol: "ε (%)",
+      symbol: "\\(\\varepsilon\\;(\\%)\\)",
       role: "Electrolyte Reservoir",
       b3: "11.16%",
       b2: "10.42%",
@@ -26,7 +27,7 @@ export default function FeatureReductionGuide() {
     },
     {
       name: "3. Through-Plane Pore Throat",
-      symbol: "L_y (µm)",
+      symbol: "\\(L_y\\;(\\mu\\text{m})\\)",
       role: "Ionic Bottleneck Detector",
       b3: "0.96 µm",
       b2: "0.93 µm (p=0.47)",
@@ -35,7 +36,7 @@ export default function FeatureReductionGuide() {
     },
     {
       name: "4. Particle Aspect Ratio",
-      symbol: "A (major/minor)",
+      symbol: "\\(A\\;(\\text{major}/\\text{minor})\\)",
       role: "Calendering Strain & Squashing",
       b3: "1.25",
       b2: "1.22 (Normal)",
@@ -44,7 +45,7 @@ export default function FeatureReductionGuide() {
     },
     {
       name: "5. Inclusion Spatial Variance",
-      symbol: "σ²_inc",
+      symbol: "\\(\\sigma^2_{\\text{inc}}\\)",
       role: "Slurry Mixing & Clumping QC",
       b3: "0.0034",
       b2: "0.0038 (Clean)",
@@ -54,8 +55,8 @@ export default function FeatureReductionGuide() {
   ];
 
   const derivedFeatures = [
-    { name: "Bruggeman Tortuosity Proxy", derivedFrom: "Porosity (ε^-0.5)", reason: "Redundant: exact mathematical function of porosity." },
-    { name: "Effective Transport Factor", derivedFrom: "Porosity (ε^1.5)", reason: "Redundant: collinear with total porosity." },
+    { name: "Bruggeman Tortuosity Proxy", derivedFrom: "Porosity (\\(\\varepsilon^{-0.5}\\))", reason: "Redundant: exact mathematical function of porosity." },
+    { name: "Effective Transport Factor", derivedFrom: "Porosity (\\(\\varepsilon^{1.5}\\))", reason: "Redundant: collinear with total porosity." },
     { name: "10th Percentile Throat (p10)", derivedFrom: "Throat Distribution", reason: "Strongly collinear with mean throat width (r = 0.94)." },
     { name: "90th Percentile Throat (p90)", derivedFrom: "Throat Distribution", reason: "Strongly collinear with mean throat width (r = 0.91)." },
     { name: "Particle Alignment Angle", derivedFrom: "Aspect Ratio", reason: "Correlated with aspect ratio flattening under calendering." },
@@ -119,7 +120,7 @@ export default function FeatureReductionGuide() {
               {coreFeatures.map((f, i) => (
                 <tr key={i} className="hover:bg-slate-800/30 transition-colors">
                   <td className="py-3 px-3 font-sans font-bold text-white whitespace-nowrap">
-                    {f.name} <span className="text-slate-400 font-mono text-[11px] block">{f.symbol}</span>
+                    {f.name} <span className="text-slate-400 font-mono text-[11px] block"><MathText text={f.symbol} /></span>
                   </td>
                   <td className="py-3 px-3 font-sans text-cyan-300">{f.role}</td>
                   <td className="py-3 px-3 text-slate-300">{f.b3}</td>
@@ -143,10 +144,10 @@ export default function FeatureReductionGuide() {
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-bold text-white">{df.name}</span>
                   <span className="text-[10px] text-amber-400 bg-amber-950/40 px-2 py-0.5 rounded border border-amber-900/50">
-                    Collinear with: {df.derivedFrom}
+                    Collinear with: <MathText text={df.derivedFrom} />
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400 mt-1">{df.reason}</p>
+                <p className="text-[11px] text-slate-400 mt-1"><MathText text={df.reason} /></p>
               </div>
             ))}
           </div>

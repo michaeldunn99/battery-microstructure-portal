@@ -1,5 +1,6 @@
 "use client";
 
+import MathText from "./MathText";
 import React, { useState } from "react";
 import LatexFormula from "@/components/LatexFormula";
 
@@ -44,14 +45,14 @@ const fingerprintCards: FingerprintCard[] = [
   {
     id: "directional-cls",
     factorNum: "02",
-    name: "Two-Point Correlation S₂(r) & Directional CLS",
+    name: "Two-Point Correlation \\(S_2(r)\\) & Directional CLS",
     latexSymbol: "S_2(\\mathbf{r}) \\implies a_y, a_x",
     latexFormula: "S_2(\\mathbf{r}) = \\mathcal{F}^{-1}\\left\\{ |\\mathcal{F}\\{M(\\mathbf{x})\\}|^2 \\right\\} \\implies a_y,\\, a_x",
     method: "2D Fast Fourier Transform (FFT) Autocovariance & Ray-Casting",
     physicalMeaning:
       "Quantifies spatial pore arrangement and directional alignment. Not just how much void space exists, but whether vertical ion highways through the electrode thickness are open or choked off.",
     howWeExtractedIt:
-      "Computed the 2D FFT autocovariance of the pore indicator mask to extract the spatial correlation decay length. Supplemented with orthogonal ray-casting to isolate through-plane pore throat (a_y) versus in-plane chord (a_x).",
+      "Computed the 2D FFT autocovariance of the pore indicator mask to extract the spatial correlation decay length. Supplemented with orthogonal ray-casting to isolate through-plane pore throat (\\(a_y\\)) versus in-plane chord (\\(a_x\\)).",
     batch3Baseline: "a_y = 0.42\\,\\mu\\text{m},\\ a_x = 0.47\\,\\mu\\text{m}\\quad (\\text{Ratio } 1.12)",
     batch2Candidate: "a_y = 0.41\\,\\mu\\text{m},\\ a_x = 0.45\\,\\mu\\text{m}\\quad (\\text{Ratio } 1.10)",
     batch1Defective: "a_y = 0.36\\,\\mu\\text{m},\\ a_x = 0.41\\,\\mu\\text{m}\\quad (\\text{Ratio } 1.14,\\text{ constricted})",
@@ -76,7 +77,7 @@ const fingerprintCards: FingerprintCard[] = [
     batch3Baseline: "D_{10}: 0.09\\,\\mu\\text{m} \\mid D_{50}: 0.14\\,\\mu\\text{m} \\mid D_{90}: 0.42\\,\\mu\\text{m}",
     batch2Candidate: "D_{10}: 0.09\\,\\mu\\text{m} \\mid D_{50}: 0.13\\,\\mu\\text{m} \\mid D_{90}: 0.41\\,\\mu\\text{m}",
     batch1Defective: "D_{10}: 0.09\\,\\mu\\text{m} \\mid D_{50}: 0.14\\,\\mu\\text{m} \\mid D_{90}: 0.47\\,\\mu\\text{m}",
-    riskThreshold: "Oversized particles (D₉₀ > 0.8 µm) create severe core-shell concentration gradients that crack graphite flakes during lithiation expansion.",
+    riskThreshold: "Oversized particles (\\(D_{90}\\) > 0.8 µm) create severe core-shell concentration gradients that crack graphite flakes during lithiation expansion.",
     iconPath: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -221,7 +222,7 @@ export default function CorePhysicalFingerprintHero() {
                   PHYSICAL FACTOR {activeCard.factorNum}
                 </span>
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-0.5">
-                  {activeCard.name}
+                  <MathText text={activeCard.name} />
                 </h3>
               </div>
             </div>
@@ -260,7 +261,7 @@ export default function CorePhysicalFingerprintHero() {
                 1. Why We Extracted It (Electrochemical & Physical Meaning)
               </h4>
               <p className="text-xs text-slate-300 mt-2 leading-relaxed bg-slate-900/50 p-4 rounded-xl border border-slate-800/80">
-                {activeCard.physicalMeaning}
+                <MathText text={activeCard.physicalMeaning} />
               </p>
             </div>
 
@@ -270,7 +271,7 @@ export default function CorePhysicalFingerprintHero() {
                 2. How We Mapped to It from Raw SEM Pixels (Extraction Method)
               </h4>
               <p className="text-xs text-slate-300 mt-2 leading-relaxed bg-slate-900/50 p-4 rounded-xl border border-slate-800/80">
-                {activeCard.howWeExtractedIt}
+                <MathText text={activeCard.howWeExtractedIt} />
               </p>
             </div>
           </div>
@@ -313,7 +314,7 @@ export default function CorePhysicalFingerprintHero() {
               </h4>
               <div className="mt-2 p-4 rounded-xl bg-amber-950/20 border border-amber-500/30 text-xs text-amber-200 leading-relaxed">
                 <strong className="text-amber-300">Defect Risk: </strong>
-                {activeCard.riskThreshold}
+                <MathText text={activeCard.riskThreshold} />
               </div>
             </div>
           </div>

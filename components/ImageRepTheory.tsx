@@ -1,5 +1,6 @@
 "use client";
 
+import LatexFormula from "./LatexFormula";
 import React, { useState } from "react";
 
 export default function ImageRepTheory() {
@@ -37,7 +38,7 @@ export default function ImageRepTheory() {
           </a>
         </div>
         <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
-          Microstructural Representativity: Area Fraction (A), Two-Point Correlation S₂(r), & CLS
+          Microstructural Representativity: Area Fraction (A), Two-Point Correlation <LatexFormula formula={"S_2(r)"} />, & CLS
         </h2>
         <p className="text-sm text-slate-400 mt-1 max-w-4xl leading-relaxed">
           How do we know a single 2D SEM slice is representative of the whole battery roll? Following
@@ -56,7 +57,7 @@ export default function ImageRepTheory() {
               <span className="text-[10px] text-slate-500 font-mono">ImageRep Uncertainty</span>
             </div>
             <h3 className="text-base font-bold text-white">
-              Phase / Pore Area Fraction (A) & CI₉₅%
+              Phase / Pore Area Fraction (A) & <LatexFormula formula={"\\mathrm{CI}_{95\\%}"} />
             </h3>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">
               The percentage of the cross-section image belonging to each physical phase: liquid pore
@@ -66,13 +67,13 @@ export default function ImageRepTheory() {
               <span className="text-cyan-300 font-semibold block">Dahari et al. Confidence Bound:</span>
               <span className="text-slate-300 mt-1 block">
                 Unlike simple pixel counting, ImageRep applies moving-block bootstrap statistics to output a
-                <strong> 95% Confidence Interval (CI₉₅% = ±2.26%)</strong>, guaranteeing whether sample variations
+                <strong> 95% Confidence Interval (<LatexFormula formula={"\\mathrm{CI}_{95\\%} = \\pm 2.26\\%"} />)</strong>, guaranteeing whether sample variations
                 are true process shifts or sampling noise.
               </span>
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-emerald-400">
-            Batch 3 Baseline: ε = 11.16% ± 2.26% (p &gt; 0.05)
+            Batch 3 Baseline: <LatexFormula formula={"\\varepsilon = 11.16\\% \\pm 2.26\\%\\;(p > 0.05)"} />
           </div>
         </div>
 
@@ -84,7 +85,7 @@ export default function ImageRepTheory() {
               <span className="text-[10px] text-slate-500 font-mono">FFT-Accelerated</span>
             </div>
             <h3 className="text-base font-bold text-white">
-              Two-Point Correlation S₂(r)
+              Two-Point Correlation <LatexFormula formula={"S_2(r)"} />
             </h3>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">
               Captures the exact spatial arrangement of each phase—not just how much is present, but how
@@ -93,12 +94,12 @@ export default function ImageRepTheory() {
             <div className="mt-3 p-3 bg-slate-900/90 rounded-lg border border-slate-800 text-xs">
               <span className="text-cyan-300 font-semibold block">Mathematical Definition:</span>
               <p className="font-mono text-[11px] text-slate-300 mt-0.5">
-                S₂(r) = P(x ∈ phase ∧ x+r ∈ phase)
+                <LatexFormula formula={"S_2(r) = P(x\\in\\text{phase}\\land x+r\\in\\text{phase})"} />
               </p>
               <span className="text-slate-400 mt-1 block">
                 Calculated via 2D Fast Fourier Transform (FFT) autocovariance:
-                <code className="text-cyan-400 block mt-0.5">{"S₂(r) = ℱ⁻¹{|ℱ{M(x)}|²}"}</code>
-                At r = 0, S₂(0) = ε. As r → ∞, S₂(∞) → ε².
+                <code className="text-cyan-400 block mt-0.5"><LatexFormula formula={"S_2(r) = \\mathcal{F}^{-1}\\{|\\mathcal{F}\\{M(x)\\}|^2\\}"} /></code>
+                At <LatexFormula formula={"r = 0"} />, <LatexFormula formula={"S_2(0) = \\varepsilon"} />. As <LatexFormula formula={"r\\to\\infty"} />, <LatexFormula formula={"S_2(\\infty)\\to\\varepsilon^2"} />.
               </span>
             </div>
           </div>
@@ -118,7 +119,7 @@ export default function ImageRepTheory() {
               Characteristic Length Scale (CLS)
             </h3>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-              Derived directly from the decay rate of the Two-Point Correlation S₂(r). Gives a single,
+              Derived directly from the decay rate of the Two-Point Correlation <LatexFormula formula={"S_2(r)"} />. Gives a single,
               compact scalar measure of the microstructure’s characteristic spatial scale.
             </p>
             <div className="mt-3 p-3 bg-slate-900/90 rounded-lg border border-slate-800 text-xs">
@@ -133,7 +134,7 @@ export default function ImageRepTheory() {
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-purple-400">
-            CLS = ∫ [S₂(r) - ε²] / [ε - ε²] dr
+            <LatexFormula formula={"\\mathrm{CLS} = \\int \\frac{S_2(r)-\\varepsilon^2}{\\varepsilon-\\varepsilon^2}\\,dr"} />
           </div>
         </div>
       </div>
@@ -143,10 +144,10 @@ export default function ImageRepTheory() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
           <div>
             <h4 className="text-sm font-bold text-white">
-              Interactive Two-Point Autocorrelation S₂(r) Decay Curve
+              Interactive Two-Point Autocorrelation <LatexFormula formula={"S_2(r)"} /> Decay Curve
             </h4>
             <p className="text-xs text-slate-400">
-              Drag distance (r) to observe the transition from self-overlap (r=0) to random chance (r→∞):
+              Drag distance (r) to observe the transition from self-overlap (<LatexFormula formula={"r=0"} />) to random chance (<LatexFormula formula={"r\\to\\infty"} />):
             </p>
           </div>
           <div className="text-right">
@@ -169,21 +170,21 @@ export default function ImageRepTheory() {
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 text-center">
           <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5">
-            <span className="text-[11px] text-slate-400 block">S₂(0) [Self Overlap]</span>
+            <span className="text-[11px] text-slate-400 block"><LatexFormula formula={"S_2(0)"} /> [Self Overlap]</span>
             <span className="text-sm font-mono font-bold text-white">
-              {s2_0.toFixed(4)} (ε)
+              {s2_0.toFixed(4)} (<LatexFormula formula={"\\varepsilon"} />)
             </span>
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5">
-            <span className="text-[11px] text-slate-400 block">S₂(r = {radialR.toFixed(1)} µm)</span>
+            <span className="text-[11px] text-slate-400 block"><LatexFormula formula={`S_2(r = ${radialR.toFixed(1)}\\,\\mu\\text{m})`} /></span>
             <span className="text-sm font-mono font-bold text-cyan-400">
               {s2_r}
             </span>
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5">
-            <span className="text-[11px] text-slate-400 block">S₂(∞) [Random Limit]</span>
+            <span className="text-[11px] text-slate-400 block"><LatexFormula formula={"S_2(\\infty)"} /> [Random Limit]</span>
             <span className="text-sm font-mono font-bold text-slate-400">
-              {s2_inf.toFixed(4)} (ε²)
+              {s2_inf.toFixed(4)} (<LatexFormula formula={"\\varepsilon^2"} />)
             </span>
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5">

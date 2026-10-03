@@ -1,5 +1,6 @@
 "use client";
 
+import MathText from "./MathText";
 import React from "react";
 
 interface Reference {
@@ -25,7 +26,7 @@ const references: Reference[] = [
     doiUrl: "https://doi.org/10.1002/advs.202414149",
     codeUrl: "https://github.com/tldr-group/Representativity",
     impactOnProject:
-      "Direct foundation for Pillar A (Phase Area Fraction CI95% bounds), Pillar B1 (FFT-based Two-Point Correlation S₂(r)), and Pillar B2 (Characteristic Length Scale / CLS).",
+      "Direct foundation for Pillar A (Phase Area Fraction \\(\\mathrm{CI}_{95\\%}\\) bounds), Pillar B1 (FFT-based Two-Point Correlation \\(S_2(r)\\)), and Pillar B2 (Characteristic Length Scale / CLS).",
   },
   {
     id: "cooper2016",
@@ -38,7 +39,7 @@ const references: Reference[] = [
     doiUrl: "https://doi.org/10.1016/j.softx.2016.09.002",
     codeUrl: "https://github.com/tldr-group/TauFactor",
     impactOnProject:
-      "Provides the GPU-accelerated finite-difference solver executed on Modal Cloud A10G instances to calculate directional tortuosity (τ_z, τ_xy) and the MacMullin number.",
+      "Provides the GPU-accelerated finite-difference solver executed on Modal Cloud A10G instances to calculate directional tortuosity (\\(\\tau_z\\), \\(\\tau_{xy}\\)) and the MacMullin number.",
   },
   {
     id: "kench2021",
@@ -112,7 +113,7 @@ export default function ReferencesSection() {
 
                 <div className="mt-2 text-xs text-slate-300 bg-slate-900/80 rounded p-2.5 border border-slate-800/60">
                   <strong className="text-cyan-300">Methodological Application: </strong>
-                  {ref.impactOnProject}
+                  <MathText text={ref.impactOnProject} />
                 </div>
               </div>
 

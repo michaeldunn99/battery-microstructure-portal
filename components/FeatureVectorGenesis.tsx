@@ -1,5 +1,7 @@
 "use client";
 
+import LatexFormula from "./LatexFormula";
+import MathText from "./MathText";
 import React, { useState } from "react";
 
 interface FeatureDetail {
@@ -21,9 +23,9 @@ const features: FeatureDetail[] = [
     id: "matrix_graphite_pct",
     category: "Active Material Phase",
     name: "Matrix Graphite Loading",
-    formula: "A_graphite / A_total × 100",
+    formula: "\\(\\frac{A_{\\text{graphite}}}{A_{\\text{total}}}\\times 100\\)",
     derivation: "Pixel area fraction of segmented graphite active material matrix.",
-    physicalMeaning: "Physical volume fraction of active host material capable of reversibly storing lithium ions (LiC6).",
+    physicalMeaning: "Physical volume fraction of active host material capable of reversibly storing lithium ions (\\(\\mathrm{LiC}_6\\)).",
     batteryImpact: "Directly sets gravimetric and volumetric cell capacity (mAh/cm³). Higher allows longer EV range.",
     b3Val: "79.58% (Total AM 84.3%)",
     b2Val: "81.42% (+1.84% Total)",
@@ -33,10 +35,10 @@ const features: FeatureDetail[] = [
   {
     id: "porosity_pct",
     category: "Pore Network",
-    name: "Total Porosity (ε)",
-    formula: "A_pore / A_total × 100",
+    name: "Total Porosity (\\(\\varepsilon\\))",
+    formula: "\\(\\frac{A_{\\text{pore}}}{A_{\\text{total}}}\\times 100\\)",
     derivation: "Ratio of thresholded pore pixels to total cross-section area.",
-    physicalMeaning: "The total liquid void volume filled by liquid organic electrolyte containing dissolved LiPF6 salt.",
+    physicalMeaning: "The total liquid void volume filled by liquid organic electrolyte containing dissolved \\(\\mathrm{LiPF}_6\\) salt.",
     batteryImpact: "Acts as the liquid ion reservoir. Determines how many free lithium ions are immediately available for transport.",
     b3Val: "11.16% (sample 13.43%)",
     b2Val: "10.42%",
@@ -47,7 +49,7 @@ const features: FeatureDetail[] = [
     id: "open_pore_pct",
     category: "Pore Network",
     name: "Percolating Open Porosity",
-    formula: "A_connected_pore / A_total × 100",
+    formula: "\\(\\frac{A_{\\text{connected pore}}}{A_{\\text{total}}}\\times 100\\)",
     derivation: "Morphological flood-fill connectivity analysis from top surface to bottom collector.",
     physicalMeaning: "The fraction of pores that form continuous, open tunnels vs. isolated dead-end voids.",
     batteryImpact: "Only open pores conduct ions. Closed pores trap dead electrolyte that contributes weight but zero power.",
@@ -59,8 +61,8 @@ const features: FeatureDetail[] = [
   {
     id: "chord_y_um",
     category: "Pore Morphology",
-    name: "Through-Plane Throat Width (L_y)",
-    formula: "⟨L_y⟩ = (1/N) Σ y_runlength",
+    name: "Through-Plane Throat Width (\\(L_y\\))",
+    formula: "\\(\\langle L_y\\rangle = \\frac{1}{N}\\sum y_{\\text{runlength}}\\)",
     derivation: "Vertical ray-casting chord length distribution along the thickness axis (Y-axis).",
     physicalMeaning: "The mean physical clearance of the vertical gaps between horizontally aligned graphite flakes.",
     batteryImpact: "The direct physical gatekeeper for ions migrating from separator to current collector foil.",
@@ -72,8 +74,8 @@ const features: FeatureDetail[] = [
   {
     id: "chord_x_um",
     category: "Pore Morphology",
-    name: "In-Plane Chord Length (L_x)",
-    formula: "⟨L_x⟩ = (1/N) Σ x_runlength",
+    name: "In-Plane Chord Length (\\(L_x\\))",
+    formula: "\\(\\langle L_x\\rangle = \\frac{1}{N}\\sum x_{\\text{runlength}}\\)",
     derivation: "Horizontal ray-casting chord length distribution parallel to the foil plane (X-axis).",
     physicalMeaning: "Mean pore length running parallel to the current collector.",
     batteryImpact: "Ions can easily travel sideways along graphite flake faces, but this does not advance them toward the collector.",
@@ -86,7 +88,7 @@ const features: FeatureDetail[] = [
     id: "pore_anisotropy",
     category: "Pore Morphology",
     name: "Pore Structural Anisotropy",
-    formula: "L_x / L_y",
+    formula: "\\(\\frac{L_x}{L_y}\\)",
     derivation: "Ratio of horizontal chord length to vertical chord length.",
     physicalMeaning: "Geometric flattening ratio of the liquid pores.",
     batteryImpact: "Quantifies how much easier it is for an ion to move horizontally vs. vertically through the electrode thickness.",
@@ -99,7 +101,7 @@ const features: FeatureDetail[] = [
     id: "particle_aspect_ratio",
     category: "Particle Mechanics",
     name: "Particle Aspect Ratio (A)",
-    formula: "Major_Axis / Minor_Axis",
+    formula: "\\(\\frac{\\text{Major axis}}{\\text{Minor axis}}\\)",
     derivation: "Equivalent ellipse fitting on connected graphite particle components.",
     physicalMeaning: "Shape deformation of graphite flakes. Flakes start spherical/ovoid and flatten under calendering pressure.",
     batteryImpact: "Indicates mechanical strain applied during roller-press calendering.",
@@ -111,8 +113,8 @@ const features: FeatureDetail[] = [
   {
     id: "slurry_heterogeneity",
     category: "Slurry Rheology",
-    name: "Inclusion Spatial Variance (σ²_inc)",
-    formula: "Var(count_quadrat) / Mean(count_quadrat)",
+    name: "Inclusion Spatial Variance (\\(\\sigma^2_{\\text{inc}}\\))",
+    formula: "\\(\\frac{\\operatorname{Var}(\\text{count}_{\\text{quadrat}})}{\\operatorname{Mean}(\\text{count}_{\\text{quadrat}})}\\)",
     derivation: "8x8 spatial quadrat sampling of carbon-black / binder / additive particle centroids.",
     physicalMeaning: "Dispersion quality of high-Z conductive additives and binder throughout the slurry.",
     batteryImpact: "Ensures uniform electronic percolation. If additives clump, isolated active particles lose electrical contact.",
@@ -124,8 +126,8 @@ const features: FeatureDetail[] = [
   {
     id: "tau_through_plane",
     category: "3D Transport (Modal GPU)",
-    name: "3D Through-Plane Tortuosity (τ_z)",
-    formula: "τ_z = ε · D_0 / D_eff_z",
+    name: "3D Through-Plane Tortuosity (\\(\\tau_z\\))",
+    formula: "\\(\\tau_z = \\frac{\\varepsilon D_0}{D_{\\text{eff},z}}\\)",
     derivation: "Steady-state finite difference Laplace diffusion solver on 3D synthesized volumes via TauFactor on Modal A10G.",
     physicalMeaning: "The true effective path resistance factor for lithium ions migrating vertically through the 3D electrode.",
     batteryImpact: "The master metric of battery fast-charging capability and cell internal resistance (IR drop).",
@@ -137,15 +139,15 @@ const features: FeatureDetail[] = [
   {
     id: "macmullin_number",
     category: "3D Transport (Modal GPU)",
-    name: "MacMullin Number (N_M)",
-    formula: "N_M = τ_z / ε = R_porous / R_bulk",
+    name: "MacMullin Number (\\(N_M\\))",
+    formula: "\\(N_M = \\frac{\\tau_z}{\\varepsilon} = \\frac{R_{\\text{porous}}}{R_{\\text{bulk}}}\\)",
     derivation: "Ratio of electrical/ionic resistance of electrolyte inside the porous electrode to pure electrolyte.",
     physicalMeaning: "Total macroscopic transport resistance penalty of the porous electrode matrix.",
-    batteryImpact: "Governs ohmic heat generation during fast charge/discharge (P = I²R).",
+    batteryImpact: "Governs ohmic heat generation during fast charge/discharge (\\(P = I^2R\\)).",
     b3Val: "80.1",
     b2Val: "101.5 (Excellent)",
     b1Val: "757.0 (9.5x Ohmic Heat)",
-    riskIfOutOfSpec: "High N_M causes rapid cell overheating and battery thermal management system shutdown.",
+    riskIfOutOfSpec: "High \\(N_M\\) causes rapid cell overheating and battery thermal management system shutdown.",
   },
 ];
 
@@ -212,7 +214,7 @@ export default function FeatureVectorGenesis() {
           <div>
             <span className="font-mono text-cyan-400 font-bold block mb-1">STAGE 4</span>
             <h4 className="font-bold text-white text-sm">Morphometrics</h4>
-            <p className="text-slate-400 mt-1">Orthogonal ray chord sampling (Ly, Lx), ellipse aspect ratios (A), 8x8 quadrat variance.</p>
+            <p className="text-slate-400 mt-1">Orthogonal ray chord sampling (<LatexFormula formula={"L_y, L_x"} />), ellipse aspect ratios (A), 8x8 quadrat variance.</p>
           </div>
           <span className="text-[10px] text-cyan-500 mt-2 font-mono">2D Geometrical Tensor</span>
         </div>
@@ -223,7 +225,7 @@ export default function FeatureVectorGenesis() {
             <h4 className="font-bold text-white text-sm">Modal 3D Solve</h4>
             <p className="text-slate-400 mt-1">Continuous 3D synthesis & finite-difference Laplace diffusion via TauFactor on A10G GPUs.</p>
           </div>
-          <span className="text-[10px] text-emerald-500 mt-2 font-mono">Ground Truth τz</span>
+          <span className="text-[10px] text-emerald-500 mt-2 font-mono">Ground Truth <LatexFormula formula={"\\tau_z"} /></span>
         </div>
       </div>
 
@@ -259,8 +261,8 @@ export default function FeatureVectorGenesis() {
                 </span>
                 <span className="text-[11px] font-mono text-slate-500">{f.id}</span>
               </div>
-              <h3 className="text-base font-bold text-white mt-1">{f.name}</h3>
-              <p className="font-mono text-xs text-emerald-400/90 mt-0.5">{f.formula}</p>
+              <h3 className="text-base font-bold text-white mt-1"><MathText text={f.name} /></h3>
+              <p className="font-mono text-xs text-emerald-400/90 mt-0.5"><MathText text={f.formula} /></p>
 
               <div className="mt-3 space-y-2 text-xs">
                 <div>
@@ -269,11 +271,11 @@ export default function FeatureVectorGenesis() {
                 </div>
                 <div>
                   <span className="font-semibold text-slate-300">Physical Meaning: </span>
-                  <span className="text-slate-400">{f.physicalMeaning}</span>
+                  <span className="text-slate-400"><MathText text={f.physicalMeaning} /></span>
                 </div>
                 <div>
                   <span className="font-semibold text-cyan-300">Electrochemical & Battery Impact: </span>
-                  <span className="text-slate-300">{f.batteryImpact}</span>
+                  <span className="text-slate-300"><MathText text={f.batteryImpact} /></span>
                 </div>
               </div>
             </div>
@@ -297,7 +299,7 @@ export default function FeatureVectorGenesis() {
 
               <div className="text-[11px] bg-slate-900/90 rounded px-2.5 py-1.5 text-amber-300/90 flex items-start gap-1.5">
                 <span className="font-bold">⚠️ Failure Risk:</span>
-                <span>{f.riskIfOutOfSpec}</span>
+                <span><MathText text={f.riskIfOutOfSpec} /></span>
               </div>
             </div>
           </div>

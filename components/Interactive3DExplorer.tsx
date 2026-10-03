@@ -1,5 +1,6 @@
 "use client";
 
+import LatexFormula from "./LatexFormula";
 import React, { useState, useEffect, useRef } from "react";
 
 const N = 28;
@@ -404,7 +405,7 @@ export default function Interactive3DExplorer() {
               <span className="text-[10px] text-slate-400 block">Through-plane</span>
             </div>
             <div className="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3">
-              <span className="text-[11px] text-slate-400 block">Tortuosity (τ_z)</span>
+              <span className="text-[11px] text-slate-400 block">Tortuosity (<LatexFormula formula={"\\tau_z"} />)</span>
               <span
                 className={`text-lg font-bold font-mono ${
                   selectedBatch === "batch1" ? "text-rose-400" : "text-cyan-400"
@@ -415,7 +416,7 @@ export default function Interactive3DExplorer() {
               <span className="text-[10px] text-slate-400 block">Through-plane</span>
             </div>
             <div className="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3">
-              <span className="text-[11px] text-slate-400 block">MacMullin (N_M)</span>
+              <span className="text-[11px] text-slate-400 block">MacMullin (<LatexFormula formula="N_M" />)</span>
               <span
                 className={`text-lg font-bold font-mono ${
                   selectedBatch === "batch1" ? "text-rose-400" : "text-emerald-400"

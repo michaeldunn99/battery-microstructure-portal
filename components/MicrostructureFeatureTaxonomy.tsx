@@ -1,5 +1,6 @@
 "use client";
 
+import MathText from "./MathText";
 import React, { useState } from "react";
 
 interface TaxonomyFeature {
@@ -18,13 +19,13 @@ interface TaxonomyFeature {
 const taxonomyData: TaxonomyFeature[] = [
   {
     name: "Phase/pore area fraction (per phase, with CI)",
-    definition: "φ = mean of indicator; CI from ImageRep",
+    definition: "\\(\\phi = \\text{mean of indicator};\\;\\text{CI from ImageRep}\\)",
     interpretation: "Composition, porosity, loading or compaction",
     evidence: "(A)",
     evidenceLevel: "A",
     twoDFeasible: "Yes",
     difficulty: "Low",
-    robustness: "High for φ; depends on threshold",
+    robustness: "High for \\(\\phi\\); depends on threshold",
     caveats:
       "CI assumes perfect segmentation. Area fraction is not volume fraction without isotropy; 2D ambiguity noted.",
     pmids: [
@@ -35,7 +36,7 @@ const taxonomyData: TaxonomyFeature[] = [
   },
   {
     name: "CBD: active-material ratio",
-    definition: "φ_CBD / φ_AM",
+    definition: "\\(\\frac{\\phi_{\\text{CBD}}}{\\phi_{\\text{AM}}}\\)",
     interpretation: "Formulation or mixing shift",
     evidence: "(B)",
     evidenceLevel: "B",
@@ -50,8 +51,8 @@ const taxonomyData: TaxonomyFeature[] = [
     ],
   },
   {
-    name: "Full TPC S₂(r), one curve per phase",
-    definition: "S₂(r) = P(x and x+r both in phase)",
+    name: "Full TPC \\(S_2(r)\\), one curve per phase",
+    definition: "\\(S_2(r) = P(x\\text{ and }x+r\\text{ both in phase})\\)",
     interpretation: "Spatial organisation at all scales",
     evidence: "(B)",
     evidenceLevel: "B",
@@ -59,16 +60,16 @@ const taxonomyData: TaxonomyFeature[] = [
     difficulty: "Low",
     robustness: "Medium–high",
     caveats:
-      "Needs calibration to compare across magnifications. Degenerate (different microstructures can have similar S₂).",
+      "Needs calibration to compare across magnifications. Degenerate (different microstructures can have similar \\(S_2\\)).",
     pmids: [
       { pmid: "40697175", url: "https://pubmed.ncbi.nlm.nih.gov/40697175", note: "Dahari et al. (2025) FFT TPC" },
       { pmid: "23004736", url: "https://pubmed.ncbi.nlm.nih.gov/23004736", note: "Torquato & Stell (Heterogeneous Media)" },
     ],
   },
   {
-    name: "CLS a₂ from TPC (per phase)",
-    definition: "a₂ = (X̄ · Var / (φ(1 − φ)))^½ via Ψ",
-    interpretation: "Correlation length; sets uncertainty on φ",
+    name: "CLS \\(a_2\\) from TPC (per phase)",
+    definition: "\\(a_2 = \\sqrt{\\frac{\\bar{X}\\cdot\\operatorname{Var}}{\\phi(1-\\phi)}}\\;\\text{via }\\Psi\\)",
+    interpretation: "Correlation length; sets uncertainty on \\(\\phi\\)",
     evidence: "(B)",
     evidenceLevel: "B",
     twoDFeasible: "Yes",
@@ -81,8 +82,8 @@ const taxonomyData: TaxonomyFeature[] = [
     ],
   },
   {
-    name: "Equivalent-diameter distribution (quantiles D10/D50/D90) of solid particles",
-    definition: "d = √(4A/π) per connected component",
+    name: "Equivalent-diameter distribution (quantiles \\(D_{10}/D_{50}/D_{90}\\)) of solid particles",
+    definition: "\\(d = \\sqrt{\\frac{4A}{\\pi}}\\;\\text{per connected component}\\)",
     interpretation: "Particle size and polydispersity",
     evidence: "(A)",
     evidenceLevel: "A",
@@ -99,7 +100,7 @@ const taxonomyData: TaxonomyFeature[] = [
   },
   {
     name: "Specific interfacial length (pore–solid)",
-    definition: "L_A = boundary length / image area",
+    definition: "\\(L_A = \\frac{\\text{boundary length}}{\\text{image area}}\\)",
     interpretation: "Surface available for reaction or contact",
     evidence: "(A for 3D area)",
     evidenceLevel: "A",
@@ -115,7 +116,7 @@ const taxonomyData: TaxonomyFeature[] = [
   },
   {
     name: "Largest-connected-component fraction (pore, CBD)",
-    definition: "LCC = largest component area / total phase area",
+    definition: "\\(\\mathrm{LCC} = \\frac{\\text{largest component area}}{\\text{total phase area}}\\)",
     interpretation: "Connectivity proxy for transport",
     evidence: "(A for connectivity importance)",
     evidenceLevel: "A",
@@ -131,7 +132,7 @@ const taxonomyData: TaxonomyFeature[] = [
   },
   {
     name: "Anisotropy of TPC (directional ratio of CLS)",
-    definition: "a_x / a_y from directional S₂",
+    definition: "\\(\\frac{a_x}{a_y}\\;\\text{from directional }S_2\\)",
     interpretation: "Alignment from coating and calendering",
     evidence: "(B; flagged as future work)",
     evidenceLevel: "B",
@@ -234,17 +235,17 @@ export default function MicrostructureFeatureTaxonomy() {
               >
                 {/* Feature Name */}
                 <td className="py-3 px-3 font-semibold text-white">
-                  {item.name}
+                  <MathText text={item.name} />
                 </td>
 
                 {/* Mathematical Definition */}
                 <td className="py-3 px-3 font-mono text-cyan-300">
-                  {item.definition}
+                  <MathText text={item.definition} />
                 </td>
 
                 {/* Interpretation */}
                 <td className="py-3 px-3 text-slate-300">
-                  {item.interpretation}
+                  <MathText text={item.interpretation} />
                 </td>
 
                 {/* Evidence */}
@@ -272,12 +273,12 @@ export default function MicrostructureFeatureTaxonomy() {
 
                 {/* Robustness */}
                 <td className="py-3 px-3 text-slate-300">
-                  {item.robustness}
+                  <MathText text={item.robustness} />
                 </td>
 
                 {/* Caveats */}
                 <td className="py-3 px-4 text-amber-300/90 text-[11px] leading-relaxed max-w-xs">
-                  {item.caveats}
+                  <MathText text={item.caveats} />
                 </td>
 
                 {/* Clickable PubMed Links */}
