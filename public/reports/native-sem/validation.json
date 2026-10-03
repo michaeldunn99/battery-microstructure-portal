@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "complete": true,
+  "completed": 93,
+  "expected": 93,
+  "validated_images": 93,
+  "validated_models": [
+    "BSE",
+    "ETD",
+    "Inlens",
+    "SE"
+  ],
+  "by_detector": {
+    "BSE": {
+      "completed": 31,
+      "expected": 31,
+      "validated": 31
+    },
+    "ETD": {
+      "completed": 27,
+      "expected": 27,
+      "validated": 27
+    },
+    "Inlens": {
+      "completed": 31,
+      "expected": 31,
+      "validated": 31
+    },
+    "SE": {
+      "completed": 4,
+      "expected": 4,
+      "validated": 4
+    }
+  },
+  "manifest_snapshot_sha256": "82daa1026c6f62b8ce923ce6c098c6c2c1c609be6c850a56e0f3797fb6a80cd0",
+  "input_manifest_sha256": "13102077b58f98d947f15fbd5f3e1671b4154e826eb1f1a56f563698285e6bf5",
+  "fraction_tolerance": 1e-12,
+  "probability_checks": {
+    "shape_finite_range": "all saved values",
+    "sum_sample_pixels": 930000,
+    "sum_tolerance_float16": 0.002,
+    "maximum_sampled_sum_error": 0.0003662109375
+  },
+  "elapsed_seconds": 79.97,
+  "errors": [],
+  "warnings": [
+    "Artifact integrity checks do not validate phase identities, segmentation accuracy, probability calibration or batch quality"
+  ]
+}

@@ -1,7 +1,13 @@
 import Image from "next/image";
-import Interactive3DExplorer from "@/components/Interactive3DExplorer";
+import WebsiteStructureRoadmap from "@/components/WebsiteStructureRoadmap";
+import CorePhysicalFingerprintHero from "@/components/CorePhysicalFingerprintHero";
+import MicrostructureFeatureTaxonomy from "@/components/MicrostructureFeatureTaxonomy";
+import FeatureVectorGenesis from "@/components/FeatureVectorGenesis";
+import ImageRepTheory from "@/components/ImageRepTheory";
 import TortuosityExplainer from "@/components/TortuosityExplainer";
 import FeatureReductionGuide from "@/components/FeatureReductionGuide";
+import Interactive3DExplorer from "@/components/Interactive3DExplorer";
+import ReferencesSection from "@/components/ReferencesSection";
 
 export default function Home() {
   return (
@@ -55,22 +61,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1. What is Tortuosity? Plain-English Beginner Guide */}
+      {/* 0. Website Structure & Phase 1 Roadmap */}
+      <section id="site-structure">
+        <WebsiteStructureRoadmap />
+      </section>
+
+      {/* 1. The 5 Core Physical Factors Extracted & How We Extracted Them */}
+      <section id="core-factors">
+        <CorePhysicalFingerprintHero />
+      </section>
+
+      {/* 2. Microstructure Feature Dictionary & Evidence Matrix */}
+      <section id="taxonomy-matrix">
+        <MicrostructureFeatureTaxonomy />
+      </section>
+
+      {/* 3. Feature Vector Genesis & Physical Implications */}
+      <section id="feature-genesis">
+        <FeatureVectorGenesis />
+      </section>
+
+      {/* 4. Dahari et al. (2025) ImageRep: Area Fraction (A), Two-Point Correlation S2(r), & CLS */}
+      <section id="imagerep-theory">
+        <ImageRepTheory />
+      </section>
+
+      {/* 5. What is Tortuosity? Plain-English Beginner Guide */}
       <section id="tortuosity-guide">
         <TortuosityExplainer />
       </section>
 
-      {/* 2. Feature Reduction: Avoiding Overfitting */}
+      {/* 6. Feature Reduction: Avoiding Overfitting on N=31 */}
       <section id="feature-reduction">
         <FeatureReductionGuide />
       </section>
 
-      {/* 3. Interactive 3D Digital Twin & Orthoslice Explorer */}
+      {/* 7. Interactive 3D Digital Twin & Orthoslice Explorer */}
       <section id="3d-explorer">
         <Interactive3DExplorer />
       </section>
 
-      {/* 4. The 4-Step Preprocessing Pipeline */}
+      {/* 8. The 4-Step Preprocessing Pipeline */}
       <section id="preprocessing" className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8 shadow-xl">
         <div className="pb-4 border-b border-slate-800">
           <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyan-950 text-cyan-400 border border-cyan-800">
@@ -116,7 +147,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Production Decision Matrix for Incoming Candidate Test Set */}
+      {/* 9. Production Decision Matrix for Incoming Candidate Test Set */}
       <section id="decision-matrix" className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8 shadow-xl">
         <div className="pb-4 border-b border-slate-800">
           <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800">
@@ -167,7 +198,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Publication Visualizations Gallery */}
+      {/* 10. Publication Visualizations Gallery */}
       <section id="gallery" className="space-y-6">
         <div>
           <h3 className="text-xl lg:text-2xl font-bold text-white tracking-tight">
@@ -217,6 +248,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* 11. Scientific References & Literature Citations */}
+      <section id="references">
+        <ReferencesSection />
       </section>
     </main>
   );

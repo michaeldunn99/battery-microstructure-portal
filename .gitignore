@@ -4,3 +4,4 @@ out/
 .vercel/
 .DS_Store
 *.env*
+.vercel
