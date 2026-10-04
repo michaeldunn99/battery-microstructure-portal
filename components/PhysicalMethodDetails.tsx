@@ -81,8 +81,9 @@ const markdownComponents: Components = {
 const sections = {
   preparation: { id: "image-preparation", label: "Image preparation and three-detector segmentation", start: "## Inputs and image preparation", end: "## Feature definitions" },
   calculations: { id: "feature-calculations", label: "Feature calculations and assumptions", start: "### Correlation and porosity uncertainty", end: "## Implementation and application" },
+  assignment: { id: "batch-assignment-method", label: "Batch assignment and confidence calculation", start: "## Implementation and application", end: "### Apply the pipeline to new images" },
   statistics: { id: "assignment-validation", label: "Assignment validation and confidence", start: "### Assignment validation and confidence", end: "### Apply the pipeline to new images" },
-  test: { id: "test-set-procedure", label: "Test-set procedure", start: "## Implementation and application", end: "## Reproducibility" },
+  test: { id: "test-set-procedure", label: "Apply the pipeline to new images", start: "### Apply the pipeline to new images", end: "## Reproducibility" },
 } as const;
 
 export default async function PhysicalMethodDetails({ section }: { section: keyof typeof sections }) {

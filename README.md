@@ -10,6 +10,8 @@ Three-channel K-means produces pore, graphite and silicon-labelled masks. The ex
 
 Current data: [31 known vectors](public/multichannel/known_batches.csv), [nine test vectors](public/multichannel/test_1.csv), [assignments and confidence](public/multichannel/test_assignments.csv), and the [complete test extraction record](validation/multichannel/full-test-run.json). The [method](PHYSICAL_METHOD.md) specifies preprocessing, segmentation, measurements and reproduction commands. The [LaTeX example](public/physical-feature-vector.tex) uses the combined-method vector for Batch 3 image `0grcilhi`.
 
+Repeated extraction of three samples reproduced all 42 reported measurement values and three joint segmentation masks exactly. Run records also contain diagnostic variants, whose larger verification totals cover those additional calculations.
+
 ## Interpretation
 
 Assignments use the nearest batch mean after scaling by sample standard deviations across the known images. The fixed comparison uses all 14 saved fields except D10, including porosity uncertainty and correlated derived measurements.

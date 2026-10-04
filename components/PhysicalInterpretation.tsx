@@ -5,7 +5,7 @@ const families = [
     id: "phase-fractions",
     title: "Phase area fractions",
     label: "(a)",
-    measurements: "Pore, graphite, carbon-binder and silicon particle area fractions.",
+    measurements: "Pore, graphite and silicon-labelled area fractions, with a separate carbon-binder allocation.",
     performance: "The balance of active material, pore space and conductive material affects how much charge an electrode can store and how ions and electrons reach reaction sites. In a liquid-electrolyte electrode, pore space accommodates the ionic conductor, while solid active material supplies storage sites. More porosity is therefore not automatically better: transport and active-material loading must both be considered.",
     definition: "A phase is a distinct material or pore region, such as graphite or void space. Its area fraction is the percentage of the image assigned to it.",
     meaning: "An electrode contains solid material and void space. In a conventional liquid-electrolyte cell, electrolyte in the pores carries ions; active material stores lithium; conductive carbon provides electronic connections. Area fractions describe how much of each assigned region is visible in a cross-section. The project lead identifies the silicon particles as silicon active material; their area fraction is not silicon weight fraction.",
@@ -23,7 +23,7 @@ const families = [
     evidenceScope: "These studies motivate measuring phase proportions. They do not validate our image-intensity labels, CBD allocation or a batch acceptance threshold.",
     calculation: "Retain the central 80% of image rows and smooth each detector with Gaussian σ = 1 pixel. Standardize BSE, Inlens and ETD/SE separately within each crop, then cluster their joint pixel vectors with three-class KMeans. Order the fitted centroids by their BSE coordinate to label pore, graphite and silicon.",
     formula: String.raw`f_k = 100\,\frac{N_k}{N_{\mathrm{crop}}}\;[\%]`,
-    boundary: "Pore, graphite and silicon particle fractions sum to 100%. CBD is a subset of the pore-labelled area, so adding it again would double count. The median split has not been independently calibrated as a binder measurement.",
+    boundary: "Pore, graphite and silicon-labelled fractions sum to 100%. CBD is a subset of the pore-labelled area, so adding it again would double count. The median split has not been independently calibrated as a binder measurement.",
     calculationLink: "#multichannel-code-L92",
   },
   {
@@ -54,9 +54,9 @@ const families = [
   },
   {
     id: "inclusion-geometry",
-    title: "Silicon particle size and shape",
+    title: "Silicon-region size and shape",
     label: "(c)",
-    measurements: "Silicon particle aspect ratio and equivalent-diameter percentiles D10, D50 and D90.",
+    measurements: "Silicon-labelled component aspect ratio and equivalent-diameter percentiles D10, D50 and D90.",
     performance: "The size and shape of identified electrode particles can affect packing and pore geometry, with consequences for transport. Silicon particle size has been linked to degradation in silicon–graphite anodes. Our size and shape measurements describe the segmented regions, not their cycling performance.",
     definition: "The dimensions and elongation of connected silicon particle regions in the image.",
     meaning: "A silicon particle region is a connected component of the silicon-labelled cluster. Size and shape measurements describe this population so that batches can be compared even when their total silicon area is similar. Silicon identity follows the project lead’s identification; the cluster boundaries remain provisional.",
@@ -78,7 +78,7 @@ const families = [
   },
   {
     id: "spatial-variation",
-    title: "Silicon particle spatial variation",
+    title: "Silicon spatial variation",
     label: "(d)",
     measurements: "Standard deviation of local silicon particle area fractions across 16 image regions.",
     performance: "Spatially uneven electrode microstructure can create local differences in transport and reaction conditions, so equal average composition does not guarantee equal electrochemical behaviour. Our statistic asks whether silicon coverage is uniform across an image. It is a screening measurement of heterogeneity, not a validated predictor of current distribution, capacity or a mixing defect.",
@@ -161,7 +161,7 @@ export default function PhysicalInterpretation() {
                       </tbody>
                     </table>
                   </div>
-                  <p>For every reported region, divide its pixel count by the full cropped image area and multiply by 100. Porosity uses the entire pore mask from the selected segmentation, including its CBD allocation. The Inlens median split is retained in both methods. <a className={linkStyle} href="#image-preparation">Combined segmentation and its assumptions</a>.</p>
+                  <p>For every reported region, divide its pixel count by the full cropped image area and multiply by 100. Porosity uses the entire pore mask from the selected segmentation, including its CBD allocation. The Inlens median split is used within the pore-labelled cluster. <a className={linkStyle} href="#image-preparation">Combined segmentation and its assumptions</a>.</p>
                 </>}
                 <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={`${family.title} calculation`}><LatexFormula formula={family.formula} displayMode /></div>
                 <p>{family.boundary}</p>

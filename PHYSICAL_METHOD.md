@@ -27,7 +27,7 @@ Within the pore-labelled mask, calculate the median smoothed Inlens intensity. P
 
 The masks satisfy `pore = open_pore + CBD` and `pore + graphite + silicon = 100%`. CBD must not be added again as a fourth independent composition fraction. All pore geometry and ImageRep calculations use the entire pore-labelled mask, including the CBD allocation. [Mask measurement code](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/run_multichannel_experiment.py#L131).
 
-Diagnostic figures display matched central 900 × 900 pixel windows; measurements use the full crop. Additional rims and lines can enter the silicon-labelled class. These boundaries require validation before a segmented component can be treated as an individual particle. [Inspect the segmentation](#preprocessing-figures).
+The method figures show four panels: smoothed BSE, Inlens, ETD/SE and the joint segmentation mask. They display matched central 900 × 900 pixel windows; measurements use the full crop. Additional rims and lines can enter the silicon-labelled class. These boundaries require validation before a segmented component can be treated as an individual particle. [Inspect the segmentation](#preprocessing-figures).
 
 ## Feature definitions
 
@@ -78,6 +78,8 @@ $$
 
 Known and test vectors must use the same three-detector segmentation. Scaling and batch means use known crops only; no test label enters fitting. An exact distance tie selects the first batch in the fixed order Batch 1, Batch 2, Batch 3. The rule identifies the closest known batch mean, not manufacturing equivalence. [Assignment calculation](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/assign_multichannel_tests.py#L120).
 
+For the website comparison, the **relative similarity share** is $(1/d_b)/\sum_k(1/d_k)$. These inverse-distance scores sum to 100% across the three batches. Equal distances give one third each; zero-distance matches share all the weight equally. All cells use one fixed numerical colour scale: red at zero, orange at one sixth, pale green at one third and dark green at 100%. Separate green, orange and red text annotations identify first, second and third rank. Outlined cells identify supplied organiser labels, independently of the predicted assignment. This display transformation preserves the nearest-mean assignment and is not a calibrated probability or validation confidence.
+
 ### Assignment validation and confidence
 
 Leave out one known crop, refit scaling and batch means on the other 30, then classify the omitted crop. Repeat for all 31 crops. The fixed rule correctly assigns **18 of 31 crops (58.1% accuracy; 49.3% balanced accuracy)**. For each predicted batch, divide correct assignments by all assignments to that batch:
@@ -92,7 +94,7 @@ The reporting bands are **High above 70%, Medium from 50% to 70% inclusive, and 
 
 Distance margins, agreement across 31 crop-omission refits and the assigned class's empirical distance envelope are retained as diagnostics. They do not change these reporting bands. [Validation calculation](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/assign_multichannel_tests.py#L156); [reporting thresholds](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/assign_multichannel_tests.py#L209).
 
-The organisers describe crops from approximately 15 source electrode images, arranged into batches. A crop-to-parent mapping is unavailable, so crop-level validation may be optimistic. Future validation should hold out entire source images when that mapping is known.
+The organisers describe crops from approximately 15 source electrode images, arranged into batches. A crop-to-parent mapping has not been established for this analysis, so crop-level validation may be optimistic. Future validation should hold out entire source images when that mapping is known.
 
 Supplied labels identify `3e122cbj` as Batch 2, `fn0mhxef` as Batch 1 and `xrv9xvzb` as Batch 3. The classifier assigns them to Batches 1, 2 and 3 respectively. These labels were available before the complete test evaluation and were not used to fit the classifier or calculate its confidence rates. Labels for the other six images have not been supplied. Batch assignment and its confidence band do not establish manufacturing acceptance.
 

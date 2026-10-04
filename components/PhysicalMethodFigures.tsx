@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const figureWidth = 1800;
-const figureHeight = 1470;
+const figureHeight = 660;
 const figureSizes = "(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) calc(100vw - 96px), (max-width: 1280px) calc(100vw - 144px), 1134px";
 
 type SampleFigure = {
@@ -13,10 +13,10 @@ type SampleFigure = {
 
 const mainFigures: SampleFigure[] = [
   { sampleId: "4ih2ggld", batch: "Batch 1", detector: "ETD", number: 1 },
-  { sampleId: "0grcilhi", batch: "Batch 3", detector: "ETD", number: 2 },
 ];
 
 const additionalFigures: SampleFigure[] = [
+  { sampleId: "0grcilhi", batch: "Batch 3", detector: "ETD", number: 2 },
   { sampleId: "rxax5ozo", batch: "Batch 2", detector: "SE" },
 ];
 
@@ -52,16 +52,16 @@ function FullResolutionView({ src, alt, label }: {
 }
 
 function MethodFigure({ sampleId, batch, detector, number }: SampleFigure) {
-  const src = `/multichannel/${sampleId}.png`;
+  const src = `/multichannel/method/${sampleId}.png`;
   const label = `${number ? `Fig. ${number}. ` : ""}${batch}, sample ${sampleId}`;
-  const alt = `${batch}, sample ${sampleId}: smoothed BSE, Inlens and ${detector} views above the BSE Multi-Otsu initialisation, BSE-only clustering control and three-channel result.`;
+  const alt = `${batch}, sample ${sampleId}: smoothed BSE, Inlens and ${detector} inputs followed by the saved three-channel pore, graphite and silicon mask.`;
 
   return (
     <figure>
       <Image src={src} width={figureWidth} height={figureHeight} sizes={figureSizes} className="h-auto w-full" alt={alt} />
       <FullResolutionView src={src} label={label} alt={alt} />
       <figcaption className="mt-3 text-sm leading-6 text-zinc-600">
-        <strong className="font-semibold text-zinc-800">{label}.</strong> Detector views and segmentation outputs from the combined run. The third detector is {detector}. Silicon-labelled mask boundaries remain provisional.
+        <strong className="font-semibold text-zinc-800">{label}.</strong> Detector inputs and the saved joint segmentation. The third detector is {detector}. Silicon-labelled mask boundaries remain provisional.
       </figcaption>
     </figure>
   );
@@ -86,7 +86,7 @@ export default function PhysicalMethodFigures() {
       <div className="space-y-2">
         <h3 id="preprocessing-figures-heading" className="text-base font-semibold text-zinc-950">Three-channel segmentation</h3>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">Each pixel contributes separately standardized BSE, Inlens and ETD/SE intensities to KMeans. The channels are stacked, not averaged, and retain their original coordinates without automatic registration.</p>
-        <p className="max-w-4xl text-sm leading-6 text-zinc-600">The top row shows detector views after Gaussian smoothing (σ = 1 pixel). The bottom-right mask is the three-channel segmentation used for the reported measurements. The other masks show the BSE initialisation and clustering control. Each figure displays the same central 900 × 900 pixel window; percentages use the whole crop, which retains the central 80% of image height. The separate CBD median allocation is not shown.</p>
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">The first three panels show detector inputs after Gaussian smoothing (σ = 1 pixel); the fourth shows their joint segmentation. All panels display the same central 900 × 900 pixel window. Percentages use the whole crop, which retains the central 80% of image height. The separate CBD median allocation is not shown.</p>
       </div>
 
       <div className="space-y-6 divide-y divide-zinc-200">
@@ -98,7 +98,7 @@ export default function PhysicalMethodFigures() {
       </div>
 
       <div className="space-y-3 border-t border-zinc-200 pt-5">
-        <h4 className="text-sm font-semibold text-zinc-800">Additional known sample</h4>
+        <h4 className="text-sm font-semibold text-zinc-800">Additional known samples</h4>
         {additionalFigures.map((figure) => (
           <ExpandableFigure key={figure.sampleId} figure={figure} />
         ))}

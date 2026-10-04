@@ -30,7 +30,7 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
     <section id="methods" aria-labelledby="feature-vector-heading" className="space-y-6 rounded-md border border-zinc-200 bg-paper p-6 lg:p-8">
       <div className="space-y-2 border-b border-zinc-200 pb-5">
         <h2 id="feature-vector-heading" className="text-2xl font-semibold tracking-tight lg:text-3xl">3. Methods</h2>
-        <p className="max-w-4xl text-sm leading-6 text-zinc-600">The current pipeline jointly segments BSE, Inlens and ETD/SE, then extracts one 13-dimensional physical descriptor vector per sample. Porosity uncertainty is reported separately. Calculation links open the combined extraction code below.</p>
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">The pipeline jointly segments BSE, Inlens and ETD/SE, then extracts one 13-dimensional physical descriptor vector per sample. Porosity uncertainty is reported separately. Calculation links open the extraction code below.</p>
       </div>
 
       <div>
@@ -105,8 +105,10 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
       <PhysicalMethodDetails section="calculations" />
       <div className="space-y-3">
         <h3 className="text-base font-semibold">From measurements to batch comparisons</h3>
-        <p className="max-w-4xl text-sm leading-6 text-zinc-600">Compare each test vector with known vectors from the same extraction. A standardised nearest-batch-mean rule assigns each sample; confidence bands use leave-one-crop-out validation precision.</p>
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">The assignment rule uses 13 of the 14 saved fields: it includes porosity uncertainty and excludes D10. These inputs differ from the 13 physical descriptors shown above. Each input is scaled by its standard deviation across the known crops, and the nearest batch mean determines the assignment.</p>
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">Confidence bands use the fraction of correct predictions for that batch in leave-one-crop-out validation. They describe the rule’s observed reliability for a predicted batch, not the probability that an individual image is correctly assigned.</p>
       </div>
+      <PhysicalMethodDetails section="assignment" />
       <ExtractorCodeViewer />
       <ExtractorCodeViewer script="assignment" />
 

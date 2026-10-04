@@ -1,0 +1,489 @@
+{
+  "method": "Three smoothed detector views and the existing stacked_three_channel mask; no segmentation or feature extraction rerun",
+  "display_preparation": "First stored channel, central 80% of rows, full width, Gaussian sigma1 preserve_range=True; each detector displayed using its full-crop min/max",
+  "mask_labels": {
+    "0": "pore-labelled",
+    "1": "graphite-labelled",
+    "2": "silicon-labelled"
+  },
+  "script": "/Users/michaeldunn/bio-hack/portal/scripts/plot_multichannel_method.py",
+  "script_sha256": "c4369e23c91f13de71c45e60d034ccc4851cd24adb0ed9d41cdfa6f5a44f4d54",
+  "arguments": [],
+  "versions": {
+    "python": "3.13.7",
+    "numpy": "1.26.4",
+    "matplotlib": "3.11.2",
+    "pillow": "12.3.0",
+    "skimage": "0.26.0"
+  },
+  "figures": [
+    {
+      "sample_id": "4ih2ggld",
+      "batch": "Batch_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/results/report.json",
+      "run_report_sha256": "0b5eeb64d9633b64733459767063463a983b326eed7bb94fb73794ec845afc30",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/Batch_1/img_4ih2ggld_BSE.tif",
+          "sha256": "a7fa8987f58071205743249f0b089912c3cdab5289d48aa4dc21e5b73aa21b09"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/Batch_1/img_4ih2ggld_Inlens.tif",
+          "sha256": "bcb9b0d7958dc1547db0915118f981d9cdc05ee8e7a63f1478693ed664b74dc1"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/Batch_1/img_4ih2ggld_ETD.tif",
+          "sha256": "297533fcdc52070bbf80c81ce61d6fa0b6956c8988310bc632926eef2cdcc2a1"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/results/masks/4ih2ggld_stacked_three_channel.png",
+      "saved_mask_sha256": "ed1a3ffdee07477aa8e75eb48d69a217013d3ea244281d29c5977640c8867bcd",
+      "crop_shape": [
+        1853,
+        6996
+      ],
+      "display_window_yx": [
+        476,
+        3048,
+        900,
+        900
+      ],
+      "output": "4ih2ggld.png",
+      "output_sha256": "0223218b5ae1e4884e3e69a2a10f898e579128409af171099f5c6a5c20a64cc6",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "0grcilhi",
+      "batch": "Batch_3",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/results/report.json",
+      "run_report_sha256": "0b5eeb64d9633b64733459767063463a983b326eed7bb94fb73794ec845afc30",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/Batch_3/img_0grcilhi_BSE.tif",
+          "sha256": "17b8f934fbb4f6904fcf12c7624c58f017f62b5633c856ad159bf6bd2cd9b95a"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/Batch_3/img_0grcilhi_Inlens.tif",
+          "sha256": "94eab6358b2110e804065e3fd4d3af80cfd2b57257c325c3cdcd776839bad89a"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/Batch_3/img_0grcilhi_ETD.tif",
+          "sha256": "8b1083c09b5369ab2e964cec1e5f4eff61bdb5864d570772a854a9ba091ccb98"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/results/masks/0grcilhi_stacked_three_channel.png",
+      "saved_mask_sha256": "96c9d4ac3d0281b544a5bc4e7e1d9b8f8b930dade0798a11940c0896e774db60",
+      "crop_shape": [
+        1523,
+        7000
+      ],
+      "display_window_yx": [
+        311,
+        3050,
+        900,
+        900
+      ],
+      "output": "0grcilhi.png",
+      "output_sha256": "2634d1d02777c147f2cc1df566eccd600c07c6e7fbbacd27bda35192cc1201fb",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "rxax5ozo",
+      "batch": "Batch_2",
+      "third_channel": "SE",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/results/report.json",
+      "run_report_sha256": "0b5eeb64d9633b64733459767063463a983b326eed7bb94fb73794ec845afc30",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/Batch_2/img_rxax5ozo_BSE.tif",
+          "sha256": "e1cffb1b6a62f7aa6a10a48cc52a8ef18833929a858c5c6692e5c5bd7558f2c9"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/Batch_2/img_rxax5ozo_Inlens.tif",
+          "sha256": "1560ac370f768db7d11fc824d81dfbc2b750dc7eb11eba3f7cee5e521190dfe1"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/Batch_2/img_rxax5ozo_SE.tif",
+          "sha256": "a5f3d99b7c16c00e589865d31c8a8ee0d06cc9f7e97291c29f9f6ae0fefc459e"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/results/masks/rxax5ozo_stacked_three_channel.png",
+      "saved_mask_sha256": "ab793011b6c5aa813146a34d61ec7b00d90183be1f8adc117c8afe09c093790b",
+      "crop_shape": [
+        1655,
+        7000
+      ],
+      "display_window_yx": [
+        377,
+        3050,
+        900,
+        900
+      ],
+      "output": "rxax5ozo.png",
+      "output_sha256": "ccf565ca1cd345a31a514be043619d4c685893ccfb2580a4a37ad7affca86e5b",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "0eryguqq",
+      "batch": "test_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/report.json",
+      "run_report_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_0eryguqq_BSE.tif",
+          "sha256": "4fffed829318f1a14184bfc3f9524eca07ad3b7592284babeaf3f53ebf9e6e55"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_0eryguqq_Inlens.tif",
+          "sha256": "0dce1c504df5e1b27b4af9d19620c1141d77e9de065bfebaced5d9b1f62c234e"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_0eryguqq_ETD.tif",
+          "sha256": "e88660f85916259cc90978c2a90e9db4baeb3050ca2c08f693fff61ef9f82fb3"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/masks/0eryguqq_stacked_three_channel.png",
+      "saved_mask_sha256": "cecb8514d2f411ce130e8e8fe923d1e2a7999bcae3a19a0db4630bb6a0ff0c1b",
+      "crop_shape": [
+        1289,
+        7000
+      ],
+      "display_window_yx": [
+        194,
+        3050,
+        900,
+        900
+      ],
+      "output": "0eryguqq.png",
+      "output_sha256": "aca115cd60e054c1f2e14cef22a78c8066f1a9894d7d81d34ea31657e3930040",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "3e122cbj",
+      "batch": "test_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/report.json",
+      "run_report_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_3e122cbj_BSE.tif",
+          "sha256": "efad123af7f20e762d44b0de140dea5ac3c7593d7b323d4da020eef2d1159374"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_3e122cbj_Inlens.tif",
+          "sha256": "c03147055308da8bd2e06b4b6d6f58efe1237aa1c17067545be886f6502c4436"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_3e122cbj_ETD.tif",
+          "sha256": "78133a28d1f0b68faf7dc4faf03c62fa7b6c86076766b50e3237777060d65e1d"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/masks/3e122cbj_stacked_three_channel.png",
+      "saved_mask_sha256": "1cfac51c602b719d3945820edb8507374f6237f5fbe3c33ac630abcfea096509",
+      "crop_shape": [
+        1853,
+        6996
+      ],
+      "display_window_yx": [
+        476,
+        3048,
+        900,
+        900
+      ],
+      "output": "3e122cbj.png",
+      "output_sha256": "def2ee9deae65f55de8594b4ce2e285ae9a46166da942e6130c2d9583a9df1c4",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "4hq27w4c",
+      "batch": "test_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/report.json",
+      "run_report_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_4hq27w4c_BSE.tif",
+          "sha256": "e0184e85877644c730f83121ddc7eef12af691bd5947e59c1eb3ae69543270dd"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_4hq27w4c_Inlens.tif",
+          "sha256": "2828e51c5c027b2c7a519b8c5374300bfb2a40937b2f89b2baaba382eb8875cf"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_4hq27w4c_ETD.tif",
+          "sha256": "eded4fb6af8d8b74f13ce0adc095b535cb6647f91dbedd0c2994ec1b98ea6c23"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/masks/4hq27w4c_stacked_three_channel.png",
+      "saved_mask_sha256": "f617f16fb984f30c7b7043440902755a5633ac669f8bccff9bc9348ebae17a32",
+      "crop_shape": [
+        1719,
+        7000
+      ],
+      "display_window_yx": [
+        409,
+        3050,
+        900,
+        900
+      ],
+      "output": "4hq27w4c.png",
+      "output_sha256": "728d9c51b750bffb3274997cbffea718f547254b5557d00a847af964936b46c8",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "fhwrjtet",
+      "batch": "test_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/report.json",
+      "run_report_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fhwrjtet_BSE.tif",
+          "sha256": "744830f0dd983f8275252edb55d7ef2befe6356edf8a202670ce9d6401d81e38"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fhwrjtet_Inlens.tif",
+          "sha256": "76cb0e8d605172ad16a5d6231617b8cd6acb6cabffefb29b0055781ac1395349"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fhwrjtet_ETD.tif",
+          "sha256": "024b3072744ff0ec9e6949a8ff347150e59bb2f18541995f37d01bede46bf117"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/masks/fhwrjtet_stacked_three_channel.png",
+      "saved_mask_sha256": "fb66a71263897dd1d9d058fa408e9b3a87af8b126ded0e2d620433e555f20eaf",
+      "crop_shape": [
+        1289,
+        7000
+      ],
+      "display_window_yx": [
+        194,
+        3050,
+        900,
+        900
+      ],
+      "output": "fhwrjtet.png",
+      "output_sha256": "32f25cd25f51b97c3701878c1d06e6d760a245b4c62198f08383e1aac51f4345",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "fn0mhxef",
+      "batch": "test_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/report.json",
+      "run_report_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fn0mhxef_BSE.tif",
+          "sha256": "be7677781389261f500c317fe20ebf972fa1389f32447b777072e82ecdcd7958"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fn0mhxef_Inlens.tif",
+          "sha256": "670ea5dc3006b20a847e2aeaf134d063927c172be71adbb189cc1bac0cecbfad"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fn0mhxef_ETD.tif",
+          "sha256": "02635143bbc1d158142a95d406cbca7ce94b40d9326068c70bbcb07fbe32c7fb"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/masks/fn0mhxef_stacked_three_channel.png",
+      "saved_mask_sha256": "3f908e8494f9b804541d5195f85aa7b2c9b22af157949c5c081a302b2dce64a7",
+      "crop_shape": [
+        1639,
+        7000
+      ],
+      "display_window_yx": [
+        369,
+        3050,
+        900,
+        900
+      ],
+      "output": "fn0mhxef.png",
+      "output_sha256": "d80847317889dc3f5ec091f738f91c4c2bc92a72dacd51024dd62a860ccea5b0",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "fspqbkxl",
+      "batch": "test_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/report.json",
+      "run_report_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fspqbkxl_BSE.tif",
+          "sha256": "cb4a6fe9006a2d23c765fd07316bc33b6b39ffd68485ecc811aea7d7f74a55ff"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fspqbkxl_Inlens.tif",
+          "sha256": "069175c3714da9a8df9a7562ecd90896af548e4be966905bd1e26dd745800159"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fspqbkxl_ETD.tif",
+          "sha256": "a8cdd53426e324f5da58457681b17e6a6a963cd866482a637843215b41fa6c61"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/masks/fspqbkxl_stacked_three_channel.png",
+      "saved_mask_sha256": "56ef8a56312c0631a8f51fb73192861659c4595f6fc7538556b73d61a09b243c",
+      "crop_shape": [
+        1719,
+        7000
+      ],
+      "display_window_yx": [
+        409,
+        3050,
+        900,
+        900
+      ],
+      "output": "fspqbkxl.png",
+      "output_sha256": "06166047e6a442f845765d4465247b5ebb65f9ae6b1c8655115ee131bb6735f7",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "soo2ax3r",
+      "batch": "test_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/report.json",
+      "run_report_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_soo2ax3r_BSE.tif",
+          "sha256": "c73b525da79bf5c8efd7c938e87e7e7dd6a97633c6a7e3db3f24a160c5b96b75"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_soo2ax3r_Inlens.tif",
+          "sha256": "91b8a3cef31af4e55c99b587100c8fdebfff1fdf47caf7478d6ee81a468fe7a4"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_soo2ax3r_ETD.tif",
+          "sha256": "41c606643c3544662da97bae895ae947a102fd348c65511fb6198d23b7cf091c"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/masks/soo2ax3r_stacked_three_channel.png",
+      "saved_mask_sha256": "0c25045c2c34647cb9b678db4c29f972610498cefbc0d896658b5beb52093d31",
+      "crop_shape": [
+        1725,
+        7000
+      ],
+      "display_window_yx": [
+        412,
+        3050,
+        900,
+        900
+      ],
+      "output": "soo2ax3r.png",
+      "output_sha256": "9509afc9908f728904fcc96bdd9caac6385eae81226098d97dd2043f7934f554",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "xrv9xvzb",
+      "batch": "test_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/report.json",
+      "run_report_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_xrv9xvzb_BSE.tif",
+          "sha256": "2bb8f7cb564a15879e49a99b7ff9f319472585ef2ba524bf4816ec5c74ffa222"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_xrv9xvzb_Inlens.tif",
+          "sha256": "19b9e6f2a0445b4584e3a77224bbe609ec213a8f4e77112d964d53187ca88e30"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_xrv9xvzb_ETD.tif",
+          "sha256": "a05becd6d1e4b530197c2bf93636422d2d88d7d42fef259ec4dced9619f751d0"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/masks/xrv9xvzb_stacked_three_channel.png",
+      "saved_mask_sha256": "cef5e901f05ea1181cadcfb3eb1f4a36af5ed469ec29d398227ba743ccb8a796",
+      "crop_shape": [
+        1671,
+        7000
+      ],
+      "display_window_yx": [
+        385,
+        3050,
+        900,
+        900
+      ],
+      "output": "xrv9xvzb.png",
+      "output_sha256": "e3694679c1e0116c9d48b9787593bfd3f4bc444785469bf2d39bf19fb317d854",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    },
+    {
+      "sample_id": "y59rxmxl",
+      "batch": "test_1",
+      "third_channel": "ETD",
+      "run_report": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/report.json",
+      "run_report_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a",
+      "inputs": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_y59rxmxl_BSE.tif",
+          "sha256": "17d7d7ab53c90d95df77b9f480e8424d77972cb3a7f5f854f16bd52e9c26a482"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_y59rxmxl_Inlens.tif",
+          "sha256": "c1b05eac6e4ad2fff8164b6767a5a79d8a7c9bda69704739fbff16dced5fde13"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_y59rxmxl_ETD.tif",
+          "sha256": "8bef1eefa4c6ce7ed7c7c11d793317f8a6fd2930bbf42c6c995bf8f99ed78946"
+        }
+      ],
+      "saved_mask": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test/masks/y59rxmxl_stacked_three_channel.png",
+      "saved_mask_sha256": "b70e54dbefee2a079a1fff325290c415ecddf7cc8a8ead86d48ac9815069119f",
+      "crop_shape": [
+        1504,
+        7000
+      ],
+      "display_window_yx": [
+        302,
+        3050,
+        900,
+        900
+      ],
+      "output": "y59rxmxl.png",
+      "output_sha256": "8c3510208fdef0c5305c5bd219471eac4475269e72c546892c9b89844152c373",
+      "dimensions_width_height": [
+        1800,
+        660
+      ]
+    }
+  ]
+}

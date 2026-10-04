@@ -38,7 +38,7 @@ export default function CombinedPhysicalResults() {
       <div className="overflow-x-auto" role="region" aria-label="Combined measurements for all nine test images and known batches" tabIndex={0}>
         <table className="w-full min-w-[1900px] border-collapse text-left text-sm">
           <caption className="pb-3 text-left text-sm leading-6 text-zinc-600">
-            Combined measurements for all {comparison.test_ids.length} test images. Known batches show mean ± sample standard deviation; each test column is one image. Scroll horizontally to inspect every image.
+            Five selected physical descriptors for all {comparison.test_ids.length} test images. Known batches show mean ± sample standard deviation; each test column is one image. All 13 descriptors and porosity uncertainty are available below. Scroll horizontally to inspect every image.
           </caption>
           <thead className="border-y border-zinc-200 bg-zinc-50 text-zinc-700">
             <tr>
@@ -67,7 +67,7 @@ export default function CombinedPhysicalResults() {
           <p className="text-sm leading-6 text-zinc-600">
             Known batches show mean ± sample standard deviation between images. Each test column
             contains one image measurement. The 14 rows contain 13 physical descriptors and the
-            separate porosity uncertainty half-width.
+            separate porosity uncertainty half-width. In that row, the batch mean averages the image-level interval half-widths and the standard deviation describes their spread; neither is a confidence interval for the batch mean porosity.
           </p>
           <div className="overflow-x-auto" role="region" aria-label="All combined measurements for all nine test images" tabIndex={0}>
             <table className="w-full min-w-[1900px] border-collapse text-left text-sm">
@@ -104,27 +104,7 @@ export default function CombinedPhysicalResults() {
         </div>
       </details>
 
-      <details className="rounded-md border border-zinc-200">
-        <summary className={summaryStyle}>How the assignment comparison was calculated</summary>
-        <div className="space-y-3 border-t border-zinc-200 p-4 text-sm leading-6 text-zinc-600">
-          <p>
-            Calculate a mean vector for each known batch. Divide each
-            input by its sample standard deviation across all 31 known images, then assign a test image to
-            the batch mean with the smallest root-mean-square standardised distance. Scaling and batch means use known
-            images only. Confirmed test labels are used only to check the assignments.
-          </p>
-          <p>
-            The assignment uses a fixed subset of 13 saved fields: all fields except D10. It includes
-            porosity uncertainty and derived, correlated measurements. This differs from the
-            13-descriptor physical vector, which includes D10 and reports uncertainty separately.
-          </p>
-          <p>
-            No class probabilities or acceptance thresholds are fitted. A nearest batch identifies
-            the closest of the three known means; it does not establish equivalence to that batch
-            or suitability for manufacturing.
-          </p>
-        </div>
-      </details>
+      <p className="text-sm leading-6 text-zinc-600">The <a href="#batch-assignment-method" className="underline underline-offset-4">assignment method</a> specifies the inputs, scaling and confidence calculation. Batch similarity does not establish manufacturing acceptance.</p>
     </section>
   );
 }
