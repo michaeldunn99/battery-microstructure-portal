@@ -18,6 +18,10 @@ const downloads = {
     source: ["validation", "multichannel", "full-test-alignment.json"],
     contentType: "application/json; charset=utf-8",
   },
+  "multichannel-full-test-reproduction.json": {
+    source: ["validation", "multichannel", "full-test-reproduction.json"],
+    contentType: "application/json; charset=utf-8",
+  },
   "run_multichannel_experiment.py": {
     source: ["scripts", "run_multichannel_experiment.py"],
     contentType: "text/x-python; charset=utf-8",

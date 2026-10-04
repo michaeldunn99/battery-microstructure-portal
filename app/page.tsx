@@ -7,6 +7,7 @@ import ReportNavigation from "@/components/ReportNavigation";
 import { ReportDownloads, ReportReferences, VerificationDetails } from "@/components/ReportResources";
 import combinedReport from "@/public/multichannel/summary.json";
 import assignments from "@/public/multichannel/test_assignments.json";
+import ScrollableTable from "@/components/ScrollableTable";
 
 export default async function Home() {
   const { example, count } = await loadCombinedPhysicalVector();
@@ -61,7 +62,7 @@ export default async function Home() {
       <section aria-labelledby="reproducibility-heading" className="space-y-3 rounded-md border border-zinc-200 bg-paper p-6 lg:p-8">
         <h2 id="reproducibility-heading" className="text-2xl font-semibold tracking-tight lg:text-3xl">6. Reproducibility and test-set use</h2>
         <p className="max-w-4xl text-sm leading-7 text-zinc-600">All {count} known samples and {combinedReport.test_ids.length} test samples use the same preparation, segmentation and measurement settings. Repeated extraction of three samples reproduces all 42 reported measurement values and three joint masks exactly. Input hashes, software versions, source snapshots and full-precision vectors document the calculations.</p>
-        <div className="overflow-x-auto" role="region" aria-label="Test-set readiness" tabIndex={0}>
+        <ScrollableTable label="Test-set readiness">
           <table className="w-full min-w-[560px] text-left text-sm leading-6">
             <caption className="pb-3 text-left text-zinc-600">Complete test-set processing</caption>
             <thead className="border-y border-zinc-200"><tr><th scope="col" className="py-2 pr-5 font-medium">Step</th><th scope="col" className="py-2 font-medium">Current status</th></tr></thead>
@@ -72,7 +73,7 @@ export default async function Home() {
               <tr><th scope="row" className="py-3 pr-5 font-medium">Validation</th><td className="py-3">Leave-one-crop-out checks are provisional because crops can share source images. Class-level validation rates are not individual probabilities.</td></tr>
             </tbody>
           </table>
-        </div>
+        </ScrollableTable>
         <PhysicalMethodDetails section="test" />
         <VerificationDetails />
         <ReportDownloads />

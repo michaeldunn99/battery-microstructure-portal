@@ -3,6 +3,7 @@ import LatexFormula from "./LatexFormula";
 import PhysicalMethodDetails from "./PhysicalMethodDetails";
 import ExtractorCodeViewer from "./ExtractorCodeViewer";
 import PhysicalMethodFigures from "./PhysicalMethodFigures";
+import ScrollableTable from "./ScrollableTable";
 const descriptors = physicalFeatures.filter((feature) => feature.key !== "porosity_ci95_pct");
 const calculationLines: Record<(typeof physicalFeatures)[number]["key"], number> = {
   porosity_pct: 154,
@@ -72,7 +73,7 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
 
       <details id="feature-definitions" className="scroll-mt-6 rounded-md border border-zinc-200">
         <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Physical descriptor definitions (13)</summary>
-        <div className="overflow-x-auto border-t border-zinc-200 p-4" role="region" aria-label="Physical feature definitions" tabIndex={0}>
+        <ScrollableTable className="border-t border-zinc-200 p-4" label="Physical feature definitions">
         <table className="w-full min-w-[720px] border-collapse text-left text-sm">
           <caption className="pb-3 text-left text-zinc-600">The 13 physical descriptors in vector order. Example: Batch 3, sample {example.sample_id}, from the <a className="underline underline-offset-4" href="#three-detector-comparison">saved measurements</a>. Porosity uncertainty is defined separately below.</caption>
           <thead className="border-y border-zinc-200 bg-zinc-50 text-zinc-700">
@@ -88,7 +89,7 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
             ))}
           </tbody>
         </table>
-        </div>
+        </ScrollableTable>
       </details>
 
       <details id="porosity-uncertainty" className="scroll-mt-6 rounded-md border border-zinc-200">

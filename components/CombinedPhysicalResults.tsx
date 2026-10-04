@@ -1,4 +1,5 @@
 import comparison from "@/public/multichannel/summary.json";
+import ScrollableTable from "./ScrollableTable";
 
 const overviewKeys = new Set([
   "porosity_pct",
@@ -35,7 +36,7 @@ export default function CombinedPhysicalResults() {
         </p>
       </div>
 
-      <div className="overflow-x-auto" role="region" aria-label="Combined measurements for all nine test images and known batches" tabIndex={0}>
+      <ScrollableTable label="Combined measurements for all nine test images and known batches">
         <table className="w-full min-w-[1900px] border-collapse text-left text-sm">
           <caption className="pb-3 text-left text-sm leading-6 text-zinc-600">
             Five selected physical descriptors for all {comparison.test_ids.length} test images. Known batches show mean ± sample standard deviation; each test column is one image. All 13 descriptors and porosity uncertainty are available below. Scroll horizontally to inspect every image.
@@ -59,7 +60,7 @@ export default function CombinedPhysicalResults() {
             ))}
           </tbody>
         </table>
-      </div>
+      </ScrollableTable>
 
       <details className="rounded-md border border-zinc-200">
         <summary className={summaryStyle}>All combined measurements: known batches and individual test images</summary>
@@ -69,7 +70,7 @@ export default function CombinedPhysicalResults() {
             contains one image measurement. The 14 rows contain 13 physical descriptors and the
             separate porosity uncertainty half-width. In that row, the batch mean averages the image-level interval half-widths and the standard deviation describes their spread; neither is a confidence interval for the batch mean porosity.
           </p>
-          <div className="overflow-x-auto" role="region" aria-label="All combined measurements for all nine test images" tabIndex={0}>
+          <ScrollableTable label="All combined measurements for all nine test images">
             <table className="w-full min-w-[1900px] border-collapse text-left text-sm">
               <thead className="border-y border-zinc-200 bg-zinc-50 text-zinc-700">
                 <tr>
@@ -90,7 +91,7 @@ export default function CombinedPhysicalResults() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </ScrollableTable>
           <p className="text-sm leading-6 text-zinc-600">
             Porosity uncertainty is conditional on the chosen mask and does not include the effect
             of changing segmentation. Carbon-binder allocation remains an Inlens median split

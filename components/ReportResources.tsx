@@ -5,6 +5,7 @@ import testReproduction from "@/validation/multichannel/full-test-reproduction.j
 
 const downloads = [
   ["/multichannel/test_assignments.csv", "Test assignments and confidence (CSV)", "All nine images; percentages are class-level validation rates."],
+  ["/downloads/test-similarity.csv", "Batch distances and relative similarity (CSV)", "All nine heatmap rows, including confirmed labels where known. Similarity shares and validation precision are separate columns."],
   ["/multichannel/test_1.csv", "Test measurements (CSV)", "All nine images, with 13 physical descriptors and porosity uncertainty at full precision."],
   ["/multichannel/known_batches.csv", "Known-batch measurements (CSV)", "31 known images processed by the same three-detector segmentation."],
   ["/multichannel/summary.json", "Measurement summaries (JSON)", "Known-batch means, sample standard deviations and all nine individual test vectors."],
@@ -16,11 +17,12 @@ const downloads = [
 
 const calculationDownloads = [
   ["/downloads/assign_multichannel_tests.py", "Assignment code (Python)", "Repeat known-image validation and test assignment."],
-  ["/downloads/run_multichannel_experiment.py", "Extraction code (Python)", "Repeat segmentation, vector extraction and diagnostic figure generation."],
+  ["/downloads/run_multichannel_experiment.py", "Extraction code (Python)", "Repeat segmentation, vector extraction and diagnostic figure generation. Run within the repository with the dependencies listed in the protocol."],
   ["/downloads/multichannel-full-test-run.json", "Complete test extraction record (JSON)", "All nine images: detector input hashes, fitted centroids, settings and software versions."],
   ["/downloads/multichannel-full-test-alignment.json", "Complete test alignment audit (JSON)", "Image grid and detector alignment diagnostics."],
   ["/downloads/multichannel-run.json", "Known-batch extraction record (JSON)", "Known-image detector inputs, fitted centroids, settings and software versions."],
-  ["/downloads/multichannel-validation.json", "Extraction verification (JSON)", "Numerical reproduction and repeated-run checks."],
+  ["/downloads/multichannel-validation.json", "Extraction verification (JSON)", "Checks covering 31 known images and three test images, including diagnostic segmentation variants."],
+  ["/downloads/multichannel-full-test-reproduction.json", "Test repeatability checks (JSON)", "Three test images re-extracted during the nine-image run: all reported measurements and joint segmentation masks reproduced exactly."],
 ] as const;
 
 export function VerificationDetails() {

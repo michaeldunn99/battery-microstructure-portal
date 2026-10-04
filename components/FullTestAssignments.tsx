@@ -1,9 +1,10 @@
 import results from "@/public/multichannel/test_assignments.json";
 import comparison from "@/public/multichannel/summary.json";
+import { batchOrder, relativeSimilarityShares } from "@/lib/batch-similarity";
+import ScrollableTable from "./ScrollableTable";
 
 type Assignment = typeof results.assignments[number];
 
-const batchOrder = ["Batch_3", "Batch_1", "Batch_2"] as const;
 const head = "px-3 py-3 text-left font-medium";
 const cell = "px-3 py-3 align-top tabular-nums";
 const summaryStyle = "cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600";
@@ -18,14 +19,7 @@ function rate(value: number) {
 }
 
 function similarityShares(row: Assignment) {
-  const exactMatches = batchOrder.filter(batch => row.distances[batch] === 0);
-  const nearestDistance = Math.min(...batchOrder.map(batch => row.distances[batch]));
-  // Dividing by the nearest distance first gives equivalent, bounded inverse-distance weights.
-  const weights = batchOrder.map(batch => exactMatches.length
-    ? (exactMatches.includes(batch) ? 1 : 0)
-    : nearestDistance / row.distances[batch]);
-  const total = weights.reduce((sum, value) => sum + value, 0);
-  return Object.fromEntries(batchOrder.map((batch, index) => [batch, weights[index] / total])) as Record<typeof batchOrder[number], number>;
+  return relativeSimilarityShares(row.distances);
 }
 
 // One fixed numeric scale for every cell; rank labels and validation precision are separate.
@@ -91,7 +85,7 @@ export default function FullTestAssignments() {
         </p>
       </div>
 
-      <div className="overflow-x-auto" role="region" aria-label="All test images: batch assignments and confidence" tabIndex={0}>
+      <ScrollableTable label="All test images: batch assignments and confidence">
           <table className="w-full min-w-[560px] border-collapse text-left text-sm">
             <caption className="pb-3 text-left text-sm leading-6 text-zinc-600">Percentages are class-level leave-one-crop-out validation rates, not individual probabilities.</caption>
             <thead className="border-y border-zinc-200 bg-zinc-50 text-zinc-700">
@@ -105,7 +99,7 @@ export default function FullTestAssignments() {
               </tr>)}
             </tbody>
           </table>
-      </div>
+      </ScrollableTable>
 
       <details className="rounded-md border border-zinc-200">
         <summary className={summaryStyle}>How the confidence ratings were calculated</summary>
@@ -117,7 +111,7 @@ export default function FullTestAssignments() {
             to Batch 3 receives this same High rating. This is validation precision, not a score
             calculated from that test image’s similarity.
           </p>
-          <div className="overflow-x-auto" role="region" aria-label="Validation rates used for confidence ratings" tabIndex={0}>
+          <ScrollableTable label="Validation rates used for confidence ratings">
             <table className="w-full min-w-[620px] border-collapse text-left text-sm">
               <thead className="border-y border-zinc-200 bg-zinc-50"><tr>{["Predicted batch", "Correct / assigned", "Validation rate", "Band", "Band threshold"].map(label => <th key={label} scope="col" className={head}>{label}</th>)}</tr></thead>
               <tbody className="divide-y divide-zinc-200 border-b border-zinc-200">{batchOrder.map(batch => {
@@ -126,7 +120,7 @@ export default function FullTestAssignments() {
                 return <tr key={batch}><th scope="row" className={head}>{batchName(batch)}</th><td className={cell}>{check.oof_correct_predictions} / {check.oof_prediction_count}</td><td className={cell}>{rate(100 * check.oof_precision)}</td><td className={cell}>{example.confidence}</td><td className={cell}>{example.confidence === "High" ? "> 70%" : example.confidence === "Medium" ? "50% to 70%, inclusive" : "< 50%"}</td></tr>;
               })}</tbody>
             </table>
-          </div>
+          </ScrollableTable>
           <p>
             This is an empirical rate for a predicted class, not a calibrated probability for an
             individual image. A strong geometric match and an uncertain validation rate can occur
@@ -154,7 +148,7 @@ export default function FullTestAssignments() {
         <summary className={summaryStyle}>How close is each image to the three batches?</summary>
         <div className="space-y-3 border-t border-zinc-200 p-4 text-sm leading-6 text-zinc-600">
           <p>Percentages show relative similarity; the distance is printed beneath each one. Distance is the root-mean-square difference between the image’s 13 assignment inputs and a batch mean, scaled by standard deviations across the 31 known crops. Smaller distance means closer; zero is an exact match to that mean.</p>
-          <div className="overflow-x-auto" role="region" aria-label="Standardised distances from each test image to all three batch means" tabIndex={0}>
+          <ScrollableTable label="Standardised distances from each test image to all three batch means">
             <table className="w-full min-w-[820px] table-fixed border-collapse text-left text-sm">
               <caption className="pb-3 text-left text-zinc-600">Cell colour shows relative similarity on one fixed scale: red and orange below 33.3%, pale green at 33.3%, and very dark green at 100%. Shares sum to 100% per image and are not prediction confidence. An outlined cell marks the organiser-confirmed batch where known.</caption>
               <colgroup><col className="w-32" />{batchOrder.map(batch => <col key={batch} />)}</colgroup>
@@ -176,7 +170,7 @@ export default function FullTestAssignments() {
                 })}</tr>;
               })}</tbody>
             </table>
-          </div>
+          </ScrollableTable>
           <div className="max-w-xl space-y-1" aria-label="Relative similarity colour scale: zero percent red, 33.3 percent pale green, 100 percent dark green">
             <div aria-hidden="true" className="h-3 rounded-sm border border-zinc-200" style={{ background: similarityGradient }} />
             <div className="relative h-5 text-xs"><span className="absolute left-0">0%</span><span className="absolute -translate-x-1/2" style={{ left: "33.3333%" }}>33.3% · equal</span><span className="absolute right-0">100%</span></div>
@@ -192,6 +186,7 @@ export default function FullTestAssignments() {
             <p className="mt-3">Labels for the other six samples are unknown. The confirmed labels annotate this check; they do not change the predictions or similarity scores.</p>
           </details>
           <p>A small difference between distances means the assignment is sensitive to small changes in the vector or batch means. It does not provide a probability of correctness. See the <a href="#batch-assignment-method" className="underline underline-offset-4">distance formula and validation method</a>.</p>
+          <p><a href="/downloads/test-similarity.csv" download className="underline underline-offset-4">Download distances and relative similarity shares (CSV)</a></p>
         </div>
       </details>
 
@@ -203,13 +198,13 @@ export default function FullTestAssignments() {
           {results.assignments.map(row => <details key={row.sample_id} className="border-t border-zinc-200 pt-3">
             <summary className="cursor-pointer text-sm text-zinc-800"><span className="font-mono text-xs">{row.sample_id}</span>: {batchName(row.assigned_batch)}, {row.confidence} ({rate(row.confidence_pct)})</summary>
             <div className="mt-3 text-sm"><PhysicalExplanation row={row} /></div>
-            <div className="mt-3 overflow-x-auto" role="region" aria-label={`Physical measurements for ${row.sample_id}`} tabIndex={0}>
+            <ScrollableTable className="mt-3" label={`Physical measurements for ${row.sample_id}`}>
               <table className="w-full min-w-[760px] border-collapse text-left text-sm">
                 <caption className="pb-3 text-left text-xs leading-5 text-zinc-600">Green marks the batch selected by the full vector; individual measurements may favour another batch. Header colour uses the same relative-similarity scale above. Mean ± SD describes known-crop variation, not an acceptance interval.</caption>
                 <thead className="border-y border-zinc-200 bg-zinc-50"><tr><th scope="col" className={head}>Measurement</th><th scope="col" className={head}>Image value</th>{batchOrder.map(batch => <th key={batch} scope="col" style={batch === row.assigned_batch ? similarityStyle(similarityShares(row)[batch]) : undefined} className={head}>{batchName(batch)}{batch === "Batch_3" ? " (reference)" : ""}{batch === row.assigned_batch ? " · assigned" : ""}</th>)}</tr></thead>
                 <tbody className="divide-y divide-zinc-200 border-b border-zinc-200">{row.features.map(feature => <tr key={feature.key}><th scope="row" className={head}>{feature.label}</th><td className={`${cell} whitespace-nowrap`}>{measurement(feature.value, feature.unit)}</td>{batchOrder.map(batch => <td key={batch} className={`${cell} whitespace-nowrap ${batch === row.assigned_batch ? "bg-green-50 text-green-950" : ""}`}>{feature.known_batches[batch].mean.toFixed(feature.unit === "µm" ? 3 : 2)} ± {measurement(feature.known_batches[batch].sample_sd, feature.unit)}</td>)}</tr>)}</tbody>
               </table>
-            </div>
+            </ScrollableTable>
           </details>)}
           <a href="/multichannel/test_assignments.csv" download className="mr-5 inline-block text-sm underline underline-offset-4">Assignment table (CSV)</a>
           <a href="/multichannel/test_assignments.json" download className="inline-block text-sm underline underline-offset-4">Assignment data (JSON)</a>

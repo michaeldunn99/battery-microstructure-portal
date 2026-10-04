@@ -1,4 +1,5 @@
 import LatexFormula from "./LatexFormula";
+import ScrollableTable from "./ScrollableTable";
 
 const families = [
   {
@@ -149,7 +150,7 @@ export default function PhysicalInterpretation() {
               <div className="max-w-4xl space-y-4 pb-2 text-sm leading-6 text-zinc-600">
                 <p>{family.calculation}</p>
                 {family.id === "phase-fractions" && <>
-                  <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Phase assignment rules">
+                  <ScrollableTable label="Phase assignment rules">
                     <table className="w-full min-w-[480px] border-collapse text-left text-sm">
                       <caption className="pb-2 text-left text-zinc-600">Current three-channel phase assignment. Each pixel is assigned to its nearest fitted centroid in standardized BSE/Inlens/ETD or SE intensity space.</caption>
                       <thead className="border-y border-zinc-200 text-zinc-800"><tr><th scope="col" className="py-2 pr-4 font-medium">Reported region</th><th scope="col" className="py-2 font-medium">Pixel assignment</th></tr></thead>
@@ -160,7 +161,7 @@ export default function PhysicalInterpretation() {
                         <tr><th scope="row" className="py-2 pr-4 font-medium">Carbon-binder allocation</th><td className="py-2">Within the pore-labelled cluster, smoothed Inlens intensity above its within-cluster median. Pixels at or below that median form the open-pore subset.</td></tr>
                       </tbody>
                     </table>
-                  </div>
+                  </ScrollableTable>
                   <p>For every reported region, divide its pixel count by the full cropped image area and multiply by 100. Porosity uses the entire pore mask from the selected segmentation, including its CBD allocation. The Inlens median split is used within the pore-labelled cluster. <a className={linkStyle} href="#image-preparation">Combined segmentation and its assumptions</a>.</p>
                 </>}
                 <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={`${family.title} calculation`}><LatexFormula formula={family.formula} displayMode /></div>

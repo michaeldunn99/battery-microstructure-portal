@@ -4,6 +4,7 @@ import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import ScrollableTable from "./ScrollableTable";
 
 function inlineHref(href: string | undefined) {
   if (!href) return href;
@@ -53,9 +54,9 @@ const markdownComponents: Components = {
     <blockquote className="my-5 border-l-2 border-zinc-300 pl-4 text-zinc-600" {...props} />
   ),
   table: ({ node: _node, ...props }) => (
-    <div className="my-6 overflow-x-auto rounded-md border border-zinc-200">
+    <ScrollableTable className="my-6 rounded-md border border-zinc-200" label="Method measurements and parameters">
       <table className="w-full min-w-[640px] border-collapse text-left text-sm leading-6" {...props} />
-    </div>
+    </ScrollableTable>
   ),
   thead: ({ node: _node, ...props }) => (
     <thead className="bg-zinc-50 text-zinc-950" {...props} />
