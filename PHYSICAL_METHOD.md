@@ -10,19 +10,19 @@ Multi-Otsu with three classes determines two thresholds independently for each d
 
 ## Phase assignment
 
-The BSE thresholds define three masks:
+Here, a phase is an operational image-intensity class. The labels assign a physical interpretation to each region; they are not independently confirmed chemical identities. Two thresholds fitted separately to each smoothed BSE image define three mutually exclusive masks:
 
 - Pore: `BSE < T_pore`.
-- Matrix: `T_pore <= BSE < T_inc`.
-- Inclusion: `BSE >= T_inc`.
+- Graphite-labelled matrix: `T_pore <= BSE < T_inc`.
+- Bright inclusion of unconfirmed composition: `BSE >= T_inc`.
 
-Within the pore mask, the median Inlens intensity divides pixels into `open_pore` at or below the median and `cbd` above it. **CBD is a median-split estimate**, approximately half the pore fraction, rather than an independently calibrated binder measurement. All area fractions use the full cropped image as denominator. The phase names express the physical interpretation assigned to the intensity regions.
+Within the pore mask, the median Inlens intensity divides pixels into `open_pore` at or below the median and `cbd` above it. **CBD is a median-split estimate**, approximately half the pore fraction, rather than an independently calibrated binder measurement. All area fractions use the full cropped image as denominator. Reported porosity is the entire dark BSE mask, including the CBD allocation, not only the open-pore subset.
 
 The masks satisfy `porosity = open_pore + cbd` and `porosity + matrix + inclusion = 100%`. CBD is therefore a subdivision of the pore-labelled region and must not be added to the latter three as another independent composition fraction. See [mask definitions](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/extract_physical_features.py#L113).
 
 ## Feature definitions
 
-The table follows the CSV column order. Here, `s` is pixel size and `A` is component area in pixels. Values are exported to two decimal places.
+The table follows the CSV column order. Here, `s` is pixel size and `A` is component area in pixels. Values are exported to two decimal places by default; `--full-precision` preserves unrounded values for statistics.
 
 | # | Exported column | Units | Calculation and interpretation |
 | --- | --- | --- | --- |
@@ -55,6 +55,35 @@ Particle geometry is measured on **inclusion connected components**, using `skim
 
 For the spatial dispersion measurement, `np.array_split` divides the inclusion mask into 4 × 4 tiles. The inclusion percentage is calculated within each tile, followed by `np.std(tile_percentages, ddof=0)`. This produces a standard deviation in percentage points. See [dispersion calculation](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/extract_physical_features.py#L166).
 
+## Statistical batch comparison
+
+We compare each of the 13 physical descriptors with the Batch 3 reference. One paired BSE/Inlens acquisition contributes one observation; pixels, particles and detector channels are not additional replicates. This report uses 17 reference observations and seven observations from each incoming batch. The porosity confidence-interval field is excluded from hypothesis testing because it describes measurement precision.
+
+### Mean differences and confidence intervals
+
+For each feature, we report the mean and sample standard deviation in both batches. The effect is the difference in original units, **incoming minus reference**. A difference between two area percentages is expressed in percentage points. The two-sided null hypothesis is equal population means. We use [Welch's t-test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html), which allows unequal variances:
+
+$$
+\Delta = \bar{x}_{\mathrm{incoming}}-\bar{x}_{\mathrm{reference}},\qquad
+SE = \sqrt{\frac{s_{\mathrm{incoming}}^2}{n_{\mathrm{incoming}}}+\frac{s_{\mathrm{reference}}^2}{n_{\mathrm{reference}}}},\qquad t=\frac{\Delta}{SE}.
+$$
+
+The 95% interval for the mean difference is $\Delta\pm t_{0.975,\nu}SE$, with Welch-Satterthwaite degrees of freedom. Standard deviations use $n-1$ in the denominator. These are **pointwise intervals**, not simultaneous intervals across all features. Calculations use unrounded measurements; only displayed values are rounded.
+
+### Multiple comparisons
+
+We report raw p-values and [Holm-adjusted p-values](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html). The family comprises all 13 descriptors for every incoming batch requested in one analysis: **26 tests here**, including both Batch 1 and Batch 2. Holm's procedure controls family-wise error at 0.05 under valid individual tests, including when descriptors are correlated. We use adjusted p-values for significance statements. A separately specified single test batch has 13 comparisons; this does not control false alarms over an indefinite sequence of future batches.
+
+### Assumptions and interpretation
+
+Inference assumes independent, representative sample observations. If several image fields come from one specimen, aggregate them by specimen or use a hierarchical analysis before applying a batch test. Sample identifiers alone do not establish independence. With seven incoming observations, estimates are sensitive to outliers and departures from the t-test model. The test concerns the mean, not every aspect of a distribution.
+
+The ImageRep interval estimates uncertainty within an image conditional on its segmentation. The Welch interval estimates uncertainty in a difference between batch means from variation across observations. **ImageRep intervals are not propagated into the Welch test.** Segmentation error is not included in either interval.
+
+A small p-value is evidence against equal means under the test assumptions. A large p-value does not establish equivalence or justify acceptance. Effect size, uncertainty, physical relevance and validated manufacturing tolerances must also inform a QC decision, as emphasised by the [ASA statement](https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf). This comparison does not produce an accept/reject verdict. Fewer than two observations in either batch or zero combined variance produces an unavailable test; missing or nonfinite measurements stop the comparison. Unavailable tests retain their place in the adjustment family.
+
+The [comparison script](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/compare_physical_batches.py) records means, standard deviations, differences, intervals, p-values, adjustment settings, input hashes and software versions.
+
 ## Implementation and application
 
 The [extraction code](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/extract_physical_features.py) accepts a batch directory, pixel size, ImageRep checkout and output path. From the portal repository directory:
@@ -65,16 +94,45 @@ python scripts/extract_physical_features.py \
   --batch-name Test_Set \
   --pixel-size-um 0.025 \
   --imagerep-path /path/to/ImageRep \
+  --full-precision \
   --output-csv /path/to/new-physical-features.csv
 ```
 
-To process one sample, add `--sample-id 0grcilhi` and point the batch directory to its image files. Existing output is protected unless `--overwrite` is supplied. The output status is `EVALUATE`; measurement extraction does not assign a manufacturing release decision.
+To process one sample, add `--sample-id 0grcilhi` and point the batch directory to its image files. The `--full-precision` option preserves unrounded values for statistics; the default remains the two-decimal presentation export. Existing output is protected unless `--overwrite` is supplied. The output status is `EVALUATE`; measurement extraction does not assign a manufacturing release decision.
 
 Use one measurement specification for the reference and test batches: the same crop, scale, smoothing, per-image thresholding rule, median split, scan spacing, component filters, spatial partition and ImageRep settings. Record image identifiers, calibration, dependencies and ImageRep revision. Compare individual sample values and batch distributions against Batch 3. Numerical acceptance limits require separate validation against manufacturing requirements.
+
+Compare the new batch against the saved reference, with NumPy and SciPy installed:
+
+```bash
+python scripts/compare_physical_batches.py \
+  --reference-csv public/qc_dataset_features.csv \
+  --reference-batch Batch_3 \
+  --incoming-csv /path/to/new-physical-features.csv \
+  --incoming-batch Test_Set \
+  --output-json /path/to/new-batch-comparison.json
+```
+
+The script accepts both the original raw column names and the extractor's column names. Use unique sample identifiers and preserve the reference measurements, feature list and analysis settings before inspecting the test batch. At least two independent observations are needed per batch for a test. Do not choose features or thresholds after seeing the new results.
+
+To reproduce the current report's joint comparison:
+
+```bash
+python scripts/compare_physical_batches.py \
+  --reference-csv public/qc_dataset_features.csv \
+  --reference-batch Batch_3 \
+  --incoming-batch Batch_1 \
+  --incoming-batch Batch_2 \
+  --output-json /path/to/physical-batch-statistics.json
+```
 
 ## Reproducibility
 
 The extractor was run on all 31 samples: 17 from Batch 3, seven from Batch 1 and seven from Batch 2. All 434 feature values matched the saved measurements to two decimal places, with no differences. Parameters, dependency versions and input hashes are recorded in the [validation record](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/validation/physical-rerun.json).
+
+The full-precision export was separately checked on all 31 samples: all 434 values matched the saved raw measurements exactly. The default two-decimal CSV strings were unchanged for sample `0grcilhi`. This check is recorded in `validation/physical-full-precision.json`.
+
+The statistical output contains 26 planned tests, of which 24 are estimable. Inclusion D10 is constant in all three batches; both D10 comparisons have null test statistics and p-values, while retaining their Holm adjustment slots. No adjusted p-value is below 0.05. Numerical tests check Welch statistics and confidence intervals against SciPy, known Holm adjustments, constant-valued data, input validation and both raw and extractor column names.
 
 For example, sample `0grcilhi` produced:
 

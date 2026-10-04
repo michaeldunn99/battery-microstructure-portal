@@ -1,0 +1,40 @@
+{
+  "extractor_sha256": "076dbf9da2bca0defe0d05ec918492aca10a5162c22b79f65b0ac2824dcad600",
+  "elapsed_seconds": 59.16482304199599,
+  "full_precision_values_checked": 434,
+  "exact_matches": 434,
+  "within_tolerance_matches": 434,
+  "max_absolute_error": 0.0,
+  "tolerance": {
+    "relative": 1e-10,
+    "absolute": 1e-12
+  },
+  "default_sample": {
+    "batch": "Batch_3",
+    "sample_id": "0grcilhi",
+    "all14_serialized_strings_match": true,
+    "matches": {
+      "porosity_pct": true,
+      "active_material_pct": true,
+      "cbd_pct": true,
+      "inclusion_pct": true,
+      "char_length_scale_cls_um": true,
+      "throat_through_plane_ly_um": true,
+      "chord_in_plane_lx_um": true,
+      "pore_anisotropy_ratio": true,
+      "particle_aspect_ratio": true,
+      "particle_d10_um": true,
+      "particle_d50_um": true,
+      "particle_d90_um": true,
+      "slurry_dispersion_index": true,
+      "porosity_ci95_pct": true
+    }
+  },
+  "failures": [],
+  "schema_version": 1,
+  "status": "passed",
+  "sample_count": 31,
+  "scope": "Full-precision output matches the saved raw physical measurements; the default presentation format is unchanged.",
+  "raw_reference_path": "public/qc_dataset_features.csv",
+  "raw_reference_sha256": "6170b4840024d62b29468ed61a705b7900557b3621de62e3959c03bc9762db6a"
+}

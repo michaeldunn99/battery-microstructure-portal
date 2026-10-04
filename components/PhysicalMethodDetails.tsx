@@ -4,12 +4,20 @@ import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import ExtractorCodeViewer from "./ExtractorCodeViewer";
 
 function inlineHref(href: string | undefined) {
   if (!href) return href;
+  const statisticalReferences: Record<string, string> = {
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html": "#ref-welch",
+    "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html": "#ref-holm",
+    "https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf": "#ref-asa",
+  };
+  if (statisticalReferences[href]) return statisticalReferences[href];
   const base = "https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/";
   if (!href.startsWith(base)) return href;
   const destination = href.slice(base.length);
+  if (destination === "scripts/compare_physical_batches.py") return "#comparison-code";
   if (destination.startsWith("scripts/extract_physical_features.py")) {
     const line = destination.match(/#L(\d+)$/)?.[1];
     return line ? `#extractor-L${line}` : "#extractor";
@@ -73,7 +81,8 @@ const markdownComponents: Components = {
 
 const sections = {
   preparation: { id: "image-preparation", label: "Image preparation and phase assignment", start: "## Inputs and image preparation", end: "## Feature definitions" },
-  calculations: { id: "feature-calculations", label: "Feature calculations and assumptions", start: "### Correlation and porosity uncertainty", end: "## Implementation and application" },
+  calculations: { id: "feature-calculations", label: "Feature calculations and assumptions", start: "### Correlation and porosity uncertainty", end: "## Statistical batch comparison" },
+  statistics: { id: "statistical-method", label: "Statistical batch comparison", start: "## Statistical batch comparison", end: "## Implementation and application" },
   test: { id: "test-set-procedure", label: "Test-set procedure", start: "## Implementation and application", end: "## Reproducibility" },
 } as const;
 
@@ -83,7 +92,7 @@ export default async function PhysicalMethodDetails({ section }: { section: keyo
   const from = markdown.indexOf(start);
   const to = markdown.indexOf(end, from + start.length);
   if (from < 0 || to < 0) throw new Error(`Missing method section: ${section}`);
-  const content = markdown.slice(from, to).replace(/^## Implementation and application\n/, "");
+  const content = markdown.slice(from, to).replace(/^## (?:Implementation and application|Statistical batch comparison)\n/, "");
   return (
     <details id={id} className="scroll-mt-6 rounded-md border border-zinc-200">
       <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
@@ -93,6 +102,7 @@ export default async function PhysicalMethodDetails({ section }: { section: keyo
         <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} components={markdownComponents} skipHtml>
           {content}
         </ReactMarkdown>
+        {section === "statistics" && <ExtractorCodeViewer script="comparison" />}
       </div>
     </details>
   );

@@ -1,11 +1,14 @@
 import verification from "@/validation/physical-rerun.json";
+import precisionVerification from "@/validation/physical-full-precision.json";
 
 const downloads = [
   ["/physical_feature_vectors.csv", "Measurements and uncertainty (CSV)", "31 samples, each with 13 descriptors and a porosity uncertainty estimate, rounded to two decimal places."],
   ["/qc_dataset_features.csv", "Full-precision measurements (CSV)", "The saved physical measurements used for batch comparisons."],
   ["/qc_summary_report.json", "Batch summary (JSON)", "Sample counts and batch means."],
+  ["/physical_batch_statistics.json", "Statistical comparisons (JSON)", "Mean differences, pointwise 95% intervals, raw and Holm-adjusted p-values, settings and input hashes."],
   ["/downloads/physical-method.md", "Protocol (Markdown)", "The measurement specification and test-set instructions."],
   ["/downloads/extract_physical_features.py", "Extractor (Python)", "The executable calculation code shown in Methods."],
+  ["/downloads/compare_physical_batches.py", "Batch comparison (Python)", "Repeat the statistical analysis or compare a new batch with the reference."],
   ["/downloads/physical-rerun.json", "Verification record (JSON)", "Run settings, dependency versions, input hashes and comparisons."],
   ["/physical-feature-vector.tex", "Feature vector (LaTeX)", "The 13-descriptor vector with its porosity uncertainty reported separately."],
 ] as const;
@@ -16,6 +19,7 @@ export function VerificationDetails() {
       <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Verification record and software versions</summary>
       <div className="space-y-4 border-t border-zinc-200 p-4 text-sm leading-6 text-zinc-700">
         <p>{verification.comparison.matched_numeric_values} of {verification.numeric_value_count} values matched across {verification.sample_count} samples at two decimal places. This verifies reproduction of the saved measurements; it does not validate phase assignment or release criteria.</p>
+        <p>The full-precision export was also checked across {precisionVerification.sample_count} samples: all {precisionVerification.exact_matches} values matched the saved raw measurements exactly. The default two-decimal export was unchanged for the checked example.</p>
         <dl className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
           <div><dt className="font-medium">Python</dt><dd>{verification.execution.python}</dd></div>
           {Object.entries(verification.execution.dependencies).map(([name, version]) => <div key={name}><dt className="font-medium">{name}</dt><dd>{version}</dd></div>)}
@@ -23,7 +27,7 @@ export function VerificationDetails() {
         </dl>
         <details className="border-t border-zinc-200 pt-3">
           <summary className="cursor-pointer font-medium">Run settings and input hashes</summary>
-          <pre tabIndex={0} aria-label="Complete physical extraction verification record" className="mt-3 max-h-96 overflow-auto rounded-md border border-zinc-200 bg-zinc-50 p-4 text-xs leading-6"><code>{JSON.stringify(verification, null, 2)}</code></pre>
+          <pre tabIndex={0} aria-label="Complete physical extraction verification records" className="mt-3 max-h-96 overflow-auto rounded-md border border-zinc-200 bg-zinc-50 p-4 text-xs leading-6"><code>{JSON.stringify({ originalRun: verification, fullPrecisionExport: precisionVerification }, null, 2)}</code></pre>
         </details>
       </div>
     </details>
@@ -43,6 +47,9 @@ export function ReportDownloads() {
 }
 
 const references = [
+  { id: "ref-welch", label: "SciPy", title: "Independent two-sample t-test", journal: "Statistical software documentation", href: "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html", use: "Welch's unequal-variance test and confidence interval for the difference in means." },
+  { id: "ref-holm", label: "R Core Team", title: "Adjust P-values for Multiple Comparisons", journal: "stats documentation; Holm (1979)", href: "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html", use: "Holm adjustment controls family-wise error while allowing dependence between valid tests." },
+  { id: "ref-asa", label: "American Statistical Association (2016)", title: "Statement on Statistical Significance and P-Values", journal: "Interpretation guidance", href: "https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf", use: "A p-value is not an effect size or a probability of a manufacturing defect. Decisions require scientific context." },
   { id: "ref-zielke", label: "Zielke et al. (2015)", title: "Three-Phase Multiscale Modeling of a LiCoO₂ Cathode: Combining the Advantages of FIB-SEM Imaging and X-Ray Tomography", journal: "Advanced Energy Materials 5, 1401612", href: "https://doi.org/10.1002/aenm.201401612", use: "Physical roles of electrode phases; does not validate our phase segmentation." },
   { id: "ref-ebner", label: "Ebner et al. (2014)", title: "Tortuosity Anisotropy in Lithium-Ion Battery Electrodes", journal: "Advanced Energy Materials 4, 1301278", href: "https://doi.org/10.1002/aenm.201301278", use: "Particle morphology and directional transport; does not equate 2D chords with tortuosity." },
   { id: "ref-muller", label: "Müller et al. (2018)", title: "Quantifying Inhomogeneity of Lithium Ion Battery Electrodes and Its Influence on Electrochemical Performance", journal: "Journal of The Electrochemical Society 165, A339-A344", href: "https://doi.org/10.1149/2.0311802jes", use: "Microstructural heterogeneity in graphite anodes; does not validate a threshold for our inclusion statistic." },

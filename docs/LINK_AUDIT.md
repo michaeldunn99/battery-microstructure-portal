@@ -90,15 +90,15 @@ These occur in the canonical method rendered on `/method`, rather than the homep
 
 ## After consolidation
 
-Audit date: 4 October 2026. This section records the final glossary and uncertainty presentation, superseding the intermediate inline-method layout.
+Audit date: 4 October 2026. This section records the final glossary, phase definitions and statistical comparison, superseding the intermediate inline-method layout.
 
 The report is a single page, ordered **Abstract → Introduction → Physical interpretation and glossary → Methods → Results → Discussion → Reproducibility → References**. The glossary has four full-width entries, labelled (a) to (d) for the broad physical groups. Each has separate **Physical meaning**, **Relevance to electrode performance** and **How we calculated it** disclosures. Individual descriptor definitions do not have letter labels. The worked chord-ratio example has been removed. The single Methods section presents a **13-dimensional physical descriptor vector** and reports its porosity uncertainty separately. The unchanged CSV measurement record retains all 14 numerical fields.
 
-The final rendered page contains **58 anchor elements with 48 distinct literal hrefs**: **28 locations in the same report, seven file downloads and 13 external destinations**. The external destinations comprise 12 centrally listed references and one project repository. There are no report links to a separate methods page, raw image page, archived calculation file or GitHub data viewer. The old `/method` route redirects to `/#image-preparation` for compatibility. The increased number of citations reflects the expanded physical glossary; report explanation and calculation navigation stay on the same page.
+The final rendered page contains **68 anchor elements with 58 distinct literal hrefs**: **33 locations in the same report, nine file downloads and 16 external destinations**. The external destinations comprise 15 centrally listed references and one project repository. There are no report links to a separate methods page, raw image page, archived calculation file or GitHub data viewer. The old `/method` route redirects to `/#image-preparation` for compatibility. The increased number of citations reflects the expanded physical glossary and statistical method; report explanation and calculation navigation stay on the same page.
 
-### Final link inventory: 48 destinations
+### Final link inventory: 58 destinations
 
-The inventory includes links inside every collapsed disclosure. There are no interpretation-tab states in the current layout.
+The inventory includes links inside every collapsed disclosure. There are no interpretation-tab states in the current layout. Entries 1 to 48 retain their previous numbering; the ten statistical additions follow them.
 
 #### Inline literature references: 10 destinations
 
@@ -142,7 +142,7 @@ Each descriptor-row Calculation link also has an accessible label naming its des
 
 #### Downloads: seven destinations
 
-All downloads are offered once in **Downloads and repository**, and all seven links explicitly have a `download` attribute.
+All downloads are offered once in **Downloads and repository**, with explicit `download` attributes. These seven files are joined by two statistical downloads listed below.
 
 | # | Exact href | Visible label | Contents |
 | --- | --- | --- | --- |
@@ -174,29 +174,47 @@ The repository is linked once in Downloads and repository. Each other external U
 | 47 | `https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops` | Region measurements | References: scikit-image geometric definitions. |
 | 48 | `https://numpy.org/doc/stable/reference/generated/numpy.std.html` | Standard deviation | References: NumPy population standard deviation. |
 
+#### Statistical additions: ten destinations
+
+| # | Exact href | Visible label | Location and purpose |
+| --- | --- | --- | --- |
+| 49 | `#ref-welch` | Welch's t-test | Statistical method; opens the SciPy reference. |
+| 50 | `#ref-holm` | Holm-adjusted p-values | Statistical method; opens the R reference. |
+| 51 | `#ref-asa` | ASA statement | Statistical interpretation; opens the ASA reference. |
+| 52 | `#comparison-code` | comparison script | Statistical method; opens the inline executable script. |
+| 53 | `#statistical-method` | Statistical method and assumptions | Results; opens the statistical method within Methods. |
+| 54 | `/physical_batch_statistics.json` | Statistical comparisons (JSON) | Downloads; complete numerical comparisons, input hashes and settings. |
+| 55 | `/downloads/compare_physical_batches.py` | Batch comparison (Python) | Downloads; standalone statistical comparison script. |
+| 56 | `https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html` | Independent two-sample t-test | References; SciPy's Welch test documentation. |
+| 57 | `https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html` | Adjust P-values for Multiple Comparisons | References; Holm adjustment and family-wise error. |
+| 58 | `https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf` | Statement on Statistical Significance and P-Values | References; interpretation of statistical evidence. |
+
 ### Expandable controls
 
-The page has **30 native disclosure controls**, including nested controls:
+The page has **34 native disclosure controls**, including nested controls:
 
 - Twelve glossary disclosures: physical meaning, relevance to electrode performance, and calculation content for each of four groups. The broad groups are labelled (a) to (d); individual descriptors are named without letter labels.
-- Six Methods disclosures: image preparation, 13 descriptor definitions, porosity uncertainty, calculation assumptions, code, and preprocessing figures.
+- Eight Methods disclosures: image preparation, 13 descriptor definitions, porosity uncertainty, calculation assumptions, extraction code, preprocessing figures, statistical comparison and nested comparison code.
 - Four figure disclosures nested within preprocessing: three full-resolution inspectors and the additional detector comparison.
-- Two Results disclosures: the sample explorer and full-precision table.
+- Four Results disclosures: two batch-comparison tables, the sample explorer and full-precision table.
 - One Discussion disclosure: scope relative to published electrode analyses.
 - Four Reproducibility disclosures: test-set procedure, verification record, nested run settings/input hashes, and downloads.
-- One References disclosure containing the 12 sources.
+- One References disclosure containing the 15 sources.
 
 Image inspection expands inside the report instead of navigating to a PNG. Citation hashes reveal the References disclosure; code and measurement hashes reveal their containing disclosures. The report has no separate Full method control or duplicated methods page content.
 
 ### Final checks and evidence
 
-- All **28 local hash destinations** exist in the rendered HTML. No duplicate element IDs were found.
+- All **33 local hash destinations** exist in the rendered HTML. No duplicate element IDs were found.
 - Every linked calculation line exists in the current standalone extractor. The page has no links to archived source files.
 - The live heading order matches the report sequence above. The legacy `CorePhysicalFingerprintHero` is not mounted.
 - The active Methods component and downloadable LaTeX specify a 13-dimensional descriptor vector, with porosity uncertainty separate. The canonical method and download labels distinguish this from the preserved 14-field measurement record. No active claim of a 14-dimensional physical vector was found.
 - The old `/method` route returned HTTP 307 to `/#image-preparation`; that target exists in the report.
-- All seven downloads returned HTTP 200 on the development server after restart. The verification download matched `validation/physical-rerun.json` byte for byte. It was also independently checked on the production server at `http://localhost:3107/downloads/physical-rerun.json` with the same result. This resolves the earlier development-server route-cache 404. Final deployment and browser checks remain separate from this source/link audit.
+- All nine current downloads returned HTTP 200 on the isolated production server at `http://localhost:3107`. The comparison-script download matched the canonical script byte for byte. The original verification download was previously checked against `validation/physical-rerun.json`; it remains unchanged.
 - The user-authorized Amass API was used to verify the Mitsch, Choi, Taiwo and Goel/Thornton source records against supplied notes. The active bibliography uses the first three; verification of a source does not mean all proposed measurements from those notes were implemented. Only public bibliographic fields were retained in the research results, with no credentials included.
 - Source descriptions state their scope. They do not present the CBD intensity split, bright-inclusion geometry or four-by-four spatial statistic as externally validated defect diagnostics. Polaron's solid-state case study and Kelly's measurement-error model are identified as different contexts.
 - Each performance disclosure now pairs specific published findings with their citations and states the scope of those findings for this analysis. The software reference for component geometry belongs under calculations. The report does not infer that unidentified bright inclusions share the performance relationships reported for identified electrode particles.
 - Browser checks confirmed four labelled groups, functioning literature and calculation links, keyboard focus on expanded summaries, 13 descriptor rows, 31 raw measurement rows, and no missing hash destinations or maths-rendering errors. Mobile inspection found no page overflow. The production build, TypeScript check and both existing maths-rendering tests passed.
+- The phase glossary states a short physical definition before its disclosures. Its calculation disclosure specifies BSE-only three-class segmentation, the Inlens median subdivision, the shared area denominator and the overlap between reported porosity and CBD allocation.
+- Both statistical tables contain 13 descriptors. Results distinguish observed differences from equivalence. Welch intervals are pointwise, and Holm adjustment covers all 26 planned comparisons; the two constant D10 comparisons are unavailable. Independent SciPy calculations matched all 24 estimable results within 1e-15. All 13 Python tests passed.
+- The optional full-precision export reproduced all 434 raw values across 31 samples exactly. The original two-decimal record is retained. Expanded phase and statistics tables produced no page overflow at a 390-pixel viewport; no browser or math-rendering errors were observed.

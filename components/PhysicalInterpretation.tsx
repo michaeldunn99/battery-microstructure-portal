@@ -7,7 +7,7 @@ const families = [
     label: "(a)",
     measurements: "Pore, graphite, carbon-binder and inclusion area fractions.",
     performance: "The balance of active material, pore space and conductive material affects how much charge an electrode can store and how ions and electrons reach reaction sites. In a liquid-electrolyte electrode, pore space accommodates the ionic conductor, while solid active material supplies storage sites. More porosity is therefore not automatically better: transport and active-material loading must both be considered.",
-    definition: "The percentage of the image occupied by each labelled material region or by pore space.",
+    definition: "A phase is a distinct material or pore region, such as graphite or void space. Its area fraction is the percentage of the image assigned to it.",
     meaning: "An electrode contains solid material and void space. In a conventional liquid-electrolyte cell, electrolyte in the pores carries ions; active material stores lithium; conductive carbon provides electronic connections. Area fractions describe how much of each assigned region is visible in a cross-section.",
     terms: [
       ["Phase", "A distinguishable constituent or region. Here, phase names are interpretations of image-intensity classes, rather than independently confirmed chemical identities."],
@@ -20,7 +20,7 @@ const families = [
       ["#ref-choi", "Choi et al. (2023)", "Experiments with graphite particle-size mixtures linked changes in packing and porosity with changes in electrochemical behaviour."],
     ],
     evidenceScope: "These studies motivate measuring phase proportions. They do not validate our image-intensity labels, CBD allocation or a batch acceptance threshold.",
-    calculation: "Crop and smooth the paired images. Fit two Multi-Otsu thresholds to BSE intensity to form dark pore, middle graphite and bright inclusion masks. Count each mask's pixels and divide by the analysed area. Split the dark mask at its median Inlens intensity to obtain the CBD allocation.",
+    calculation: "Retain the central 80% of image rows and smooth both detector images with a Gaussian filter (σ = 1 pixel). Three-class Multi-Otsu fits two thresholds, T₁ and T₂, separately to each smoothed BSE image. Only BSE defines the three main masks; the paired Inlens image subdivides the pore-labelled mask. The assignment rule stays fixed across batches; the threshold values can change between images.",
     formula: String.raw`f_k = 100\,\frac{N_k}{N_{\mathrm{crop}}}\;[\%]`,
     boundary: "Pore, graphite and inclusion fractions sum to 100%. CBD is a subset of the pore-labelled area, so adding it again would double count. The median split has not been independently calibrated as a binder measurement.",
     calculationLink: "#extractor-L113",
@@ -132,9 +132,24 @@ export default function PhysicalInterpretation() {
               </div>
             </details>
             <details className="border-t border-zinc-200">
-              <summary className={summaryStyle}>How we calculated it</summary>
+              <summary className={summaryStyle}>{family.id === "phase-fractions" ? "How we defined and measured each phase" : "How we calculated it"}</summary>
               <div className="max-w-4xl space-y-4 pb-2 text-sm leading-6 text-zinc-600">
                 <p>{family.calculation}</p>
+                {family.id === "phase-fractions" && <>
+                  <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Phase assignment rules">
+                    <table className="w-full min-w-[480px] border-collapse text-left text-sm">
+                      <caption className="sr-only">Operational definitions of the image regions used for area fractions.</caption>
+                      <thead className="border-y border-zinc-200 text-zinc-800"><tr><th scope="col" className="py-2 pr-4 font-medium">Reported region</th><th scope="col" className="py-2 font-medium">Pixel assignment</th></tr></thead>
+                      <tbody className="divide-y divide-zinc-200 border-b border-zinc-200">
+                        <tr><th scope="row" className="py-2 pr-4 font-medium">Pore-labelled area</th><td className="py-2">BSE intensity below T₁.</td></tr>
+                        <tr><th scope="row" className="py-2 pr-4 font-medium">Graphite-labelled matrix</th><td className="py-2">BSE intensity at least T₁ and below T₂.</td></tr>
+                        <tr><th scope="row" className="py-2 pr-4 font-medium">Bright inclusions</th><td className="py-2">BSE intensity at least T₂; composition unconfirmed.</td></tr>
+                        <tr><th scope="row" className="py-2 pr-4 font-medium">Carbon-binder allocation</th><td className="py-2">Within the pore-labelled area, Inlens intensity above its median. Pixels at or below that median form the open-pore subset.</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p>For every reported region, divide its pixel count by the full cropped image area and multiply by 100. Reported porosity uses the entire dark BSE mask, including the CBD allocation; it does not use only the open-pore subset.</p>
+                </>}
                 <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={`${family.title} calculation`}><LatexFormula formula={family.formula} displayMode /></div>
                 <p>{family.boundary}</p>
                 {family.id === "inclusion-geometry" && <p>The geometric definitions follow the <a className={linkStyle} href="#ref-regionprops">region measurement definitions</a> in scikit-image.</p>}

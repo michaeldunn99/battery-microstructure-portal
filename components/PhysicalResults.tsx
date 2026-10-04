@@ -1,6 +1,7 @@
 import report from "@/public/qc_summary_report.json";
 import { physicalFeatures } from "@/lib/physical-vector";
 import Image from "next/image";
+import PhysicalBatchStatistics from "./PhysicalBatchStatistics";
 import PhysicalTableExplorer, { type PhysicalTableProps } from "./PhysicalTableExplorer";
 
 const metrics = [
@@ -29,7 +30,8 @@ export default function PhysicalResults({ rows, features, rawRows }: PhysicalTab
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
           Batch 1 has lower mean porosity and vertical pore chord length, and higher mean inclusion aspect
           ratio than Batch 3. Batch 2 means are nearer the reference for these
-          three measurements.
+          three measurements, but is not closer on every descriptor. This is a descriptive comparison,
+          not evidence that Batch 2 is equivalent to Batch 3.
         </p>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
           The physical run contains {report.total_samples_processed} sample records:
@@ -69,6 +71,8 @@ export default function PhysicalResults({ rows, features, rawRows }: PhysicalTab
           </tbody>
         </table>
       </div>
+
+      <PhysicalBatchStatistics />
 
       <figure className="space-y-3">
         <div className="overflow-x-auto">

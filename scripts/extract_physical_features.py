@@ -72,7 +72,7 @@ def extract_single_image(
     inlens_path: str | Path,
     pixel_size_um: float = 0.025,
     *,
-    imagerep_path: str | Path | None = None,
+    imagerep_path: str | Path | None = None, full_precision: bool = False,
 ) -> dict:
     """Extract 14 physical values; raise if inputs or ImageRep are unavailable."""
     if not math.isfinite(pixel_size_um) or pixel_size_um <= 0:
@@ -169,20 +169,20 @@ def extract_single_image(
     slurry_heterogeneity = float(np.std(tile_means))
 
     return {
-        "porosity_pct": round(phi_pore, 2),
-        "porosity_ci95_pct": round(ci95_abs_pct, 2),
-        "active_material_pct": round(phi_matrix, 2),
-        "cbd_pct": round(phi_cbd, 2),
-        "inclusion_pct": round(phi_inc, 2),
-        "char_length_scale_cls_um": round(pore_cls_um, 2),
-        "throat_through_plane_ly_um": round(mean_chord_y, 2),
-        "chord_in_plane_lx_um": round(mean_chord_x, 2),
-        "pore_anisotropy_ratio": round(anisotropy, 2),
-        "particle_aspect_ratio": round(ar_mean, 2),
-        "particle_d10_um": round(d10, 2),
-        "particle_d50_um": round(d50, 2),
-        "particle_d90_um": round(d90, 2),
-        "slurry_dispersion_index": round(slurry_heterogeneity, 2),
+        "porosity_pct": phi_pore if full_precision else round(phi_pore, 2),
+        "porosity_ci95_pct": ci95_abs_pct if full_precision else round(ci95_abs_pct, 2),
+        "active_material_pct": phi_matrix if full_precision else round(phi_matrix, 2),
+        "cbd_pct": phi_cbd if full_precision else round(phi_cbd, 2),
+        "inclusion_pct": phi_inc if full_precision else round(phi_inc, 2),
+        "char_length_scale_cls_um": pore_cls_um if full_precision else round(pore_cls_um, 2),
+        "throat_through_plane_ly_um": mean_chord_y if full_precision else round(mean_chord_y, 2),
+        "chord_in_plane_lx_um": mean_chord_x if full_precision else round(mean_chord_x, 2),
+        "pore_anisotropy_ratio": anisotropy if full_precision else round(anisotropy, 2),
+        "particle_aspect_ratio": ar_mean if full_precision else round(ar_mean, 2),
+        "particle_d10_um": d10 if full_precision else round(d10, 2),
+        "particle_d50_um": d50 if full_precision else round(d50, 2),
+        "particle_d90_um": d90 if full_precision else round(d90, 2),
+        "slurry_dispersion_index": slurry_heterogeneity if full_precision else round(slurry_heterogeneity, 2),
     }
 
 
@@ -195,6 +195,7 @@ def main():
     parser.add_argument("--imagerep-path", type=Path, default=IMAGEREP_PATH, help="ImageRep repository directory (default: workspace ImageRep)")
     parser.add_argument("--sample-id", type=str, help="Process only this sample ID (e.g. 0grcilhi)")
     parser.add_argument("--overwrite", action="store_true", help="Allow replacement of an existing output CSV")
+    parser.add_argument("--full-precision", action="store_true", help="Preserve unrounded measurements for statistical comparison")
     args = parser.parse_args()
 
     if not math.isfinite(args.pixel_size_um) or args.pixel_size_um <= 0:
@@ -227,7 +228,7 @@ def main():
         try:
             res = extract_single_image(
                 bse_file, inlens_file, pixel_size_um=args.pixel_size_um,
-                imagerep_path=args.imagerep_path,
+                imagerep_path=args.imagerep_path, full_precision=args.full_precision,
             )
         except (OSError, ValueError, RuntimeError, ImportError) as exc:
             parser.error(f"Extraction failed for {sample_id}: {exc}")
@@ -247,7 +248,7 @@ def main():
             for row in rows:
                 writer.writerow({
                     **row,
-                    **{column: f"{row[column]:.2f}" for column in FEATURE_COLUMNS},
+                    **{column: row[column] if args.full_precision else f"{row[column]:.2f}" for column in FEATURE_COLUMNS},
                 })
     except OSError as exc:
         parser.error(f"Cannot write output CSV: {exc}")
