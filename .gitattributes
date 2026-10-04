@@ -1,0 +1,5 @@
+# Preserve source archives byte-for-byte, including their original whitespace.
+docs/source-*.md -whitespace
+scripts/provenance/*.py -whitespace
+# CSV exports use the standard CRLF record separator.
+public/*.csv whitespace=cr-at-eol

@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "started_at_utc": "2026-10-03T18:33:04.773750+00:00",
+  "completed_at_utc": "2026-10-03T18:34:07.539947+00:00",
+  "elapsed_seconds": 62.76,
+  "scope": "Original physical extraction only; 13 descriptors and one ImageRep confidence-interval value from paired BSE/Inlens images.",
+  "execution": {
+    "offline_dependencies": true,
+    "python": "3.13.7",
+    "dependencies": {
+      "numpy": "1.26.4",
+      "scipy": "1.17.1",
+      "Pillow": "12.3.0",
+      "scikit-image": "0.26.0"
+    },
+    "dependency_environment_command": "uv run --offline --with 'numpy<2.0,scipy,matplotlib,tifffile,pillow,scikit-image,scikit-learn,pandas' python",
+    "commands": [
+      "python portal/scripts/extract_physical_features.py --batch-dir data/Batch_3 --batch-name Batch_3 --pixel-size-um 0.025 --output-csv <new-output-dir>/Batch_3.csv",
+      "python portal/scripts/extract_physical_features.py --batch-dir data/Batch_1 --batch-name Batch_1 --pixel-size-um 0.025 --output-csv <new-output-dir>/Batch_1.csv",
+      "python portal/scripts/extract_physical_features.py --batch-dir data/Batch_2 --batch-name Batch_2 --pixel-size-um 0.025 --output-csv <new-output-dir>/Batch_2.csv"
+    ]
+  },
+  "source": {
+    "extractor_path": "portal/scripts/extract_physical_features.py",
+    "extractor_sha256": "69fc5bc1595c2568365e6e845b65181fcb677f8b142bdfd6867edf614ca297da",
+    "imagerep_commit": "2c51ffbcd3f9bc00237f4348e7063d92f7efbfb0",
+    "imagerep_worktree_clean": true,
+    "imagerep_core_sha256": "5b567871e76d817161ceac3803febf492730f07277f8832c593d049f0bc7fbe1"
+  },
+  "parameters": {
+    "pixel_size_um": 0.025,
+    "image_channel": 0,
+    "vertical_crop_fraction": [
+      0.1,
+      0.9
+    ],
+    "gaussian_sigma_pixels": 1.0,
+    "bse_multiotsu_classes": 3,
+    "cbd_rule": "BSE-dark pixels with Inlens intensity above the within-dark-mask median",
+    "imagerep_confidence": 0.95,
+    "imagerep_target_error": 0.05,
+    "chord_sampling_step_pixels": 40,
+    "minimum_inclusion_component_area_pixels": 10,
+    "slurry_grid_shape": [
+      4,
+      4
+    ],
+    "output_decimal_places": 2
+  },
+  "inputs": [
+    {
+      "path": "data/Batch_3/img_0grcilhi_BSE.tif",
+      "sha256": "17b8f934fbb4f6904fcf12c7624c58f017f62b5633c856ad159bf6bd2cd9b95a"
+    },
+    {
+      "path": "data/Batch_3/img_0grcilhi_Inlens.tif",
+      "sha256": "94eab6358b2110e804065e3fd4d3af80cfd2b57257c325c3cdcd776839bad89a"
+    },
+    {
+      "path": "data/Batch_3/img_71vgq3fw_BSE.tif",
+      "sha256": "6e39035f9fec96c1b3728c7e4a482f9e3aa07802eb0afbb15c01deb01f1b7113"
+    },
+    {
+      "path": "data/Batch_3/img_71vgq3fw_Inlens.tif",
+      "sha256": "f754984ce9e2a2506aaa5aa902692d9c6a4319de960becf8608984995828d6d5"
+    },
+    {
+      "path": "data/Batch_3/img_9luzk4jm_BSE.tif",
+      "sha256": "4017bd17628b2d29634e767a623cebd9ec6e5996cee2d3aaa9e7265fc58482a7"
+    },
+    {
+      "path": "data/Batch_3/img_9luzk4jm_Inlens.tif",
+      "sha256": "8b3980438c6e785b3e27fcd5b82f953134972084f4e3b43ab4fb733423249e36"
+    },
+    {
+      "path": "data/Batch_3/img_cfe5vt7s_BSE.tif",
+      "sha256": "14f1a08a2d3eaf2b5687b0055b630e7a49eea96c093c260302938aa3e1640193"
+    },
+    {
+      "path": "data/Batch_3/img_cfe5vt7s_Inlens.tif",
+      "sha256": "b1d814fe9c3378d7a51df2b124450a5c1f535bdc5909ec2e57c71dfe4947cb0f"
+    },
+    {
+      "path": "data/Batch_3/img_hawkfj64_BSE.tif",
+      "sha256": "7cc8fc9616c960e182c4b1de208909e8eed67c6a1b7454b2c7e0d34e4a569f34"
+    },
+    {
+      "path": "data/Batch_3/img_hawkfj64_Inlens.tif",
+      "sha256": "82703f194028c2ffa93a762b982af10210129d387465e88810735b52806cab41"
+    },
+    {
+      "path": "data/Batch_3/img_hzumfsms_BSE.tif",
+      "sha256": "c06fe783ed9d03d847262839e62c99e76549b0c6a18b3d10045cab3b0e0873ef"
+    },
+    {
+      "path": "data/Batch_3/img_hzumfsms_Inlens.tif",
+      "sha256": "0005f037c8460f8609992da953b6dabea393a1f3544fdbea257f0b95564169a7"
+    },
+    {
+      "path": "data/Batch_3/img_kbdh4tri_BSE.tif",
+      "sha256": "9fa862772440db2644c55dceda66a4aa38830275f2e984775bf28b50d4f95573"
+    },
+    {
+      "path": "data/Batch_3/img_kbdh4tri_Inlens.tif",
+      "sha256": "1c0f1f5b217b548ae25b38fe307a3e1469dc4b0365943eb95a3f3f233c3f94a3"
+    },
+    {
+      "path": "data/Batch_3/img_mgxahqnk_BSE.tif",
+      "sha256": "e13bcd2ac2f815bfed7903c60e4c8b42bd42287496daf7290c3ae04f5a4bd528"
+    },
+    {
+      "path": "data/Batch_3/img_mgxahqnk_Inlens.tif",
+      "sha256": "55ea0df3c2880409005a65edc30013404e8f2066fca453d81d2aebd896abee18"
+    },
+    {
+      "path": "data/Batch_3/img_pl8uabbv_BSE.tif",
+      "sha256": "9d2977711be2306806e1e2e496278a18832f8a9d09bc9fb1fbe15a4f0ad1ef34"
+    },
+    {
+      "path": "data/Batch_3/img_pl8uabbv_Inlens.tif",
+      "sha256": "a3fa1bce37994de14dd8706c3b276ec500f4a92de558ed0747df662529d03342"
+    },
+    {
+      "path": "data/Batch_3/img_ptg8lmto_BSE.tif",
+      "sha256": "fd390172b2dd51530e2dbc6825ffa7c41ad7c423ddb97a741c82f89d176a943d"
+    },
+    {
+      "path": "data/Batch_3/img_ptg8lmto_Inlens.tif",
+      "sha256": "fa3945a1675f28667784b6b051860ad16254c9080fa69feee70da228b3dc33bf"
+    },
+    {
+      "path": "data/Batch_3/img_tuy3zymq_BSE.tif",
+      "sha256": "8bae4640c792d627325f1616056a80afc19fb834d4cad62f12897d2399c0529b"
+    },
+    {
+      "path": "data/Batch_3/img_tuy3zymq_Inlens.tif",
+      "sha256": "22413e6436c2319996134e8f439d85ba472ba530640b1d6f43694dd6b6bc765c"
+    },
+    {
+      "path": "data/Batch_3/img_ufdvpb81_BSE.tif",
+      "sha256": "cef47de25c068b0f7ba255da3c28ccd9d100ad22069186bc5542c54aee8d2362"
+    },
+    {
+      "path": "data/Batch_3/img_ufdvpb81_Inlens.tif",
+      "sha256": "e95a8efcc6c997884159bbd9a83d24bdba1e7e71c3aa8591f2ab2e17b9777479"
+    },
+    {
+      "path": "data/Batch_3/img_utfgcjfa_BSE.tif",
+      "sha256": "4e62e17fbfa089f410ac8e4026c0878ae7f27c54d231a350dd958b40c96002dd"
+    },
+    {
+      "path": "data/Batch_3/img_utfgcjfa_Inlens.tif",
+      "sha256": "7d2e91e4d10fae1e9e662298c154b3c816fce4e39a361b98a3027103a72a8aea"
+    },
+    {
+      "path": "data/Batch_3/img_vc2whyaq_BSE.tif",
+      "sha256": "75e04a6c86abfdedd4d06ad83d017bc60def52b56f1bc520a4f59a65932c07ce"
+    },
+    {
+      "path": "data/Batch_3/img_vc2whyaq_Inlens.tif",
+      "sha256": "16947ec5802fe2e43843f67521eaf58d27c4e4cd1e3b988034d3527b55674971"
+    },
+    {
+      "path": "data/Batch_3/img_x77cy643_BSE.tif",
+      "sha256": "b05c4ac6ddc0eae01a98ff89c7171971625d062e95bccb1ba0f1a1971722a388"
+    },
+    {
+      "path": "data/Batch_3/img_x77cy643_Inlens.tif",
+      "sha256": "a5a1596eb2444b35cae2af968ccd04a0f87857c31d04266a9c51325110230c08"
+    },
+    {
+      "path": "data/Batch_3/img_x7u69zsw_BSE.tif",
+      "sha256": "bfe4d2d302ccb04929f4ea92be03b76b93fb38421c13268007a6fff33166d954"
+    },
+    {
+      "path": "data/Batch_3/img_x7u69zsw_Inlens.tif",
+      "sha256": "c68602fffa533afb3bd1f629b47722933b54f541c37d54630520981c825dbd30"
+    },
+    {
+      "path": "data/Batch_3/img_xgj4xftb_BSE.tif",
+      "sha256": "f19ecf7f3a5eafdc60ebda36d54660c3aa7c595a17b9994f363fdfa293ae6c61"
+    },
+    {
+      "path": "data/Batch_3/img_xgj4xftb_Inlens.tif",
+      "sha256": "12a96727dbbfb944625b06d42cfcfc516d0b5781ca29944cde8069de59ed9be3"
+    },
+    {
+      "path": "data/Batch_1/img_4ih2ggld_BSE.tif",
+      "sha256": "a7fa8987f58071205743249f0b089912c3cdab5289d48aa4dc21e5b73aa21b09"
+    },
+    {
+      "path": "data/Batch_1/img_4ih2ggld_Inlens.tif",
+      "sha256": "bcb9b0d7958dc1547db0915118f981d9cdc05ee8e7a63f1478693ed664b74dc1"
+    },
+    {
+      "path": "data/Batch_1/img_5n1q8atc_BSE.tif",
+      "sha256": "4b040a76c364ca75938060810d908518c31c8be58e634adab5db72ba9677dc9e"
+    },
+    {
+      "path": "data/Batch_1/img_5n1q8atc_Inlens.tif",
+      "sha256": "75a2cd34be99d49774e1e38d94d876d62e12520f69bef03294e7c0741f064ef7"
+    },
+    {
+      "path": "data/Batch_1/img_f1vzngrs_BSE.tif",
+      "sha256": "ae83f993b63bd5463501676b2666f79ef980d4571cffbb9b77c8e555c7313e8e"
+    },
+    {
+      "path": "data/Batch_1/img_f1vzngrs_Inlens.tif",
+      "sha256": "d15fcdf666d15990c791d5bf15a8a1815bdfeaf74f19227aa5bace95620a9d8b"
+    },
+    {
+      "path": "data/Batch_1/img_ffwubibz_BSE.tif",
+      "sha256": "73e0d186d84ec7518bdacfd542374dac379388644db09c53c39eed5d66942280"
+    },
+    {
+      "path": "data/Batch_1/img_ffwubibz_Inlens.tif",
+      "sha256": "a43622998ad7fbec755a45ff05d6450a83141d0e61edcd43b2dce5693b50efa6"
+    },
+    {
+      "path": "data/Batch_1/img_fzrt2k6r_BSE.tif",
+      "sha256": "9fa0f4c9a5cb019fde2f081618788453afb96f86532d4b0ca0a83783edf1ec3a"
+    },
+    {
+      "path": "data/Batch_1/img_fzrt2k6r_Inlens.tif",
+      "sha256": "53ce1e8d9e30a31e80414f511e016ac4c8aebad4decc697758889797b583df6e"
+    },
+    {
+      "path": "data/Batch_1/img_iv6g2oq0_BSE.tif",
+      "sha256": "1d3a4a5dc4a518646c7f47e672f51e55e47b96a9e2196391de2e821b0d99f65f"
+    },
+    {
+      "path": "data/Batch_1/img_iv6g2oq0_Inlens.tif",
+      "sha256": "035c9eb14f6df135fa5025fa344acb2f43844233038cfdd099ca19a162e88836"
+    },
+    {
+      "path": "data/Batch_1/img_uhdslk0o_BSE.tif",
+      "sha256": "dee7514f2b2453610fefe7158ea59f2e715fa2f39e3b9cf357625d238f2b113f"
+    },
+    {
+      "path": "data/Batch_1/img_uhdslk0o_Inlens.tif",
+      "sha256": "5016888d9f20c1f105a5edc3969ce0bfe6633ed2f57018247afa0c8c5ad06716"
+    },
+    {
+      "path": "data/Batch_2/img_3806gxp0_BSE.tif",
+      "sha256": "806d025a34c813c44a6626c882c5358456304dd58d978aa474b42e55f7bfce20"
+    },
+    {
+      "path": "data/Batch_2/img_3806gxp0_Inlens.tif",
+      "sha256": "446eee0eb9055c046e4d6617dd33b5565fc43ca570df60d802b9f614bcada518"
+    },
+    {
+      "path": "data/Batch_2/img_avn74qx1_BSE.tif",
+      "sha256": "e1113d827cf083c93edd1e67765777398408899461f99e31130710833c2b35de"
+    },
+    {
+      "path": "data/Batch_2/img_avn74qx1_Inlens.tif",
+      "sha256": "05af6d555e6d7efe1602f863edadedbc415a54d72da0acfa28c88e447e4ba310"
+    },
+    {
+      "path": "data/Batch_2/img_b3esycq1_BSE.tif",
+      "sha256": "01e83352c90c1a77bf2e8d216651d2b1cb747257b22b4cbc2e8c7c4ccaa485d5"
+    },
+    {
+      "path": "data/Batch_2/img_b3esycq1_Inlens.tif",
+      "sha256": "c078f946f4951d34fccfbd081f2f08250678d0b4c049bd2d4a3b4fb3c48b325b"
+    },
+    {
+      "path": "data/Batch_2/img_epqdaau9_BSE.tif",
+      "sha256": "7e7bcdf0bdaf9d1eb3d148d514c21deb06ae4c634b979a3323c2147998ee00d2"
+    },
+    {
+      "path": "data/Batch_2/img_epqdaau9_Inlens.tif",
+      "sha256": "1fac9e7e5f0f568743b011b6e918654679f2b4ecf6f478ed34bea3b4df7a46d5"
+    },
+    {
+      "path": "data/Batch_2/img_i9jiqjwl_BSE.tif",
+      "sha256": "9636159933edf7b2f5bdf709c6472a3124e44ec710b80296283d9a8e65c96f60"
+    },
+    {
+      "path": "data/Batch_2/img_i9jiqjwl_Inlens.tif",
+      "sha256": "233f18713c99f4ba109f17298fe1e37348e03fe47391948c0be2daa1fe27636b"
+    },
+    {
+      "path": "data/Batch_2/img_r17byphk_BSE.tif",
+      "sha256": "2071683d1b7591ef34e03aa2707081b923c51451ee7165323af93f253a904172"
+    },
+    {
+      "path": "data/Batch_2/img_r17byphk_Inlens.tif",
+      "sha256": "9a36c53fa4536c92775ca04d1556da3025a2baebd1c16b672e1fa5ffac306e6d"
+    },
+    {
+      "path": "data/Batch_2/img_rxax5ozo_BSE.tif",
+      "sha256": "e1cffb1b6a62f7aa6a10a48cc52a8ef18833929a858c5c6692e5c5bd7558f2c9"
+    },
+    {
+      "path": "data/Batch_2/img_rxax5ozo_Inlens.tif",
+      "sha256": "1560ac370f768db7d11fc824d81dfbc2b750dc7eb11eba3f7cee5e521190dfe1"
+    }
+  ],
+  "batch_order": [
+    "Batch_3",
+    "Batch_1",
+    "Batch_2"
+  ],
+  "batch_sample_counts": {
+    "Batch_3": 17,
+    "Batch_1": 7,
+    "Batch_2": 7
+  },
+  "sample_count": 31,
+  "feature_columns": [
+    "porosity_pct",
+    "porosity_ci95_pct",
+    "active_material_pct",
+    "cbd_pct",
+    "inclusion_pct",
+    "char_length_scale_cls_um",
+    "throat_through_plane_ly_um",
+    "chord_in_plane_lx_um",
+    "pore_anisotropy_ratio",
+    "particle_aspect_ratio",
+    "particle_d10_um",
+    "particle_d50_um",
+    "particle_d90_um",
+    "slurry_dispersion_index"
+  ],
+  "numeric_value_count": 434,
+  "comparison": {
+    "reference_path": "output/graphite_electrode_fingerprint_features.csv",
+    "reference_sha256": "41d45ca8b75813abaf3fd93548c6808a70aa47e7e59ddb5b6580f456de33ed46",
+    "raw_reference_path": "output/qc_dataset_features.csv",
+    "raw_reference_sha256": "6170b4840024d62b29468ed61a705b7900557b3621de62e3959c03bc9762db6a",
+    "sample_identities_match": true,
+    "comparison_rule": "Exact equality of the 14 output decimal strings with each reference field formatted to two decimal places",
+    "matched_numeric_values": 434,
+    "mismatches": [],
+    "raw_reference_mismatches": []
+  },
+  "combined_export": {
+    "filename": "physical_feature_vectors.csv",
+    "sha256": "56d6f5113cdc094772daca7fe30be43633ce1d2fb7dce57a20f3b2db46742c81",
+    "columns": [
+      "batch",
+      "sample_id",
+      "porosity_pct",
+      "porosity_ci95_pct",
+      "active_material_pct",
+      "cbd_pct",
+      "inclusion_pct",
+      "char_length_scale_cls_um",
+      "throat_through_plane_ly_um",
+      "chord_in_plane_lx_um",
+      "pore_anisotropy_ratio",
+      "particle_aspect_ratio",
+      "particle_d10_um",
+      "particle_d50_um",
+      "particle_d90_um",
+      "slurry_dispersion_index"
+    ],
+    "qc_verdict_included": false
+  },
+  "existing_outputs_overwritten": false
+}
