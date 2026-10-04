@@ -1,0 +1,44 @@
+{
+  "checks": {
+    "all9_assignments_unchanged": true,
+    "all27_distances_exactly_unchanged": true,
+    "known_evaluation_exactly_unchanged": true,
+    "rates_derived_only_from_known_oof_precision": true,
+    "validation_counts_consistent": true,
+    "rating_boundary_below50_low": true,
+    "rating_boundary50_medium": true,
+    "rating_boundary70_medium": true,
+    "rating_boundary_above70_high": true,
+    "v1_snapshot_preserved": true,
+    "v2_frozen_source_hash_matches": true,
+    "all9_exact_contribution_sums": true,
+    "main_csv_has_only_requested_columns": true,
+    "main_csv_all9_rows": true
+  },
+  "checks_passed": 14,
+  "script_sha256": "b917a1116cc4104da36e6aac466354a00e82c966e0568965f92225fccf326d6b",
+  "assignments_sha256": "fa8797843b427ac7ed99da7fb0d5379fd8d7c5aed3204dae6131dad7b3b1ef8f",
+  "v1_validation": {
+    "checks": {
+      "known_only_scaling_ddof1": true,
+      "all27_saved_distances_match_independent_formula": true,
+      "distance_invariance_to_positive_unit_changes": true,
+      "exact_tie_has_zero_margin": true,
+      "high_threshold_boundary": true,
+      "medium_threshold_boundary": true,
+      "poor_validation_blocks_high_margin": true,
+      "outside_envelope_blocks_higher_bands": true,
+      "too_few_predictions_blocks_higher_bands": true,
+      "all9_exact_contribution_sums": true,
+      "all9_assigned_to_distance_minimum": true,
+      "frozen_source_hash_matches": true,
+      "known_ids_and_test_ids_disjoint": true,
+      "stability_votes_sum31": true
+    },
+    "checks_passed": 14,
+    "known_count": 31,
+    "test_count": 9,
+    "script_sha256": "fca5fab7993976cd7d29fe6b3026fc02852e06b2d07727be2d044db6d487619c",
+    "assignments_sha256": "ce83c5a4187521aab958b18db4bb5323dfed5e864e1d7a532b2b5f7a4a3390c4"
+  }
+}

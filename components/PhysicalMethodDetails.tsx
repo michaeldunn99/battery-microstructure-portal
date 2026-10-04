@@ -15,6 +15,7 @@ function inlineHref(href: string | undefined) {
     "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html": "#ref-welch",
     "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html": "#ref-holm",
     "https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf": "#ref-asa",
+    "https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html": "#ref-kmeans",
   };
   if (statisticalReferences[href]) return statisticalReferences[href];
   const base = "https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/";
@@ -25,8 +26,8 @@ function inlineHref(href: string | undefined) {
     const line = destination.match(/#L(\d+)$/)?.[1];
     return line ? `#extractor-L${line}` : "#extractor";
   }
-  if (destination === "public/physical_feature_vectors.csv") return "#sample-measurements";
-  if (destination === "public/qc_dataset_features.csv") return "#raw-measurements";
+  if (destination === "public/physical_feature_vectors.csv") return "#downloads";
+  if (destination === "public/qc_dataset_features.csv") return "#downloads";
   if (destination === "validation/physical-rerun.json") return "#validation-record";
   return href;
 }
@@ -83,9 +84,9 @@ const markdownComponents: Components = {
 };
 
 const sections = {
-  preparation: { id: "image-preparation", label: "Image preparation and phase assignment", start: "## Inputs and image preparation", end: "## Feature definitions" },
+  preparation: { id: "image-preparation", label: "Image preparation and segmentation: original and combined methods", start: "## Inputs and image preparation", end: "## Feature definitions" },
   calculations: { id: "feature-calculations", label: "Feature calculations and assumptions", start: "### Correlation and porosity uncertainty", end: "## Statistical batch comparison" },
-  statistics: { id: "statistical-method", label: "Statistical batch comparison", start: "## Statistical batch comparison", end: "## Implementation and application" },
+  statistics: { id: "statistical-method", label: "Original BSE results: supplementary mean tests", start: "## Statistical batch comparison", end: "## Implementation and application" },
   test: { id: "test-set-procedure", label: "Test-set procedure", start: "## Implementation and application", end: "## Reproducibility" },
 } as const;
 

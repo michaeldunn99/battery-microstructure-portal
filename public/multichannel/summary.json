@@ -1,0 +1,1720 @@
+{
+  "schema_version": 2,
+  "scope": "Exploratory comparison on 31 known images, 3 labelled follow-up images and 6 additional images without supplied labels",
+  "batch_counts": [
+    {
+      "batch": "Batch_3",
+      "n": 17
+    },
+    {
+      "batch": "Batch_1",
+      "n": 7
+    },
+    {
+      "batch": "Batch_2",
+      "n": 7
+    }
+  ],
+  "test_ids": [
+    "3e122cbj",
+    "fn0mhxef",
+    "xrv9xvzb",
+    "0eryguqq",
+    "4hq27w4c",
+    "fhwrjtet",
+    "fspqbkxl",
+    "soo2ax3r",
+    "y59rxmxl"
+  ],
+  "test_counts": {
+    "total": 9,
+    "labelled_follow_up": 3,
+    "unlabelled": 6
+  },
+  "test_groups": [
+    {
+      "key": "labelled_follow_up",
+      "label": "Previously labelled images",
+      "sample_ids": [
+        "3e122cbj",
+        "fn0mhxef",
+        "xrv9xvzb"
+      ]
+    },
+    {
+      "key": "unlabelled",
+      "label": "Additional images without supplied labels",
+      "sample_ids": [
+        "0eryguqq",
+        "4hq27w4c",
+        "fhwrjtet",
+        "fspqbkxl",
+        "soo2ax3r",
+        "y59rxmxl"
+      ]
+    }
+  ],
+  "method": {
+    "pixel_size_um": 0.025,
+    "crop": "central 80% rows, all columns",
+    "gaussian_sigma_px": 1,
+    "third_channel": "ETD or SE, treated as the third detector at the user's direction",
+    "registration": "No registration or resampling; matched pixel grids assumed, separate alignment audit",
+    "clustering": "Three KMeans intensity classes; per-image channel z-scores; 100000 sampled pixels; BSE Multi-Otsu initial centres; seed42; n_init1",
+    "downstream": "Same 14 saved physical fields, including the separate heuristic Inlens median CBD allocation",
+    "silicon": "Bright phase identified as silicon by the user; intensity-derived boundaries still require validation",
+    "agreement": "Mask IoU, Dice and changed-pixel fractions measure agreement, not accuracy against ground truth",
+    "test_labels": "Not used in segmentation, measurement or settings"
+  },
+  "measurements": [
+    {
+      "key": "porosity_pct",
+      "label": "Pore area fraction",
+      "unit": "%",
+      "decimals": 2,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 11.155244951607761,
+            "sd": 1.6309265328064189
+          },
+          "combined": {
+            "mean": 14.294929575817891,
+            "sd": 2.425674236818969
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 9.348488422231828,
+            "sd": 1.5366629061551111
+          },
+          "combined": {
+            "mean": 9.559995542547805,
+            "sd": 1.8744157419622132
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 10.42451851387649,
+            "sd": 1.5224807816831762
+          },
+          "combined": {
+            "mean": 10.710254097865347,
+            "sd": 1.751704327496341
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 9.155219990021282,
+          "combined": 9.911569235307386
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 9.673973677329382,
+          "combined": 8.929713239780353
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 12.942446781225955,
+          "combined": 12.21996238351714
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 9.287731353208468,
+          "combined": 16.571605896043444
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 6.315224798470871,
+          "combined": 5.952995927865038
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 10.53240607336806,
+          "combined": 16.128194613764823
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 9.765769134879083,
+          "combined": 9.496035901271503
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 10.678095238095239,
+          "combined": 10.648115942028985
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 11.213411854103343,
+          "combined": 10.291603343465045
+        }
+      ]
+    },
+    {
+      "key": "porosity_ci95_pct",
+      "label": "Porosity uncertainty half-width",
+      "unit": "percentage points",
+      "decimals": 2,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 1.4466678724917694,
+            "sd": 0.414841170278951
+          },
+          "combined": {
+            "mean": 1.6851403448798474,
+            "sd": 0.32327734941784797
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 1.2921053372221964,
+            "sd": 0.28981999017274335
+          },
+          "combined": {
+            "mean": 1.323835373373604,
+            "sd": 0.28298244084780283
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 1.3581799972222346,
+            "sd": 0.25653152406002805
+          },
+          "combined": {
+            "mean": 1.4242135932832307,
+            "sd": 0.26641433338043014
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 1.4907450967707154,
+          "combined": 1.5344931331237128
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 1.1837677627415,
+          "combined": 1.1469233913658727
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 1.6361454069229535,
+          "combined": 1.6184509172806782
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 1.4413205552575012,
+          "combined": 2.0385181468780047
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 0.8751747272340259,
+          "combined": 0.893492279416997
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 1.5682026986389361,
+          "combined": 2.020416315713025
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 1.4738276931849217,
+          "combined": 1.5221926265425831
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 1.1819495181571869,
+          "combined": 1.2175213817186392
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 1.9830069815923432,
+          "combined": 1.9252020053498284
+        }
+      ]
+    },
+    {
+      "key": "active_material_pct",
+      "label": "Graphite-labelled area fraction",
+      "unit": "%",
+      "decimals": 2,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 81.57895298404995,
+            "sd": 1.820101959458313
+          },
+          "combined": {
+            "mean": 64.74152023802084,
+            "sd": 5.954046249358144
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 80.08149030666567,
+            "sd": 6.506528142284754
+          },
+          "combined": {
+            "mean": 74.05232989303984,
+            "sd": 5.108136283154705
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 83.41449102765351,
+            "sd": 1.656708671296321
+          },
+          "combined": {
+            "mean": 70.88407626998196,
+            "sd": 5.654978098834914
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 72.41605487616546,
+          "combined": 69.12708888927973
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 83.78671663906563,
+          "combined": 73.6640896016735
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 81.4724459263059,
+          "combined": 71.37215525348381
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 83.85331929513465,
+          "combined": 62.286656322730806
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 86.21284800132968,
+          "combined": 80.22899526302668
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 82.11559348332041,
+          "combined": 63.05272082455946
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 84.3531455164963,
+          "combined": 75.09641818332918
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 81.89334161490683,
+          "combined": 75.43170186335404
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 84.19089095744681,
+          "combined": 71.6546447568389
+        }
+      ]
+    },
+    {
+      "key": "cbd_pct",
+      "label": "Carbon-binder allocation",
+      "unit": "%",
+      "decimals": 2,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 5.577620858574735,
+            "sd": 0.8154631007728508
+          },
+          "combined": {
+            "mean": 7.147463501671734,
+            "sd": 1.2128371525894557
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 4.674241647736104,
+            "sd": 0.768330001269627
+          },
+          "combined": {
+            "mean": 4.779996541817186,
+            "sd": 0.9372073152770344
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 5.2122580521712205,
+            "sd": 0.7612395713951499
+          },
+          "combined": {
+            "mean": 5.355124605025104,
+            "sd": 0.875850426162478
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 4.5776061380537545,
+          "combined": 4.955780760696807
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 4.8369824806066415,
+          "combined": 4.464856619890177
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 6.471223390612978,
+          "combined": 6.109976917158246
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 4.643865676604234,
+          "combined": 8.285802948021722
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 3.1576082439956785,
+          "combined": 2.976497963932519
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 5.2661974952898145,
+          "combined": 8.064091765488197
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 4.882880412199784,
+          "combined": 4.748017950635751
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 5.339047619047619,
+          "combined": 5.324057971014493
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 5.606705927051672,
+          "combined": 5.145801671732523
+        }
+      ]
+    },
+    {
+      "key": "inclusion_pct",
+      "label": "Silicon-labelled area fraction",
+      "unit": "%",
+      "decimals": 2,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 7.265802064342291,
+            "sd": 1.9369549376980588
+          },
+          "combined": {
+            "mean": 20.963550186161275,
+            "sd": 4.394971728661519
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 10.570021271102497,
+            "sd": 6.577720564852996
+          },
+          "combined": {
+            "mean": 16.387674564412354,
+            "sd": 4.896126905583769
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 6.160990458470001,
+            "sd": 1.5439094888758131
+          },
+          "combined": {
+            "mean": 18.40566963215269,
+            "sd": 4.703732286725256
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 18.428725133813263,
+          "combined": 20.961341875412888
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 6.539309683604985,
+          "combined": 17.406197158546153
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 5.585107292468154,
+          "combined": 16.40788236299906
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 6.858949351656878,
+          "combined": 21.141737781225757
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 7.471927200199452,
+          "combined": 13.818008809108285
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 7.352000443311538,
+          "combined": 20.81908456167572
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 5.881085348624616,
+          "combined": 15.407545915399318
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 7.42856314699793,
+          "combined": 13.920182194616979
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 4.595697188449848,
+          "combined": 18.05375189969605
+        }
+      ]
+    },
+    {
+      "key": "char_length_scale_cls_um",
+      "label": "Pore correlation length scale",
+      "unit": "µm",
+      "decimals": 3,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 1.9427438873407916,
+            "sd": 0.4377730540007516
+          },
+          "combined": {
+            "mean": 2.048468006593265,
+            "sd": 0.2506030665274526
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 1.929193517663831,
+            "sd": 0.3483994950529537
+          },
+          "combined": {
+            "mean": 1.9578275376922536,
+            "sd": 0.3013775261125307
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 1.9447331661664131,
+            "sd": 0.237127187403521
+          },
+          "combined": {
+            "mean": 2.0167785045185966,
+            "sd": 0.23086267218964468
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 2.3739171392037215,
+          "combined": 2.3583365190682546
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 1.7301351908370337,
+          "combined": 1.7375997122342737
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 2.1263348507252284,
+          "combined": 2.155697904452555
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 1.9025328297100454,
+          "combined": 2.1005583870562723
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 1.5919768453527223,
+          "combined": 1.6707882962445735
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 1.9573339837375514,
+          "combined": 2.104744627117055
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 2.1967403195527786,
+          "combined": 2.2973942761689754
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 1.6962917587185773,
+          "combined": 1.7495077113308104
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 2.6009891959260707,
+          "combined": 2.6222561570207694
+        }
+      ]
+    },
+    {
+      "key": "throat_through_plane_ly_um",
+      "label": "Vertical pore chord length",
+      "unit": "µm",
+      "decimals": 3,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 0.4205675646800959,
+            "sd": 0.049152192708770186
+          },
+          "combined": {
+            "mean": 0.5186518856626458,
+            "sd": 0.050790629119385845
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 0.37850681401596803,
+            "sd": 0.05870123388654518
+          },
+          "combined": {
+            "mean": 0.42169975367533474,
+            "sd": 0.06115025143114839
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 0.4095125060408551,
+            "sd": 0.0444948659570462
+          },
+          "combined": {
+            "mean": 0.48792886673638447,
+            "sd": 0.061986381509978934
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 0.342211802378774,
+          "combined": 0.37285812989405803
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 0.41084123222748814,
+          "combined": 0.4759814814814815
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 0.48685619581846,
+          "combined": 0.5311690223792698
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 0.38414411119239217,
+          "combined": 0.5253206915783603
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 0.2994055068836045,
+          "combined": 0.3543685464654488
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 0.39054718217562256,
+          "combined": 0.4817118553960659
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 0.4205774647887324,
+          "combined": 0.5158994334277621
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 0.3926650366748166,
+          "combined": 0.4410566868464502
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 0.43846614739364886,
+          "combined": 0.5154807692307692
+        }
+      ]
+    },
+    {
+      "key": "chord_in_plane_lx_um",
+      "label": "Horizontal pore chord length",
+      "unit": "µm",
+      "decimals": 3,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 0.47244668928068156,
+            "sd": 0.05739559016833733
+          },
+          "combined": {
+            "mean": 0.5942288394238966,
+            "sd": 0.06835105923973583
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 0.43104901898613684,
+            "sd": 0.07588025173153203
+          },
+          "combined": {
+            "mean": 0.48738348271579024,
+            "sd": 0.09336211633649631
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 0.44878713826007777,
+            "sd": 0.047454622454784115
+          },
+          "combined": {
+            "mean": 0.546571310224968,
+            "sd": 0.06118344163661933
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 0.3808968377397615,
+          "combined": 0.40953794527620035
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 0.45269255874673636,
+          "combined": 0.533665008291874
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 0.5496699196326061,
+          "combined": 0.603941215764863
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 0.4488522537562605,
+          "combined": 0.6295152722443559
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 0.3615768094534712,
+          "combined": 0.4578685258964144
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 0.46203917050691246,
+          "combined": 0.6016709928617782
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 0.44931776834445125,
+          "combined": 0.5769477911646587
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 0.45221226927252994,
+          "combined": 0.5256786616161616
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 0.5316476054324517,
+          "combined": 0.6463311382878645
+        }
+      ]
+    },
+    {
+      "key": "pore_anisotropy_ratio",
+      "label": "Pore chord anisotropy",
+      "unit": "ratio",
+      "decimals": 3,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 1.1239455561842844,
+            "sd": 0.0461607904651378
+          },
+          "combined": {
+            "mean": 1.1447587964964117,
+            "sd": 0.0438691357939885
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 1.1359641358812425,
+            "sd": 0.05008552646298073
+          },
+          "combined": {
+            "mean": 1.1492558795909809,
+            "sd": 0.07375642985011151
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 1.096955175899786,
+            "sd": 0.04301051539500141
+          },
+          "combined": {
+            "mean": 1.1224033631547208,
+            "sd": 0.03495954296095892
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 1.113044129664965,
+          "combined": 1.0983747233634529
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 1.1018673960555025,
+          "combined": 1.1211885946294673
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 1.129019049882993,
+          "combined": 1.1370038355392493
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 1.1684475713112268,
+          "combined": 1.19834471083356
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 1.207649161890787,
+          "combined": 1.2920687528938377
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 1.1830559573699373,
+          "combined": 1.2490267493356193
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 1.0683353388183932,
+          "combined": 1.118333833652959
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 1.1516489298410009,
+          "combined": 1.191861901867439
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 1.2125168809329898,
+          "combined": 1.253841417309045
+        }
+      ]
+    },
+    {
+      "key": "particle_aspect_ratio",
+      "label": "Silicon-labelled component aspect ratio",
+      "unit": "ratio",
+      "decimals": 2,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 2.580269243256826,
+            "sd": 0.16829328792775847
+          },
+          "combined": {
+            "mean": 3.149955627665319,
+            "sd": 0.22904980026503857
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 2.7951653618806804,
+            "sd": 0.27178564413282896
+          },
+          "combined": {
+            "mean": 3.210106190545873,
+            "sd": 0.22319858509492987
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 2.560797677307513,
+            "sd": 0.14214583452566748
+          },
+          "combined": {
+            "mean": 3.0186585930568945,
+            "sd": 0.312872230818128
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 2.974108481530304,
+          "combined": 3.5324926981828213
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 2.365650410184364,
+          "combined": 2.9150729656408925
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 2.7576479494538275,
+          "combined": 3.4629776283372027
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 2.6839861537853174,
+          "combined": 3.1858978319950215
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 2.408078551801668,
+          "combined": 3.054621510795965
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 2.639650045451584,
+          "combined": 3.135762087241415
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 2.490878354801959,
+          "combined": 3.126595188343629
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 2.8268571224718677,
+          "combined": 3.4368902694210033
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 2.9320081736039527,
+          "combined": 2.863464644588321
+        }
+      ]
+    },
+    {
+      "key": "particle_d10_um",
+      "label": "Silicon-labelled component diameter D10",
+      "unit": "µm",
+      "decimals": 3,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 0.09356025796273888,
+            "sd": 0.0
+          },
+          "combined": {
+            "mean": 0.0979552212775029,
+            "sd": 0.0009677708043251356
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 0.09356025796273888,
+            "sd": 0.0
+          },
+          "combined": {
+            "mean": 0.097720502380584,
+            "sd": 0.0
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 0.09356025796273888,
+            "sd": 0.0
+          },
+          "combined": {
+            "mean": 0.09829053398738706,
+            "sd": 0.0015081618710474794
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 0.09356025796273888,
+          "combined": 0.097720502380584
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 0.09356025796273888,
+          "combined": 0.097720502380584
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 0.09356025796273888,
+          "combined": 0.097720502380584
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 0.09356025796273888,
+          "combined": 0.097720502380584
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 0.09356025796273888,
+          "combined": 0.097720502380584
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 0.09356025796273888,
+          "combined": 0.097720502380584
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 0.09356025796273888,
+          "combined": 0.097720502380584
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 0.09356025796273888,
+          "combined": 0.097720502380584
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 0.09356025796273888,
+          "combined": 0.097720502380584
+        }
+      ]
+    },
+    {
+      "key": "particle_d50_um",
+      "label": "Silicon-labelled component diameter D50",
+      "unit": "µm",
+      "decimals": 3,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 0.13760486729113036,
+            "sd": 0.004950178175612462
+          },
+          "combined": {
+            "mean": 0.17781198402329035,
+            "sd": 0.007286398578621344
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 0.1403482791579042,
+            "sd": 0.005494289196840339
+          },
+          "combined": {
+            "mean": 0.1716191040806086,
+            "sd": 0.011027298108547343
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 0.13441999598747736,
+            "sd": 0.0027997770489460857
+          },
+          "combined": {
+            "mean": 0.17400017690533873,
+            "sd": 0.00948172000971743
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 0.14658075357087597,
+          "combined": 0.1595769121605731
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 0.1381976597885342,
+          "combined": 0.18712051592547777
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 0.1438406847937898,
+          "combined": 0.18281831978578633
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 0.1381976597885342,
+          "combined": 0.16448811606198854
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 0.13528790949515024,
+          "combined": 0.1738949084575512
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 0.13528790949515024,
+          "combined": 0.1738949084575512
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 0.13528790949515024,
+          "combined": 0.18498192550829798
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 0.13528790949515024,
+          "combined": 0.17841241161527713
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 0.13528790949515024,
+          "combined": 0.1761681409986482
+        }
+      ]
+    },
+    {
+      "key": "particle_d90_um",
+      "label": "Silicon-labelled component diameter D90",
+      "unit": "µm",
+      "decimals": 3,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 0.4822831499136345,
+            "sd": 0.20174077976060414
+          },
+          "combined": {
+            "mean": 0.6546904489981883,
+            "sd": 0.05578028214610775
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 0.4561254310549971,
+            "sd": 0.14904402661355734
+          },
+          "combined": {
+            "mean": 0.5286953406993339,
+            "sd": 0.06486547896983082
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 0.42242715449476054,
+            "sd": 0.07084891908763392
+          },
+          "combined": {
+            "mean": 0.5886945784335669,
+            "sd": 0.06059322777047549
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 0.4470111406433128,
+          "combined": 0.48697111331877174
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 0.6227628987130351,
+          "combined": 0.6457444935117649
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 0.5278999914001974,
+          "combined": 0.7315990149553713
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 0.3436461061151975,
+          "combined": 0.5792842192337824
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 0.4441990704418364,
+          "combined": 0.5361256106341121
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 0.3142538756693917,
+          "combined": 0.6656460517289854
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 0.35727015950552526,
+          "combined": 0.6921389879977902
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 0.366070633458355,
+          "combined": 0.5944106103225343
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 0.3147595154841155,
+          "combined": 0.5957478687288161
+        }
+      ]
+    },
+    {
+      "key": "slurry_dispersion_index",
+      "label": "Silicon-labelled area spatial variation",
+      "unit": "percentage points",
+      "decimals": 2,
+      "batches": [
+        {
+          "batch": "Batch_3",
+          "n": 17,
+          "original": {
+            "mean": 4.036027808295191,
+            "sd": 0.6891570063886415
+          },
+          "combined": {
+            "mean": 5.636535648662531,
+            "sd": 1.0403096768411866
+          }
+        },
+        {
+          "batch": "Batch_1",
+          "n": 7,
+          "original": {
+            "mean": 4.4624763208311515,
+            "sd": 1.4223358978415048
+          },
+          "combined": {
+            "mean": 5.220193200115936,
+            "sd": 1.3945807444085343
+          }
+        },
+        {
+          "batch": "Batch_2",
+          "n": 7,
+          "original": {
+            "mean": 3.8874888643238896,
+            "sd": 0.8902164220895754
+          },
+          "combined": {
+            "mean": 5.378282548191006,
+            "sd": 0.48867887723666464
+          }
+        }
+      ],
+      "tests": [
+        {
+          "sample_id": "3e122cbj",
+          "original": 4.8165791611669855,
+          "combined": 6.637482844317945
+        },
+        {
+          "sample_id": "fn0mhxef",
+          "original": 3.7844169129077287,
+          "combined": 4.8201912211928795
+        },
+        {
+          "sample_id": "xrv9xvzb",
+          "original": 5.005198716402209,
+          "combined": 5.321463412761428
+        },
+        {
+          "sample_id": "0eryguqq",
+          "original": 3.7677442127245793,
+          "combined": 6.298570053440612
+        },
+        {
+          "sample_id": "4hq27w4c",
+          "original": 5.821465063118296,
+          "combined": 6.354518970943859
+        },
+        {
+          "sample_id": "fhwrjtet",
+          "original": 4.41961728210187,
+          "combined": 6.071293252752798
+        },
+        {
+          "sample_id": "fspqbkxl",
+          "original": 4.16226594984249,
+          "combined": 6.43327207824948
+        },
+        {
+          "sample_id": "soo2ax3r",
+          "original": 3.914115142662286,
+          "combined": 3.975838977754853
+        },
+        {
+          "sample_id": "y59rxmxl",
+          "original": 3.1686918418388137,
+          "combined": 6.069166212443094
+        }
+      ]
+    }
+  ],
+  "assignment_method": {
+    "rule": "Nearest centroid by RMS standardised distance",
+    "scale": "Sample SD across the 31 known images, fitted separately for each segmentation method",
+    "inputs": "All 14 saved fields except D10; includes porosity uncertainty and derived fields",
+    "confidence": "Uncalibrated; distances are not class probabilities or acceptance criteria",
+    "label_use": "Confirmed labels are used only for comparison after predictions",
+    "original_model": {
+      "feature_keys": [
+        "porosity_pct",
+        "porosity_ci95_pct",
+        "active_material_pct",
+        "cbd_pct",
+        "inclusion_pct",
+        "char_length_scale_cls_um",
+        "throat_through_plane_ly_um",
+        "chord_in_plane_lx_um",
+        "pore_anisotropy_ratio",
+        "particle_aspect_ratio",
+        "particle_d50_um",
+        "particle_d90_um",
+        "slurry_dispersion_index"
+      ],
+      "known_sample_sd": {
+        "porosity_pct": 1.7033814213818776,
+        "porosity_ci95_pct": 0.35501074944430905,
+        "active_material_pct": 3.4765039513159097,
+        "cbd_pct": 0.8516903686782594,
+        "inclusion_pct": 3.7024865815018058,
+        "char_length_scale_cls_um": 0.371173577407809,
+        "throat_through_plane_ly_um": 0.05163608778867654,
+        "chord_in_plane_lx_um": 0.06055063563835694,
+        "pore_anisotropy_ratio": 0.04690417983368525,
+        "particle_aspect_ratio": 0.20681309536077555,
+        "particle_d50_um": 0.0049786342380230275,
+        "particle_d90_um": 0.166609944421623,
+        "slurry_dispersion_index": 0.9273173157207923
+      },
+      "batch_means": {
+        "Batch_3": {
+          "porosity_pct": 11.155244951607761,
+          "porosity_ci95_pct": 1.4466678724917694,
+          "active_material_pct": 81.57895298404995,
+          "cbd_pct": 5.577620858574735,
+          "inclusion_pct": 7.265802064342291,
+          "char_length_scale_cls_um": 1.9427438873407916,
+          "throat_through_plane_ly_um": 0.4205675646800959,
+          "chord_in_plane_lx_um": 0.47244668928068156,
+          "pore_anisotropy_ratio": 1.1239455561842844,
+          "particle_aspect_ratio": 2.580269243256826,
+          "particle_d50_um": 0.13760486729113036,
+          "particle_d90_um": 0.4822831499136345,
+          "slurry_dispersion_index": 4.036027808295191
+        },
+        "Batch_1": {
+          "porosity_pct": 9.348488422231828,
+          "porosity_ci95_pct": 1.2921053372221964,
+          "active_material_pct": 80.08149030666567,
+          "cbd_pct": 4.674241647736104,
+          "inclusion_pct": 10.570021271102497,
+          "char_length_scale_cls_um": 1.929193517663831,
+          "throat_through_plane_ly_um": 0.37850681401596803,
+          "chord_in_plane_lx_um": 0.43104901898613684,
+          "pore_anisotropy_ratio": 1.1359641358812425,
+          "particle_aspect_ratio": 2.7951653618806804,
+          "particle_d50_um": 0.1403482791579042,
+          "particle_d90_um": 0.4561254310549971,
+          "slurry_dispersion_index": 4.4624763208311515
+        },
+        "Batch_2": {
+          "porosity_pct": 10.42451851387649,
+          "porosity_ci95_pct": 1.3581799972222346,
+          "active_material_pct": 83.41449102765351,
+          "cbd_pct": 5.2122580521712205,
+          "inclusion_pct": 6.160990458470001,
+          "char_length_scale_cls_um": 1.9447331661664131,
+          "throat_through_plane_ly_um": 0.4095125060408551,
+          "chord_in_plane_lx_um": 0.44878713826007777,
+          "pore_anisotropy_ratio": 1.096955175899786,
+          "particle_aspect_ratio": 2.560797677307513,
+          "particle_d50_um": 0.13441999598747736,
+          "particle_d90_um": 0.42242715449476054,
+          "slurry_dispersion_index": 3.8874888643238896
+        }
+      }
+    },
+    "combined_model": {
+      "feature_keys": [
+        "porosity_pct",
+        "porosity_ci95_pct",
+        "active_material_pct",
+        "cbd_pct",
+        "inclusion_pct",
+        "char_length_scale_cls_um",
+        "throat_through_plane_ly_um",
+        "chord_in_plane_lx_um",
+        "pore_anisotropy_ratio",
+        "particle_aspect_ratio",
+        "particle_d50_um",
+        "particle_d90_um",
+        "slurry_dispersion_index"
+      ],
+      "known_sample_sd": {
+        "porosity_pct": 3.0061850210694514,
+        "porosity_ci95_pct": 0.3345072088217569,
+        "active_material_pct": 6.853535609268455,
+        "cbd_pct": 1.5030923941579295,
+        "inclusion_pct": 4.822051114320859,
+        "char_length_scale_cls_um": 0.25235371658040373,
+        "throat_through_plane_ly_um": 0.06668441261339589,
+        "chord_in_plane_lx_um": 0.08318406382630954,
+        "pore_anisotropy_ratio": 0.04963228935848215,
+        "particle_aspect_ratio": 0.2492427793574077,
+        "particle_d50_um": 0.008813720934664116,
+        "particle_d90_um": 0.07754688551982668,
+        "slurry_dispersion_index": 1.0227220833092365
+      },
+      "batch_means": {
+        "Batch_3": {
+          "porosity_pct": 14.294929575817891,
+          "porosity_ci95_pct": 1.6851403448798474,
+          "active_material_pct": 64.74152023802084,
+          "cbd_pct": 7.147463501671734,
+          "inclusion_pct": 20.963550186161275,
+          "char_length_scale_cls_um": 2.048468006593265,
+          "throat_through_plane_ly_um": 0.5186518856626458,
+          "chord_in_plane_lx_um": 0.5942288394238966,
+          "pore_anisotropy_ratio": 1.1447587964964117,
+          "particle_aspect_ratio": 3.149955627665319,
+          "particle_d50_um": 0.17781198402329035,
+          "particle_d90_um": 0.6546904489981883,
+          "slurry_dispersion_index": 5.636535648662531
+        },
+        "Batch_1": {
+          "porosity_pct": 9.559995542547805,
+          "porosity_ci95_pct": 1.323835373373604,
+          "active_material_pct": 74.05232989303984,
+          "cbd_pct": 4.779996541817186,
+          "inclusion_pct": 16.387674564412354,
+          "char_length_scale_cls_um": 1.9578275376922536,
+          "throat_through_plane_ly_um": 0.42169975367533474,
+          "chord_in_plane_lx_um": 0.48738348271579024,
+          "pore_anisotropy_ratio": 1.1492558795909809,
+          "particle_aspect_ratio": 3.210106190545873,
+          "particle_d50_um": 0.1716191040806086,
+          "particle_d90_um": 0.5286953406993339,
+          "slurry_dispersion_index": 5.220193200115936
+        },
+        "Batch_2": {
+          "porosity_pct": 10.710254097865347,
+          "porosity_ci95_pct": 1.4242135932832307,
+          "active_material_pct": 70.88407626998196,
+          "cbd_pct": 5.355124605025104,
+          "inclusion_pct": 18.40566963215269,
+          "char_length_scale_cls_um": 2.0167785045185966,
+          "throat_through_plane_ly_um": 0.48792886673638447,
+          "chord_in_plane_lx_um": 0.546571310224968,
+          "pore_anisotropy_ratio": 1.1224033631547208,
+          "particle_aspect_ratio": 3.0186585930568945,
+          "particle_d50_um": 0.17400017690533873,
+          "particle_d90_um": 0.5886945784335669,
+          "slurry_dispersion_index": 5.378282548191006
+        }
+      }
+    }
+  },
+  "assignments": [
+    {
+      "sample_id": "3e122cbj",
+      "original": {
+        "assignment": "Batch_1",
+        "distances": {
+          "Batch_3": 1.5794793363149673,
+          "Batch_1": 1.0750582447464294,
+          "Batch_2": 1.7014341169854499
+        }
+      },
+      "combined": {
+        "assignment": "Batch_1",
+        "distances": {
+          "Batch_3": 1.4994101962648376,
+          "Batch_1": 0.9833943685372399,
+          "Batch_2": 1.1935407140368826
+        }
+      },
+      "confirmed_batch": "Batch_2",
+      "label_status": "labelled_follow_up"
+    },
+    {
+      "sample_id": "fn0mhxef",
+      "original": {
+        "assignment": "Batch_2",
+        "distances": {
+          "Batch_3": 0.6244905025456398,
+          "Batch_1": 0.8708072929007632,
+          "Batch_2": 0.549538797118948
+        }
+      },
+      "combined": {
+        "assignment": "Batch_2",
+        "distances": {
+          "Batch_3": 1.1277969386829123,
+          "Batch_1": 0.8501022438226589,
+          "Batch_2": 0.6852675070315215
+        }
+      },
+      "confirmed_batch": "Batch_1",
+      "label_status": "labelled_follow_up"
+    },
+    {
+      "sample_id": "xrv9xvzb",
+      "original": {
+        "assignment": "Batch_3",
+        "distances": {
+          "Batch_3": 0.8636298178957866,
+          "Batch_1": 1.2834209209773602,
+          "Batch_2": 1.1564396352599884
+        }
+      },
+      "combined": {
+        "assignment": "Batch_3",
+        "distances": {
+          "Batch_3": 0.6823841462307483,
+          "Batch_1": 1.1545366653550624,
+          "Batch_2": 0.8718671367527769
+        }
+      },
+      "confirmed_batch": "Batch_3",
+      "label_status": "labelled_follow_up"
+    },
+    {
+      "sample_id": "0eryguqq",
+      "original": {
+        "assignment": "Batch_1",
+        "distances": {
+          "Batch_3": 0.6473263221362006,
+          "Batch_1": 0.5841992224650896,
+          "Batch_2": 0.6041796480974432
+        }
+      },
+      "combined": {
+        "assignment": "Batch_3",
+        "distances": {
+          "Batch_3": 0.7576107254603253,
+          "Batch_1": 1.4727692596085302,
+          "Batch_2": 1.2111890440337774
+        }
+      },
+      "confirmed_batch": null,
+      "label_status": "not_supplied"
+    },
+    {
+      "sample_id": "4hq27w4c",
+      "original": {
+        "assignment": "Batch_1",
+        "distances": {
+          "Batch_3": 1.7124868481909792,
+          "Batch_1": 1.3880067607844637,
+          "Batch_2": 1.5762809656224037
+        }
+      },
+      "combined": {
+        "assignment": "Batch_1",
+        "distances": {
+          "Batch_3": 1.9861752498632577,
+          "Batch_1": 1.1781503769454582,
+          "Batch_2": 1.5291003325275487
+        }
+      },
+      "confirmed_batch": null,
+      "label_status": "not_supplied"
+    },
+    {
+      "sample_id": "fhwrjtet",
+      "original": {
+        "assignment": "Batch_3",
+        "distances": {
+          "Batch_3": 0.5444475791104177,
+          "Batch_1": 0.6975018469321818,
+          "Batch_2": 0.6251963494663391
+        }
+      },
+      "combined": {
+        "assignment": "Batch_3",
+        "distances": {
+          "Batch_3": 0.733245120221695,
+          "Batch_1": 1.476712013975002,
+          "Batch_2": 1.2394692487576433
+        }
+      },
+      "confirmed_batch": null,
+      "label_status": "not_supplied"
+    },
+    {
+      "sample_id": "fspqbkxl",
+      "original": {
+        "assignment": "Batch_2",
+        "distances": {
+          "Batch_3": 0.6274545022035003,
+          "Batch_1": 0.8988760641469159,
+          "Batch_2": 0.36674945841984047
+        }
+      },
+      "combined": {
+        "assignment": "Batch_2",
+        "distances": {
+          "Batch_3": 0.9509614861649659,
+          "Batch_1": 1.038888461821232,
+          "Batch_2": 0.7500004787908469
+        }
+      },
+      "confirmed_batch": null,
+      "label_status": "not_supplied"
+    },
+    {
+      "sample_id": "soo2ax3r",
+      "original": {
+        "assignment": "Batch_3",
+        "distances": {
+          "Batch_3": 0.5587395623414392,
+          "Batch_1": 0.6017728895354388,
+          "Batch_2": 0.5762909807182762
+        }
+      },
+      "combined": {
+        "assignment": "Batch_1",
+        "distances": {
+          "Batch_3": 1.1887998716055048,
+          "Batch_1": 0.6793921707414046,
+          "Batch_2": 0.8891553502771358
+        }
+      },
+      "confirmed_batch": null,
+      "label_status": "not_supplied"
+    },
+    {
+      "sample_id": "y59rxmxl",
+      "original": {
+        "assignment": "Batch_3",
+        "distances": {
+          "Batch_3": 1.11462992471338,
+          "Batch_1": 1.3692039444527144,
+          "Batch_2": 1.2218875682259065
+        }
+      },
+      "combined": {
+        "assignment": "Batch_2",
+        "distances": {
+          "Batch_3": 1.1750954418587942,
+          "Batch_1": 1.3652598979194734,
+          "Batch_2": 1.163268373706834
+        }
+      },
+      "confirmed_batch": null,
+      "label_status": "not_supplied"
+    }
+  ],
+  "sources": {
+    "features_csv_sha256": "3c782daea78862d3cbda83433d231e8412a126c7dda130af1696f22b2d5e0916",
+    "report_json_sha256": "0b5eeb64d9633b64733459767063463a983b326eed7bb94fb73794ec845afc30",
+    "confirmed_labels_sha256": "40b11cc36d328d3f326e6e962d6fca5f344fb8e07f5ab1e62707e4b2e8a30bb1",
+    "generator_sha256": "52716317e27a9629fcff1a7b00669e355e11a6e2adb1fe59afdb91d540f6c559",
+    "test_features_csv_sha256": "582886a16445b227ccc5291090d677076963569fd6e4b8e654f726cdeaba02c1",
+    "test_report_json_sha256": "192353a3bff08f639c1b27dc34594356edb2228ffa07c8ecf409b207379bf13a"
+  },
+  "verification": {
+    "samples": 40,
+    "variants_per_sample": 3,
+    "numeric_fields_checked": 1806,
+    "csv_report_max_error": 0
+  },
+  "exports": {
+    "original_known.csv": "fb9a5cc754d59b8a67323e6b13439ce07aa900fa2333a274d7a591b5f66469e7",
+    "known_batches.csv": "350e6a20908db73121e88a43f222e3018395cd3f0d92b7ea8a16a9f39c533e8f",
+    "test_1.csv": "85fb712c60c8137ce6e64b051afb80ba053fcf829ba4ab8375681b95e6cb8851"
+  }
+}

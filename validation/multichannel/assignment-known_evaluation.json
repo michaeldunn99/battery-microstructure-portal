@@ -1,0 +1,541 @@
+{
+  "class_order": [
+    "Batch_1",
+    "Batch_2",
+    "Batch_3"
+  ],
+  "confusion_matrix_actual_rows_predicted_columns": [
+    [
+      3,
+      4,
+      0
+    ],
+    [
+      3,
+      2,
+      2
+    ],
+    [
+      0,
+      4,
+      13
+    ]
+  ],
+  "correct": 18,
+  "crop_count": 31,
+  "accuracy": 0.5806451612903226,
+  "balanced_accuracy": 0.4929971988795518,
+  "per_class": {
+    "Batch_1": {
+      "actual_crop_count": 7,
+      "oof_prediction_count": 6,
+      "oof_correct_predictions": 3,
+      "oof_precision": 0.5,
+      "oof_recall": 0.42857142857142855,
+      "descriptive_binomial_precision_interval95": [
+        0.1876163064826506,
+        0.8123836935173494
+      ],
+      "true_class_loo_distance_quantile95": 1.6571128896596925,
+      "true_class_loo_distances": [
+        1.587523899640543,
+        1.6869367425250426,
+        1.0789207098937459,
+        0.9135271545583441,
+        0.8698126691490942,
+        0.9798487743197392,
+        0.6645675454412252
+      ]
+    },
+    "Batch_2": {
+      "actual_crop_count": 7,
+      "oof_prediction_count": 10,
+      "oof_correct_predictions": 2,
+      "oof_precision": 0.2,
+      "oof_recall": 0.2857142857142857,
+      "descriptive_binomial_precision_interval95": [
+        0.05668215145437519,
+        0.5098375284633583
+      ],
+      "true_class_loo_distance_quantile95": 1.1052095819340024,
+      "true_class_loo_distances": [
+        1.1084193962427735,
+        0.7895291212909875,
+        0.8139578050047754,
+        0.8005023984937361,
+        1.0081681878056583,
+        1.0977200152135362,
+        0.7459943379553376
+      ]
+    },
+    "Batch_3": {
+      "actual_crop_count": 17,
+      "oof_prediction_count": 15,
+      "oof_correct_predictions": 13,
+      "oof_precision": 0.8666666666666667,
+      "oof_recall": 0.7647058823529411,
+      "descriptive_binomial_precision_interval95": [
+        0.6211801716767764,
+        0.9626387408969346
+      ],
+      "true_class_loo_distance_quantile95": 1.4335701652477693,
+      "true_class_loo_distances": [
+        1.8198209825614207,
+        0.5967956333120426,
+        0.6690044218324388,
+        0.6234286543442459,
+        0.8114770991401706,
+        0.9702000310091946,
+        0.6374368855168386,
+        0.9717739145722905,
+        0.9069964093974391,
+        0.6034855531385528,
+        0.5789415512852654,
+        1.1749352481033517,
+        0.6400612596625694,
+        0.9261958958670843,
+        1.0628070302225316,
+        0.6673253898163376,
+        1.337007460919357
+      ]
+    }
+  },
+  "predictions": [
+    {
+      "sample_id": "4ih2ggld",
+      "actual_batch": "Batch_1",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_3",
+      "correct": false,
+      "relative_margin": 0.10273537260178603,
+      "true_class_distance": 1.587523899640543,
+      "distances": {
+        "Batch_1": 1.587523899640543,
+        "Batch_2": 1.3911771937583342,
+        "Batch_3": 1.5504647695655982
+      }
+    },
+    {
+      "sample_id": "5n1q8atc",
+      "actual_batch": "Batch_1",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_1",
+      "correct": false,
+      "relative_margin": 0.02685338949373715,
+      "true_class_distance": 1.6869367425250426,
+      "distances": {
+        "Batch_1": 1.6869367425250426,
+        "Batch_2": 1.6416367731267214,
+        "Batch_3": 2.1117079711184146
+      }
+    },
+    {
+      "sample_id": "f1vzngrs",
+      "actual_batch": "Batch_1",
+      "assigned_batch": "Batch_1",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.20677996614256766,
+      "true_class_distance": 1.0789207098937459,
+      "distances": {
+        "Batch_1": 1.0789207098937459,
+        "Batch_2": 1.360178341244043,
+        "Batch_3": 1.957402945817404
+      }
+    },
+    {
+      "sample_id": "ffwubibz",
+      "actual_batch": "Batch_1",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_1",
+      "correct": false,
+      "relative_margin": 0.004992820633590638,
+      "true_class_distance": 0.9135271545583441,
+      "distances": {
+        "Batch_1": 0.9135271545583441,
+        "Batch_2": 0.9089660773317199,
+        "Batch_3": 1.3890484649312123
+      }
+    },
+    {
+      "sample_id": "fzrt2k6r",
+      "actual_batch": "Batch_1",
+      "assigned_batch": "Batch_1",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.08997774352472805,
+      "true_class_distance": 0.8698126691490942,
+      "distances": {
+        "Batch_1": 0.8698126691490942,
+        "Batch_2": 0.9558147209696619,
+        "Batch_3": 1.1883957325492684
+      }
+    },
+    {
+      "sample_id": "iv6g2oq0",
+      "actual_batch": "Batch_1",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_1",
+      "correct": false,
+      "relative_margin": 0.19444998698577592,
+      "true_class_distance": 0.9798487743197392,
+      "distances": {
+        "Batch_1": 0.9798487743197392,
+        "Batch_2": 0.7893171929052374,
+        "Batch_3": 1.092367841127878
+      }
+    },
+    {
+      "sample_id": "uhdslk0o",
+      "actual_batch": "Batch_1",
+      "assigned_batch": "Batch_1",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.03503845654215448,
+      "true_class_distance": 0.6645675454412252,
+      "distances": {
+        "Batch_1": 0.6645675454412252,
+        "Batch_2": 0.6886984771018048,
+        "Batch_3": 1.0642152914862464
+      }
+    },
+    {
+      "sample_id": "3806gxp0",
+      "actual_batch": "Batch_2",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": false,
+      "relative_margin": 0.24999021088268494,
+      "true_class_distance": 1.1084193962427735,
+      "distances": {
+        "Batch_1": 1.451845268526891,
+        "Batch_2": 1.1084193962427735,
+        "Batch_3": 0.8313253976295842
+      }
+    },
+    {
+      "sample_id": "avn74qx1",
+      "actual_batch": "Batch_2",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_3",
+      "correct": true,
+      "relative_margin": 0.00951269167340711,
+      "true_class_distance": 0.7895291212909875,
+      "distances": {
+        "Batch_1": 1.1781796825479562,
+        "Batch_2": 0.7895291212909875,
+        "Batch_3": 0.7971118000743291
+      }
+    },
+    {
+      "sample_id": "b3esycq1",
+      "actual_batch": "Batch_2",
+      "assigned_batch": "Batch_1",
+      "runner_up": "Batch_2",
+      "correct": false,
+      "relative_margin": 0.4965909819259708,
+      "true_class_distance": 0.8139578050047754,
+      "distances": {
+        "Batch_1": 0.40975369937114614,
+        "Batch_2": 0.8139578050047754,
+        "Batch_3": 1.068954741614737
+      }
+    },
+    {
+      "sample_id": "epqdaau9",
+      "actual_batch": "Batch_2",
+      "assigned_batch": "Batch_1",
+      "runner_up": "Batch_2",
+      "correct": false,
+      "relative_margin": 0.4598680748745608,
+      "true_class_distance": 0.8005023984937361,
+      "distances": {
+        "Batch_1": 0.43237690156595315,
+        "Batch_2": 0.8005023984937361,
+        "Batch_3": 1.2676455789640115
+      }
+    },
+    {
+      "sample_id": "i9jiqjwl",
+      "actual_batch": "Batch_2",
+      "assigned_batch": "Batch_1",
+      "runner_up": "Batch_2",
+      "correct": false,
+      "relative_margin": 0.47243549085120207,
+      "true_class_distance": 1.0081681878056583,
+      "distances": {
+        "Batch_1": 0.5318737551391253,
+        "Batch_2": 1.0081681878056583,
+        "Batch_3": 1.3987067256246577
+      }
+    },
+    {
+      "sample_id": "r17byphk",
+      "actual_batch": "Batch_2",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": false,
+      "relative_margin": 0.14001855948782246,
+      "true_class_distance": 1.0977200152135362,
+      "distances": {
+        "Batch_1": 1.2425372799482428,
+        "Batch_2": 1.0977200152135362,
+        "Batch_3": 0.9440188399623863
+      }
+    },
+    {
+      "sample_id": "rxax5ozo",
+      "actual_batch": "Batch_2",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_1",
+      "correct": true,
+      "relative_margin": 0.14969152267400102,
+      "true_class_distance": 0.7459943379553376,
+      "distances": {
+        "Batch_1": 0.877322004716803,
+        "Batch_2": 0.7459943379553376,
+        "Batch_3": 1.0098985098980988
+      }
+    },
+    {
+      "sample_id": "0grcilhi",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.1730971178420385,
+      "true_class_distance": 1.8198209825614207,
+      "distances": {
+        "Batch_1": 2.595586232641485,
+        "Batch_2": 2.2007674925648453,
+        "Batch_3": 1.8198209825614207
+      }
+    },
+    {
+      "sample_id": "71vgq3fw",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.3413934982362827,
+      "true_class_distance": 0.5967956333120426,
+      "distances": {
+        "Batch_1": 1.2232764019339502,
+        "Batch_2": 0.9061490157079407,
+        "Batch_3": 0.5967956333120426
+      }
+    },
+    {
+      "sample_id": "9luzk4jm",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.1833801490168862,
+      "true_class_distance": 0.6690044218324388,
+      "distances": {
+        "Batch_1": 1.1870987609062686,
+        "Batch_2": 0.8192360509324339,
+        "Batch_3": 0.6690044218324388
+      }
+    },
+    {
+      "sample_id": "cfe5vt7s",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_3",
+      "correct": false,
+      "relative_margin": 0.5216042308596722,
+      "true_class_distance": 0.6234286543442459,
+      "distances": {
+        "Batch_1": 0.6447610923099844,
+        "Batch_2": 0.29824563059913506,
+        "Batch_3": 0.6234286543442459
+      }
+    },
+    {
+      "sample_id": "hawkfj64",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.353424139034629,
+      "true_class_distance": 0.8114770991401706,
+      "distances": {
+        "Batch_1": 1.6125356790337813,
+        "Batch_2": 1.2550377274038558,
+        "Batch_3": 0.8114770991401706
+      }
+    },
+    {
+      "sample_id": "hzumfsms",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.20836618222116451,
+      "true_class_distance": 0.9702000310091946,
+      "distances": {
+        "Batch_1": 1.5813177413983948,
+        "Batch_2": 1.225566681488393,
+        "Batch_3": 0.9702000310091946
+      }
+    },
+    {
+      "sample_id": "kbdh4tri",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.2908689529213475,
+      "true_class_distance": 0.6374368855168386,
+      "distances": {
+        "Batch_1": 1.1465565640241835,
+        "Batch_2": 0.898898571911121,
+        "Batch_3": 0.6374368855168386
+      }
+    },
+    {
+      "sample_id": "mgxahqnk",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.3362136281995621,
+      "true_class_distance": 0.9717739145722905,
+      "distances": {
+        "Batch_1": 1.9010583162513683,
+        "Batch_2": 1.4639859386333507,
+        "Batch_3": 0.9717739145722905
+      }
+    },
+    {
+      "sample_id": "pl8uabbv",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_1",
+      "correct": false,
+      "relative_margin": 0.23658973056807603,
+      "true_class_distance": 0.9069964093974391,
+      "distances": {
+        "Batch_1": 0.7882432537370117,
+        "Batch_2": 0.6017529947132685,
+        "Batch_3": 0.9069964093974391
+      }
+    },
+    {
+      "sample_id": "ptg8lmto",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.2317646865463488,
+      "true_class_distance": 0.6034855531385528,
+      "distances": {
+        "Batch_1": 1.0164412185049134,
+        "Batch_2": 0.7855477905923703,
+        "Batch_3": 0.6034855531385528
+      }
+    },
+    {
+      "sample_id": "tuy3zymq",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.3780067424931557,
+      "true_class_distance": 0.5789415512852654,
+      "distances": {
+        "Batch_1": 1.195973230754957,
+        "Batch_2": 0.93078428792919,
+        "Batch_3": 0.5789415512852654
+      }
+    },
+    {
+      "sample_id": "ufdvpb81",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_1",
+      "correct": false,
+      "relative_margin": 0.018683008597351985,
+      "true_class_distance": 1.1749352481033517,
+      "distances": {
+        "Batch_1": 1.004013495980309,
+        "Batch_2": 0.9852555032030516,
+        "Batch_3": 1.1749352481033517
+      }
+    },
+    {
+      "sample_id": "utfgcjfa",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.21539625232829823,
+      "true_class_distance": 0.6400612596625694,
+      "distances": {
+        "Batch_1": 1.1903184564135094,
+        "Batch_2": 0.8157764496561994,
+        "Batch_3": 0.6400612596625694
+      }
+    },
+    {
+      "sample_id": "vc2whyaq",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.0749285338520488,
+      "true_class_distance": 0.9261958958670843,
+      "distances": {
+        "Batch_1": 1.2351458229157828,
+        "Batch_2": 1.0012155057855316,
+        "Batch_3": 0.9261958958670843
+      }
+    },
+    {
+      "sample_id": "x77cy643",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_2",
+      "runner_up": "Batch_3",
+      "correct": false,
+      "relative_margin": 0.05487405084688963,
+      "true_class_distance": 1.0628070302225316,
+      "distances": {
+        "Batch_1": 1.321652987712211,
+        "Batch_2": 1.0044865032056687,
+        "Batch_3": 1.0628070302225316
+      }
+    },
+    {
+      "sample_id": "x7u69zsw",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.41119148778138664,
+      "true_class_distance": 0.6673253898163376,
+      "distances": {
+        "Batch_1": 1.3924096603514964,
+        "Batch_2": 1.133348747459297,
+        "Batch_3": 0.6673253898163376
+      }
+    },
+    {
+      "sample_id": "xgj4xftb",
+      "actual_batch": "Batch_3",
+      "assigned_batch": "Batch_3",
+      "runner_up": "Batch_2",
+      "correct": true,
+      "relative_margin": 0.26723159274860603,
+      "true_class_distance": 1.337007460919357,
+      "distances": {
+        "Batch_1": 2.162322396961372,
+        "Batch_2": 1.8245975777455483,
+        "Batch_3": 1.337007460919357
+      }
+    }
+  ],
+  "precision_interval_note": "Wilson intervals assume independent Bernoulli outcomes; shown descriptively only because crop dependence is unresolved.",
+  "evaluation_scope": "Fixed-rule leave-one-known-crop-out; scaling and centroids refitted using the other30 crops in each fold."
+}

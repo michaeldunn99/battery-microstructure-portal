@@ -52,3 +52,16 @@ export async function loadPhysicalVector() {
   if (!example) throw new Error("Missing example physical vector");
   return { example, count: rows.length, rows, rawRows };
 }
+
+export async function loadCombinedPhysicalVector() {
+  const rows = await readTable("multichannel/known_batches.csv");
+  const exampleRow = rows.find(row => row.batch === "Batch_3" && row.sample_id === "0grcilhi");
+  if (!exampleRow) throw new Error("Missing combined physical vector");
+  const example = { ...exampleRow };
+  for (const feature of physicalFeatures) {
+    const value = Number(example[feature.key]);
+    if (!Number.isFinite(value)) throw new Error(`Invalid combined ${feature.key}`);
+    example[feature.key] = value.toFixed(feature.unit === "µm" ? 3 : 2);
+  }
+  return { example, count: rows.length };
+}

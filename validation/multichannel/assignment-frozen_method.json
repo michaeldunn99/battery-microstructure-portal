@@ -1,0 +1,140 @@
+{
+  "frozen_utc": "2026-10-04T13:30:06.332615+00:00",
+  "signature": {
+    "specification_sha256": "8277b14044162e06cdb03a4905fa102b2c9f91e8d059f1cd0fd497152a17e6c3",
+    "known_csv_sha256": "3c782daea78862d3cbda83433d231e8412a126c7dda130af1696f22b2d5e0916",
+    "script_sha256": "b917a1116cc4104da36e6aac466354a00e82c966e0568965f92225fccf326d6b"
+  },
+  "specification": {
+    "method": "Fixed nearest batch centroid using equally standardized RMS distance",
+    "segmentation_variant": "stacked_three_channel",
+    "class_order": [
+      "Batch_1",
+      "Batch_2",
+      "Batch_3"
+    ],
+    "features": [
+      {
+        "key": "porosity_pct",
+        "label": "Pore-labelled area fraction",
+        "unit": "%"
+      },
+      {
+        "key": "porosity_ci95_pct",
+        "label": "Porosity uncertainty half-width",
+        "unit": "percentage points"
+      },
+      {
+        "key": "active_material_pct",
+        "label": "Graphite-labelled area fraction",
+        "unit": "%"
+      },
+      {
+        "key": "cbd_pct",
+        "label": "Carbon-binder allocation",
+        "unit": "%"
+      },
+      {
+        "key": "inclusion_pct",
+        "label": "Silicon-labelled area fraction",
+        "unit": "%"
+      },
+      {
+        "key": "char_length_scale_cls_um",
+        "label": "Pore correlation length",
+        "unit": "\u00b5m"
+      },
+      {
+        "key": "throat_through_plane_ly_um",
+        "label": "Vertical pore chord",
+        "unit": "\u00b5m"
+      },
+      {
+        "key": "chord_in_plane_lx_um",
+        "label": "Horizontal pore chord",
+        "unit": "\u00b5m"
+      },
+      {
+        "key": "pore_anisotropy_ratio",
+        "label": "Horizontal/vertical pore chord ratio",
+        "unit": "ratio"
+      },
+      {
+        "key": "particle_aspect_ratio",
+        "label": "Silicon-labelled domain aspect ratio",
+        "unit": "ratio"
+      },
+      {
+        "key": "particle_d50_um",
+        "label": "Silicon-labelled domain diameter D50",
+        "unit": "\u00b5m"
+      },
+      {
+        "key": "particle_d90_um",
+        "label": "Silicon-labelled domain diameter D90",
+        "unit": "\u00b5m"
+      },
+      {
+        "key": "slurry_dispersion_index",
+        "label": "Silicon-labelled area spatial variation",
+        "unit": "percentage points"
+      }
+    ],
+    "excluded_field": "particle_d10_um, omitted in both methods to retain the previously compared common13 fields",
+    "scaling": "Sample standard deviation (ddof=1) across known training crops only; refitted inside each leave-one-out fold",
+    "tie_rule": "First class in Batch_1, Batch_2, Batch_3 order; exact ties have zero relative margin",
+    "relative_margin_formula": "(runner_up_distance - nearest_distance) / runner_up_distance; zero for an all-zero tie",
+    "confidence_combination": "Band the class-level observed validation precision using the user's cutoffs; geometry diagnostics do not alter the band",
+    "support_envelope": "Assigned-class distance <=95th percentile (linear interpolation) of known true-class leave-one-crop-out distances",
+    "stability": "Fraction of31 leave-one-known-crop-out refits retaining the full-fit assignment",
+    "feature_contributions": "(runner-up squared standardized deviation minus assigned squared standardized deviation)/13; sum equals runner-up squared RMS distance minus assigned squared RMS distance",
+    "limitations": [
+      "The ratings are heuristic assignment support, not calibrated probabilities.",
+      "Known crops may share original images; parent-image groups are unavailable. Leave-one-crop-out evaluation can therefore be optimistic.",
+      "Per-class precision estimates are based on few crop predictions and unknown test class proportions.",
+      "Thirteen equally standardized exported fields retain correlated and derived variables, including porosity uncertainty and the carbon-binder allocation. They are not thirteen independent physical mechanisms.",
+      "The support envelope is an empirical distance summary, not a conformal prediction region or a 95% probability statement.",
+      "Leave-one-crop-out agreement measures sensitivity to individual known crops, not correctness or uncertainty in phase boundaries.",
+      "Silicon-labelled mask boundaries remain unvalidated and can include rims or lines; pore chords do not establish three-dimensional transport.",
+      "Three earlier test identities have already been revealed. This is not an untouched external validation exercise; test labels are nevertheless excluded from fitting and confidence calculations.",
+      "Batch identity does not establish manufacturing quality. No accept or reject decision is produced."
+    ],
+    "confidence_policy": "empirical_precision_v2",
+    "confidence_policy_v2": {
+      "requested_by": "User",
+      "threshold_source": "Explicit user instruction; no outcome-based threshold search",
+      "revision_context": "Reporting bands revised after the v1 assignment summary. The fitted classifier, features and assignments are unchanged.",
+      "score": "100 * correctly assigned known crops / all known crops predicted as the assigned class in leave-one-crop-out evaluation",
+      "score_scope": "Class-level observed validation precision; not an individual calibrated probability",
+      "thresholds": {
+        "High": "strictly greater than70%",
+        "Medium": "50% through70%, inclusive",
+        "Low": "below50%"
+      },
+      "other_checks": "Distance margin, omission agreement and empirical support envelope remain diagnostics and do not change this user-defined band"
+    },
+    "diagnostic_thresholds_v1": {
+      "High": {
+        "oof_precision_min": 0.85,
+        "oof_prediction_count_min": 5,
+        "relative_margin_min": 0.25,
+        "leave_one_crop_out_agreement_min": 0.9
+      },
+      "Medium": {
+        "oof_precision_min": 0.6,
+        "oof_prediction_count_min": 5,
+        "relative_margin_min": 0.1,
+        "leave_one_crop_out_agreement_min": 0.75
+      }
+    },
+    "confidence_thresholds": {
+      "High": "strictly greater than70%",
+      "Medium": "50% through70%, inclusive",
+      "Low": "below50%"
+    }
+  },
+  "runtime": {
+    "python": "3.13.7",
+    "numpy": "1.26.4"
+  }
+}

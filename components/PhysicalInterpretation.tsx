@@ -21,7 +21,7 @@ const families = [
       ["#ref-choi", "Choi et al. (2023)", "Experiments with graphite particle-size mixtures linked changes in packing and porosity with changes in electrochemical behaviour."],
     ],
     evidenceScope: "These studies motivate measuring phase proportions. They do not validate our image-intensity labels, CBD allocation or a batch acceptance threshold.",
-    calculation: "Retain the central 80% of image rows and smooth both detector images with a Gaussian filter (σ = 1 pixel). Three-class Multi-Otsu fits two thresholds, T₁ and T₂, separately to each smoothed BSE image. Only BSE defines the three main masks; the paired Inlens image subdivides the pore-labelled mask. The assignment rule stays fixed across batches; the threshold values can change between images.",
+    calculation: "Both analyses retain the central 80% of image rows and use Gaussian smoothing (σ = 1 pixel). The original segmentation fits two Multi-Otsu thresholds to BSE alone. The combined method clusters standardized BSE, Inlens and ETD/SE intensities jointly, then orders clusters by BSE intensity. Each method applies the same area and geometry calculations to its own masks.",
     formula: String.raw`f_k = 100\,\frac{N_k}{N_{\mathrm{crop}}}\;[\%]`,
     boundary: "Pore, graphite and silicon particle fractions sum to 100%. CBD is a subset of the pore-labelled area, so adding it again would double count. The median split has not been independently calibrated as a binder measurement.",
     calculationLink: "#extractor-L113",
@@ -82,7 +82,7 @@ const families = [
     label: "(d)",
     measurements: "Standard deviation of local silicon particle area fractions across 16 image regions.",
     performance: "Spatially uneven electrode microstructure can create local differences in transport and reaction conditions, so equal average composition does not guarantee equal electrochemical behaviour. Our statistic asks whether silicon coverage is uniform across an image. It is a screening measurement of heterogeneity, not a validated predictor of current distribution, capacity or a mixing defect.",
-    definition: "How unevenly silicon particles is distributed across different parts of an image.",
+    definition: "How unevenly silicon particles are distributed across different parts of an image.",
     meaning: "Two cross-sections can contain the same overall silicon particle fraction but distribute it differently: one relatively evenly, the other in concentrated regions. A spatial measurement captures this difference in local silicon coverage. It does not measure binder distribution or identify why clustering occurred.",
     terms: [
       ["Local area fraction", "The percentage of one image region occupied by the silicon particle mask."],
@@ -151,7 +151,7 @@ export default function PhysicalInterpretation() {
                 {family.id === "phase-fractions" && <>
                   <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Phase assignment rules">
                     <table className="w-full min-w-[480px] border-collapse text-left text-sm">
-                      <caption className="sr-only">Operational definitions of the image regions used for area fractions.</caption>
+                      <caption className="pb-2 text-left text-zinc-600">Original BSE phase-assignment rules. In the combined method, joint clustering replaces these thresholds.</caption>
                       <thead className="border-y border-zinc-200 text-zinc-800"><tr><th scope="col" className="py-2 pr-4 font-medium">Reported region</th><th scope="col" className="py-2 font-medium">Pixel assignment</th></tr></thead>
                       <tbody className="divide-y divide-zinc-200 border-b border-zinc-200">
                         <tr><th scope="row" className="py-2 pr-4 font-medium">Pore-labelled area</th><td className="py-2">BSE intensity below T₁.</td></tr>
@@ -161,7 +161,7 @@ export default function PhysicalInterpretation() {
                       </tbody>
                     </table>
                   </div>
-                  <p>For every reported region, divide its pixel count by the full cropped image area and multiply by 100. Reported porosity uses the entire dark BSE mask, including the CBD allocation; it does not use only the open-pore subset.</p>
+                  <p>For every reported region, divide its pixel count by the full cropped image area and multiply by 100. Porosity uses the entire pore mask from the selected segmentation, including its CBD allocation. The Inlens median split is retained in both methods. <a className={linkStyle} href="#image-preparation">Combined segmentation and its assumptions</a>.</p>
                 </>}
                 <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={`${family.title} calculation`}><LatexFormula formula={family.formula} displayMode /></div>
                 <p>{family.boundary}</p>

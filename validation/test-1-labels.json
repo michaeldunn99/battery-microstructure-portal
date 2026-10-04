@@ -1,0 +1,9 @@
+{
+  "source": "Steve Kench's feedback, supplied by the user in this conversation",
+  "scope": "Labels revealed after the initial descriptive interpretation. These images are now labelled validation examples, not an unseen test for revised methods.",
+  "labels": {
+    "3e122cbj": "Batch_2",
+    "fn0mhxef": "Batch_1",
+    "xrv9xvzb": "Batch_3"
+  }
+}

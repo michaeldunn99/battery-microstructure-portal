@@ -1,0 +1,2187 @@
+{
+  "experiment": "Three-channel intensity segmentation v1",
+  "status": "Exploratory side experiment; original results unchanged",
+  "method": {
+    "pixel_size_um": 0.025,
+    "crop": "central 80% rows, all columns",
+    "gaussian_sigma_px": 1,
+    "third_channel": "ETD or SE, treated as the third detector at the user's direction",
+    "registration": "No registration or resampling; matched pixel grids assumed, separate alignment audit",
+    "clustering": "Three KMeans intensity classes; per-image channel z-scores; 100000 sampled pixels; BSE Multi-Otsu initial centres; seed42; n_init1",
+    "downstream": "Same 14 saved physical fields, including the separate heuristic Inlens median CBD allocation",
+    "silicon": "Bright phase identified as silicon by the user; intensity-derived boundaries still require validation",
+    "agreement": "Mask IoU, Dice and changed-pixel fractions measure agreement, not accuracy against ground truth",
+    "test_labels": "Not used in segmentation, measurement or settings"
+  },
+  "script_sha256": "20b3fbdeab7aa76f4a8e6cb48021f2d111f640f73fb2c07a8b3f07e7b599a282",
+  "original_extractor_sha256": "076dbf9da2bca0defe0d05ec918492aca10a5162c22b79f65b0ac2824dcad600",
+  "source_hashes": {
+    "/Users/michaeldunn/bio-hack/portal/scripts/run_multichannel_experiment.py": "20b3fbdeab7aa76f4a8e6cb48021f2d111f640f73fb2c07a8b3f07e7b599a282",
+    "/Users/michaeldunn/bio-hack/portal/scripts/extract_physical_features.py": "076dbf9da2bca0defe0d05ec918492aca10a5162c22b79f65b0ac2824dcad600",
+    "/Users/michaeldunn/bio-hack/portal/scripts/compare_physical_batches.py": "849327da6c4d6258526d89173535a4551b2ee3b7d10ce19e2dc87897e548a3e5",
+    "/Users/michaeldunn/bio-hack/ImageRep/representativity/core.py": "5b567871e76d817161ceac3803febf492730f07277f8832c593d049f0bc7fbe1"
+  },
+  "imagerep_revision": "2c51ffbcd3f9bc00237f4348e7063d92f7efbfb0",
+  "versions": {
+    "python": "3.13.7",
+    "numpy": "1.26.4",
+    "sklearn": "1.9.1",
+    "scipy": "1.17.1",
+    "skimage": "0.26.0",
+    "pillow": "12.3.0",
+    "matplotlib": "3.11.2"
+  },
+  "samples": [
+    {
+      "batch": "test_1",
+      "sample_id": "0eryguqq",
+      "third_channel": "ETD",
+      "input_files": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_0eryguqq_BSE.tif",
+          "sha256": "4fffed829318f1a14184bfc3f9524eca07ad3b7592284babeaf3f53ebf9e6e55"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_0eryguqq_Inlens.tif",
+          "sha256": "0dce1c504df5e1b27b4af9d19620c1141d77e9de065bfebaced5d9b1f62c234e"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_0eryguqq_ETD.tif",
+          "sha256": "e88660f85916259cc90978c2a90e9db4baeb3050ca2c08f693fff61ef9f82fb3"
+        }
+      ],
+      "native_shape": [
+        1612,
+        7000
+      ],
+      "crop_shape": [
+        1289,
+        7000
+      ],
+      "original_thresholds": [
+        41.055328485834224,
+        83.54392970991611
+      ],
+      "original_max_absolute_feature_error": null,
+      "original_verification": "New sample; no previous export to compare",
+      "fits": {
+        "bse_kmeans_control": {
+          "channel_means": [
+            59.043276893939726
+          ],
+          "channel_population_sd": [
+            19.031075952185148
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.8812979492122137
+            ],
+            [
+              -0.0005723309685288365
+            ],
+            [
+              2.584005437623945
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.8786386415359706
+            ],
+            [
+              0.00011970013989934507
+            ],
+            [
+              2.5888576260403457
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              23.29076222015874
+            ],
+            [
+              59.04555491639364
+            ],
+            [
+              108.31202300450728
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 1,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        },
+        "stacked_three_channel": {
+          "channel_means": [
+            59.043276893939726,
+            103.67799249392446,
+            69.08922102050222
+          ],
+          "channel_population_sd": [
+            19.031075952185148,
+            62.439139488306644,
+            30.32898810292278
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.8812979492122077,
+              -0.05408701312748672,
+              -1.8470052393113034
+            ],
+            [
+              -0.0005723309685288458,
+              -0.07110643364916713,
+              0.06522359065325219
+            ],
+            [
+              2.5840054376239383,
+              1.015922186875006,
+              1.7140861614394154
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.1965832276530077,
+              0.47757313251627537,
+              -1.5637279319410298
+            ],
+            [
+              -0.10754248113918993,
+              -0.5915489122438943,
+              0.015854950930677993
+            ],
+            [
+              1.2567645186184022,
+              1.3777981823389789,
+              1.1685906190903745
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              36.27101060536448,
+              133.49724793097573,
+              21.66293517645469
+            ],
+            [
+              56.99662776729336,
+              66.74218744817188,
+              69.57008563865118
+            ],
+            [
+              82.96085790177794,
+              189.70652538772333,
+              104.53139200408135
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 8,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        }
+      },
+      "measurements": {
+        "original_bse_otsu": {
+          "porosity_pct": 9.287731353208468,
+          "porosity_ci95_pct": 1.4413205552575012,
+          "active_material_pct": 83.85331929513465,
+          "cbd_pct": 4.643865676604234,
+          "inclusion_pct": 6.858949351656878,
+          "char_length_scale_cls_um": 1.9025328297100454,
+          "throat_through_plane_ly_um": 0.38414411119239217,
+          "chord_in_plane_lx_um": 0.4488522537562605,
+          "pore_anisotropy_ratio": 1.1684475713112268,
+          "particle_aspect_ratio": 2.6839861537853174,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.1381976597885342,
+          "particle_d90_um": 0.3436461061151975,
+          "slurry_dispersion_index": 3.7677442127245793
+        },
+        "bse_kmeans_control": {
+          "porosity_pct": 9.326909010306993,
+          "porosity_ci95_pct": 1.4448772531696878,
+          "active_material_pct": 83.85886068934944,
+          "cbd_pct": 4.663448963759282,
+          "inclusion_pct": 6.814230300343567,
+          "char_length_scale_cls_um": 1.9036289007097005,
+          "throat_through_plane_ly_um": 0.3856254572055597,
+          "chord_in_plane_lx_um": 0.44632231404958683,
+          "pore_anisotropy_ratio": 1.157398469706507,
+          "particle_aspect_ratio": 2.6829473989776726,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.1381976597885342,
+          "particle_d90_um": 0.34202175833204396,
+          "slurry_dispersion_index": 3.76293248857915
+        },
+        "stacked_three_channel": {
+          "porosity_pct": 16.571605896043444,
+          "porosity_ci95_pct": 2.0385181468780047,
+          "active_material_pct": 62.286656322730806,
+          "cbd_pct": 8.285802948021722,
+          "inclusion_pct": 21.141737781225757,
+          "char_length_scale_cls_um": 2.1005583870562723,
+          "throat_through_plane_ly_um": 0.5253206915783603,
+          "chord_in_plane_lx_um": 0.6295152722443559,
+          "pore_anisotropy_ratio": 1.19834471083356,
+          "particle_aspect_ratio": 3.1858978319950215,
+          "particle_d10_um": 0.097720502380584,
+          "particle_d50_um": 0.16448811606198854,
+          "particle_d90_um": 0.5792842192337824,
+          "slurry_dispersion_index": 6.298570053440612
+        }
+      },
+      "agreement_with_original": {
+        "bse_kmeans_control": {
+          "changed_pixel_fraction": 0.0008389670841183642,
+          "pore_iou": 0.9957995025945646,
+          "pore_dice": 0.9978953309688801,
+          "pore_changed_pixel_fraction": 0.00039177657098525987,
+          "graphite_iou": 0.9990000158517963,
+          "graphite_dice": 0.9994997578087674,
+          "graphite_changed_pixel_fraction": 0.0008389670841183642,
+          "silicon_iou": 0.9934801893088031,
+          "silicon_dice": 0.9967294329152789,
+          "silicon_changed_pixel_fraction": 0.0004471905131331043
+        },
+        "stacked_three_channel": {
+          "changed_pixel_fraction": 0.21655912667627175,
+          "pore_iou": 0.5565038554237765,
+          "pore_dice": 0.7150690356269779,
+          "pore_changed_pixel_fraction": 0.0736812590047656,
+          "graphite_iou": 0.7418881497350024,
+          "graphite_dice": 0.8518206520296583,
+          "graphite_changed_pixel_fraction": 0.21654926299456945,
+          "silicon_iou": 0.32423951288570774,
+          "silicon_dice": 0.4896991967550392,
+          "silicon_changed_pixel_fraction": 0.14288773135320848
+        }
+      },
+      "added_channel_effect": {
+        "changed_pixel_fraction": 0.2166452399423695,
+        "pore_iou": 0.5586894011097748,
+        "pore_dice": 0.7168707257674202,
+        "pore_changed_pixel_fraction": 0.07332627729136651,
+        "graphite_iou": 0.7418078611722055,
+        "graphite_dice": 0.8517677267491285,
+        "graphite_changed_pixel_fraction": 0.2166348221212457,
+        "silicon_iou": 0.32214193464523677,
+        "silicon_dice": 0.4873031044608314,
+        "silicon_changed_pixel_fraction": 0.1433293804721268
+      }
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "3e122cbj",
+      "third_channel": "ETD",
+      "input_files": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_3e122cbj_BSE.tif",
+          "sha256": "efad123af7f20e762d44b0de140dea5ac3c7593d7b323d4da020eef2d1159374"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_3e122cbj_Inlens.tif",
+          "sha256": "c03147055308da8bd2e06b4b6d6f58efe1237aa1c17067545be886f6502c4436"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_3e122cbj_ETD.tif",
+          "sha256": "78133a28d1f0b68faf7dc4faf03c62fa7b6c86076766b50e3237777060d65e1d"
+        }
+      ],
+      "native_shape": [
+        2316,
+        6996
+      ],
+      "crop_shape": [
+        1853,
+        6996
+      ],
+      "original_thresholds": [
+        35.648360782496056,
+        70.99203472069726
+      ],
+      "original_max_absolute_feature_error": 0.0,
+      "original_verification": "Compared with saved values",
+      "fits": {
+        "bse_kmeans_control": {
+          "channel_means": [
+            57.85315033357919
+          ],
+          "channel_population_sd": [
+            19.463024358470964
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -2.1851440405278306
+            ],
+            [
+              -0.09744444156553746
+            ],
+            [
+              1.470389502625824
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -2.185372718569016
+            ],
+            [
+              -0.09576862512550673
+            ],
+            [
+              1.4772535395104092
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              15.319187879732517
+            ],
+            [
+              55.98920324998417
+            ],
+            [
+              86.60497195670773
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 1,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        },
+        "stacked_three_channel": {
+          "channel_means": [
+            57.85315033357919,
+            100.9754176233751,
+            80.56946229424116
+          ],
+          "channel_population_sd": [
+            19.463024358470964,
+            44.95725683643303,
+            34.73125879752109
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -2.1851440405278506,
+              -1.0406947561875122,
+              -1.9629503911693151
+            ],
+            [
+              -0.0974444415655365,
+              -0.14031427120772283,
+              -0.04134993245902634
+            ],
+            [
+              1.4703895026258187,
+              1.0806184078430712,
+              1.1276002679876842
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -2.0701703453257885,
+              -1.0870861508761496,
+              -1.972184240205616
+            ],
+            [
+              -0.08735530816909612,
+              -0.2405941374436068,
+              -0.07242873417584177
+            ],
+            [
+              1.2656322576124366,
+              1.3167463369972288,
+              1.1592396242708296
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              17.561374476319116,
+              52.10300633510665,
+              12.073021051267403
+            ],
+            [
+              56.152951842842334,
+              90.15896519298279,
+              78.05392118320314
+            ],
+            [
+              82.48618179235663,
+              160.1727208841919,
+              120.83131369313246
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 4,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        }
+      },
+      "measurements": {
+        "original_bse_otsu": {
+          "porosity_pct": 9.155219990021282,
+          "porosity_ci95_pct": 1.4907450967707154,
+          "active_material_pct": 72.41605487616546,
+          "cbd_pct": 4.5776061380537545,
+          "inclusion_pct": 18.428725133813263,
+          "char_length_scale_cls_um": 2.3739171392037215,
+          "throat_through_plane_ly_um": 0.342211802378774,
+          "chord_in_plane_lx_um": 0.3808968377397615,
+          "pore_anisotropy_ratio": 1.113044129664965,
+          "particle_aspect_ratio": 2.974108481530304,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.14658075357087597,
+          "particle_d90_um": 0.4470111406433128,
+          "slurry_dispersion_index": 4.8165791611669855
+        },
+        "bse_kmeans_control": {
+          "porosity_pct": 9.157125326722818,
+          "porosity_ci95_pct": 1.490865603144134,
+          "active_material_pct": 72.64218054446037,
+          "cbd_pct": 4.578562663361409,
+          "inclusion_pct": 18.200694128816806,
+          "char_length_scale_cls_um": 2.373886927457329,
+          "throat_through_plane_ly_um": 0.34167808219178086,
+          "chord_in_plane_lx_um": 0.38056706369756604,
+          "pore_anisotropy_ratio": 1.113817606491824,
+          "particle_aspect_ratio": 2.977205988147285,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.14658075357087597,
+          "particle_d90_um": 0.4469222008138874,
+          "slurry_dispersion_index": 4.812833026327723
+        },
+        "stacked_three_channel": {
+          "porosity_pct": 9.911569235307386,
+          "porosity_ci95_pct": 1.5344931331237128,
+          "active_material_pct": 69.12708888927973,
+          "cbd_pct": 4.955780760696807,
+          "inclusion_pct": 20.961341875412888,
+          "char_length_scale_cls_um": 2.3583365190682546,
+          "throat_through_plane_ly_um": 0.37285812989405803,
+          "chord_in_plane_lx_um": 0.40953794527620035,
+          "pore_anisotropy_ratio": 1.0983747233634529,
+          "particle_aspect_ratio": 3.5324926981828213,
+          "particle_d10_um": 0.097720502380584,
+          "particle_d50_um": 0.1595769121605731,
+          "particle_d90_um": 0.48697111331877174,
+          "slurry_dispersion_index": 6.637482844317945
+        }
+      },
+      "agreement_with_original": {
+        "bse_kmeans_control": {
+          "changed_pixel_fraction": 0.002299363416979929,
+          "pore_iou": 0.9997919285110168,
+          "pore_dice": 0.9998959534309462,
+          "pore_changed_pixel_fraction": 1.9053367015366424e-05,
+          "graphite_iou": 0.9968347548336675,
+          "graphite_dice": 0.9984148687523239,
+          "graphite_changed_pixel_fraction": 0.002299363416979929,
+          "silicon_iou": 0.9876263277388591,
+          "silicon_dice": 0.9937746486407144,
+          "silicon_changed_pixel_fraction": 0.0022803100499645622
+        },
+        "stacked_three_channel": {
+          "changed_pixel_fraction": 0.08375983562575423,
+          "pore_iou": 0.8398739345361758,
+          "pore_dice": 0.9129690015940188,
+          "pore_changed_pixel_fraction": 0.01659401702676759,
+          "graphite_iou": 0.8882677470918431,
+          "graphite_dice": 0.9408281727629793,
+          "graphite_changed_pixel_fraction": 0.0837536644947371,
+          "silicon_iou": 0.708627313725792,
+          "silicon_dice": 0.8294697246535011,
+          "silicon_changed_pixel_fraction": 0.06717198973000377
+        }
+      },
+      "added_channel_effect": {
+        "changed_pixel_fraction": 0.08404039066962017,
+        "pore_iou": 0.8399441166137704,
+        "pore_dice": 0.9130104648608589,
+        "pore_changed_pixel_fraction": 0.01658776875661275,
+        "graphite_iou": 0.8880833180259802,
+        "graphite_dice": 0.9407247122489115,
+        "graphite_changed_pixel_fraction": 0.08403414239946533,
+        "silicon_iou": 0.7061122972170516,
+        "silicon_dice": 0.827744221020898,
+        "silicon_changed_pixel_fraction": 0.06745887018316225
+      }
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "4hq27w4c",
+      "third_channel": "ETD",
+      "input_files": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_4hq27w4c_BSE.tif",
+          "sha256": "e0184e85877644c730f83121ddc7eef12af691bd5947e59c1eb3ae69543270dd"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_4hq27w4c_Inlens.tif",
+          "sha256": "2828e51c5c027b2c7a519b8c5374300bfb2a40937b2f89b2baaba382eb8875cf"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_4hq27w4c_ETD.tif",
+          "sha256": "eded4fb6af8d8b74f13ce0adc095b535cb6647f91dbedd0c2994ec1b98ea6c23"
+        }
+      ],
+      "native_shape": [
+        2148,
+        7000
+      ],
+      "crop_shape": [
+        1719,
+        7000
+      ],
+      "original_thresholds": [
+        32.874302426899334,
+        80.58567940045236
+      ],
+      "original_max_absolute_feature_error": null,
+      "original_verification": "New sample; no previous export to compare",
+      "fits": {
+        "bse_kmeans_control": {
+          "channel_means": [
+            53.989494475821154
+          ],
+          "channel_population_sd": [
+            20.04329390262296
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -2.0431619303851822
+            ],
+            [
+              -0.09014689400219583
+            ],
+            [
+              2.7431660959874913
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -2.0496111530059307
+            ],
+            [
+              -0.09062469118569913
+            ],
+            [
+              2.742976139282452
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              12.908535750029372
+            ],
+            [
+              52.173077155551745
+            ],
+            [
+              108.96777140334139
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 1,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        },
+        "stacked_three_channel": {
+          "channel_means": [
+            53.989494475821154,
+            124.57032773094954,
+            74.33673625215498
+          ],
+          "channel_population_sd": [
+            20.04329390262296,
+            44.156041438948854,
+            24.74490023970704
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -2.0431619303851742,
+              -1.4542772973502134,
+              -2.4343013041174975
+            ],
+            [
+              -0.09014689400219567,
+              -0.020396924368247953,
+              0.008895843005429692
+            ],
+            [
+              2.7431660959874815,
+              1.4181654313779286,
+              1.8898120506996319
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -2.0352902569322353,
+              -1.591721643871967,
+              -2.59721278718127
+            ],
+            [
+              -0.15084566372150454,
+              -0.14560601339093907,
+              -0.08412573449248112
+            ],
+            [
+              1.7496385849823282,
+              1.5141875125531445,
+              1.5879313929546583
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              13.195573678983365,
+              54.28620086486718,
+              10.068964932062983
+            ],
+            [
+              50.96605050391481,
+              118.1409425698991,
+              72.25505334454645
+            ],
+            [
+              89.05801485799131,
+              191.43085428158508,
+              113.62994015831703
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 10,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        }
+      },
+      "measurements": {
+        "original_bse_otsu": {
+          "porosity_pct": 6.315224798470871,
+          "porosity_ci95_pct": 0.8751747272340259,
+          "active_material_pct": 86.21284800132968,
+          "cbd_pct": 3.1576082439956785,
+          "inclusion_pct": 7.471927200199452,
+          "char_length_scale_cls_um": 1.5919768453527223,
+          "throat_through_plane_ly_um": 0.2994055068836045,
+          "chord_in_plane_lx_um": 0.3615768094534712,
+          "pore_anisotropy_ratio": 1.207649161890787,
+          "particle_aspect_ratio": 2.408078551801668,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.4441990704418364,
+          "slurry_dispersion_index": 5.821465063118296
+        },
+        "bse_kmeans_control": {
+          "porosity_pct": 6.243729743206183,
+          "porosity_ci95_pct": 0.8700910486576494,
+          "active_material_pct": 86.28245657774454,
+          "cbd_pct": 3.1218648716030915,
+          "inclusion_pct": 7.473813679049281,
+          "char_length_scale_cls_um": 1.5911582942409865,
+          "throat_through_plane_ly_um": 0.29960417986067134,
+          "chord_in_plane_lx_um": 0.3653353428786737,
+          "pore_anisotropy_ratio": 1.219393344407178,
+          "particle_aspect_ratio": 2.408828914721647,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.44061343963986394,
+          "slurry_dispersion_index": 5.821454768118363
+        },
+        "stacked_three_channel": {
+          "porosity_pct": 5.952995927865038,
+          "porosity_ci95_pct": 0.893492279416997,
+          "active_material_pct": 80.22899526302668,
+          "cbd_pct": 2.976497963932519,
+          "inclusion_pct": 13.818008809108285,
+          "char_length_scale_cls_um": 1.6707882962445735,
+          "throat_through_plane_ly_um": 0.3543685464654488,
+          "chord_in_plane_lx_um": 0.4578685258964144,
+          "pore_anisotropy_ratio": 1.2920687528938377,
+          "particle_aspect_ratio": 3.054621510795965,
+          "particle_d10_um": 0.097720502380584,
+          "particle_d50_um": 0.1738949084575512,
+          "particle_d90_um": 0.5361256106341121,
+          "slurry_dispersion_index": 6.354518970943859
+        }
+      },
+      "agreement_with_original": {
+        "bse_kmeans_control": {
+          "changed_pixel_fraction": 0.0007338153411451841,
+          "pore_iou": 0.98867893740188,
+          "pore_dice": 0.9943072446812805,
+          "pore_changed_pixel_fraction": 0.0007149505526468877,
+          "graphite_iou": 0.9991495382416439,
+          "graphite_dice": 0.9995745882225978,
+          "graphite_changed_pixel_fraction": 0.0007338153411451841,
+          "silicon_iou": 0.9997475881884615,
+          "silicon_dice": 0.9998737781642897,
+          "silicon_changed_pixel_fraction": 1.886478849829635e-05
+        },
+        "stacked_three_channel": {
+          "changed_pixel_fraction": 0.0773017535111776,
+          "pore_iou": 0.8139888376345222,
+          "pore_dice": 0.8974573831402182,
+          "pore_changed_pixel_fraction": 0.012580154574918973,
+          "graphite_iou": 0.9112389027276261,
+          "graphite_dice": 0.9535583452462701,
+          "graphite_changed_pixel_fraction": 0.07729834621457658,
+          "silicon_iou": 0.5337224387799515,
+          "silicon_dice": 0.695983087010865,
+          "silicon_changed_pixel_fraction": 0.06472500623285964
+        }
+      },
+      "added_channel_effect": {
+        "changed_pixel_fraction": 0.07703490401396161,
+        "pore_iou": 0.8164301909957722,
+        "pore_dice": 0.8989392436251049,
+        "pore_changed_pixel_fraction": 0.012326103216155572,
+        "graphite_iou": 0.9115664794342481,
+        "graphite_dice": 0.953737669331843,
+        "graphite_changed_pixel_fraction": 0.07703207845092662,
+        "silicon_iou": 0.5338280370698532,
+        "silicon_dice": 0.6960728636694515,
+        "silicon_changed_pixel_fraction": 0.06471162636084102
+      }
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "fhwrjtet",
+      "third_channel": "ETD",
+      "input_files": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fhwrjtet_BSE.tif",
+          "sha256": "744830f0dd983f8275252edb55d7ef2befe6356edf8a202670ce9d6401d81e38"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fhwrjtet_Inlens.tif",
+          "sha256": "76cb0e8d605172ad16a5d6231617b8cd6acb6cabffefb29b0055781ac1395349"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fhwrjtet_ETD.tif",
+          "sha256": "024b3072744ff0ec9e6949a8ff347150e59bb2f18541995f37d01bede46bf117"
+        }
+      ],
+      "native_shape": [
+        1612,
+        7000
+      ],
+      "crop_shape": [
+        1289,
+        7000
+      ],
+      "original_thresholds": [
+        41.3581246255399,
+        85.52573402493493
+      ],
+      "original_max_absolute_feature_error": null,
+      "original_verification": "New sample; no previous export to compare",
+      "fits": {
+        "bse_kmeans_control": {
+          "channel_means": [
+            59.15876578952159
+          ],
+          "channel_population_sd": [
+            20.359464737997907
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.7361604061650342
+            ],
+            [
+              -0.01045687672943585
+            ],
+            [
+              2.5847151801822883
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.7351096466966662
+            ],
+            [
+              -0.010748733353835646
+            ],
+            [
+              2.579974719554673
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              23.832862121040804
+            ],
+            [
+              58.93992733182603
+            ],
+            [
+              111.685670117221
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 1,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        },
+        "stacked_three_channel": {
+          "channel_means": [
+            59.15876578952159,
+            99.62823539961747,
+            69.72557086818479
+          ],
+          "channel_population_sd": [
+            20.359464737997907,
+            58.14441767561308,
+            30.992449571201277
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.7361604061650429,
+              -0.12285048017683267,
+              -1.8199912451723415
+            ],
+            [
+              -0.010456876729435826,
+              -0.08193871883286381,
+              0.07657397949336672
+            ],
+            [
+              2.5847151801822754,
+              1.070049232160733,
+              1.7065892278798256
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.262159611557742,
+              0.3242222824063953,
+              -1.6060248520975287
+            ],
+            [
+              -0.10477508173748058,
+              -0.5608955748680337,
+              0.010969277115721397
+            ],
+            [
+              1.2917295699318572,
+              1.4489443281334162,
+              1.198598125131307
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              33.461871684286606,
+              118.47995120759549,
+              19.95092662945614
+            ],
+            [
+              57.0256012074665,
+              67.01528882208741,
+              70.06553563602631
+            ],
+            [
+              85.45768841957843,
+              183.8762596033174,
+              106.87306281745322
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 8,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        }
+      },
+      "measurements": {
+        "original_bse_otsu": {
+          "porosity_pct": 10.53240607336806,
+          "porosity_ci95_pct": 1.5682026986389361,
+          "active_material_pct": 82.11559348332041,
+          "cbd_pct": 5.2661974952898145,
+          "inclusion_pct": 7.352000443311538,
+          "char_length_scale_cls_um": 1.9573339837375514,
+          "throat_through_plane_ly_um": 0.39054718217562256,
+          "chord_in_plane_lx_um": 0.46203917050691246,
+          "pore_anisotropy_ratio": 1.1830559573699373,
+          "particle_aspect_ratio": 2.639650045451584,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.3142538756693917,
+          "slurry_dispersion_index": 4.41961728210187
+        },
+        "bse_kmeans_control": {
+          "porosity_pct": 10.542502493627397,
+          "porosity_ci95_pct": 1.5691376142312987,
+          "active_material_pct": 82.04850936495622,
+          "cbd_pct": 5.271251246813699,
+          "inclusion_pct": 7.40898814141638,
+          "char_length_scale_cls_um": 1.9576733123240837,
+          "throat_through_plane_ly_um": 0.39033049738219894,
+          "chord_in_plane_lx_um": 0.46275941583397384,
+          "pore_anisotropy_ratio": 1.1855579283133875,
+          "particle_aspect_ratio": 2.6465136611741498,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.3115838816210752,
+          "slurry_dispersion_index": 4.431278952102078
+        },
+        "stacked_three_channel": {
+          "porosity_pct": 16.128194613764823,
+          "porosity_ci95_pct": 2.020416315713025,
+          "active_material_pct": 63.05272082455946,
+          "cbd_pct": 8.064091765488197,
+          "inclusion_pct": 20.81908456167572,
+          "char_length_scale_cls_um": 2.104744627117055,
+          "throat_through_plane_ly_um": 0.4817118553960659,
+          "chord_in_plane_lx_um": 0.6016709928617782,
+          "pore_anisotropy_ratio": 1.2490267493356193,
+          "particle_aspect_ratio": 3.135762087241415,
+          "particle_d10_um": 0.097720502380584,
+          "particle_d50_um": 0.1738949084575512,
+          "particle_d90_um": 0.6656460517289854,
+          "slurry_dispersion_index": 6.071293252752798
+        }
+      },
+      "agreement_with_original": {
+        "bse_kmeans_control": {
+          "changed_pixel_fraction": 0.0006708411836418043,
+          "pore_iou": 0.9990423127463863,
+          "pore_dice": 0.999520926972127,
+          "pore_changed_pixel_fraction": 0.00010096420259337249,
+          "graphite_iou": 0.9991830526271748,
+          "graphite_dice": 0.9995913593946529,
+          "graphite_changed_pixel_fraction": 0.0006708411836418043,
+          "silicon_iou": 0.9923083021571757,
+          "silicon_dice": 0.9961393034228206,
+          "silicon_changed_pixel_fraction": 0.0005698769810484318
+        },
+        "stacked_three_channel": {
+          "changed_pixel_fraction": 0.19183453396874653,
+          "pore_iou": 0.6471934347428642,
+          "pore_dice": 0.7858135190344473,
+          "pore_changed_pixel_fraction": 0.057103402416047874,
+          "graphite_iou": 0.7665864241146829,
+          "graphite_dice": 0.8678731067446692,
+          "graphite_changed_pixel_fraction": 0.19180638368613542,
+          "silicon_iou": 0.3528501973223766,
+          "silicon_dice": 0.5216397174214173,
+          "silicon_changed_pixel_fraction": 0.13475928183530977
+        }
+      },
+      "added_channel_effect": {
+        "changed_pixel_fraction": 0.1911879640917655,
+        "pore_iou": 0.6477405077635275,
+        "pore_dice": 0.7862166460211669,
+        "pore_changed_pixel_fraction": 0.05701751080571872,
+        "graphite_iou": 0.7671874628812567,
+        "graphite_dice": 0.8682581548314284,
+        "graphite_changed_pixel_fraction": 0.1911590380139643,
+        "silicon_iou": 0.35555443199659387,
+        "silicon_dice": 0.5245889410326346,
+        "silicon_changed_pixel_fraction": 0.13419937936384793
+      }
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "fn0mhxef",
+      "third_channel": "ETD",
+      "input_files": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fn0mhxef_BSE.tif",
+          "sha256": "be7677781389261f500c317fe20ebf972fa1389f32447b777072e82ecdcd7958"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fn0mhxef_Inlens.tif",
+          "sha256": "670ea5dc3006b20a847e2aeaf134d063927c172be71adbb189cc1bac0cecbfad"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fn0mhxef_ETD.tif",
+          "sha256": "02635143bbc1d158142a95d406cbca7ce94b40d9326068c70bbcb07fbe32c7fb"
+        }
+      ],
+      "native_shape": [
+        2048,
+        7000
+      ],
+      "crop_shape": [
+        1639,
+        7000
+      ],
+      "original_thresholds": [
+        32.98681611431902,
+        81.44532474243368
+      ],
+      "original_max_absolute_feature_error": 0.0,
+      "original_verification": "Compared with saved values",
+      "fits": {
+        "bse_kmeans_control": {
+          "channel_means": [
+            53.353742366446696
+          ],
+          "channel_population_sd": [
+            20.84693779689689
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.9419974623930036
+            ],
+            [
+              0.011039091006560978
+            ],
+            [
+              2.6992975992182684
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.9354653830616373
+            ],
+            [
+              0.01205458245319074
+            ],
+            [
+              2.7023634725338845
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              13.005215917713535
+            ],
+            [
+              53.60504349701593
+            ],
+            [
+              109.68974558296685
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 1,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        },
+        "stacked_three_channel": {
+          "channel_means": [
+            53.353742366446696,
+            113.01921907115754,
+            77.02973988982265
+          ],
+          "channel_population_sd": [
+            20.84693779689689,
+            46.44547983659639,
+            27.91626538009666
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.9419974623930316,
+              -1.0311121339712024,
+              -2.2218660503303616
+            ],
+            [
+              0.01103909100656101,
+              0.017485584075860344,
+              0.1101942688407711
+            ],
+            [
+              2.6992975992182657,
+              1.3000444488053609,
+              1.8210882909398938
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.9835652616667987,
+              -1.179170291135924,
+              -2.3873542035792488
+            ],
+            [
+              -0.06347982621899484,
+              -0.19797251633364585,
+              -0.004197408787058233
+            ],
+            [
+              1.2999376204860909,
+              1.464796073032532,
+              1.2433612039965762
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              12.002480740393445,
+              58.252089090290475,
+              10.383726386415034
+            ],
+            [
+              52.03038237790149,
+              103.82429055558293,
+              76.91256391221438
+            ],
+            [
+              80.45346108056638,
+              181.0523755459156,
+              111.73974122390757
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 15,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        }
+      },
+      "measurements": {
+        "original_bse_otsu": {
+          "porosity_pct": 9.673973677329382,
+          "porosity_ci95_pct": 1.1837677627415,
+          "active_material_pct": 83.78671663906563,
+          "cbd_pct": 4.8369824806066415,
+          "inclusion_pct": 6.539309683604985,
+          "char_length_scale_cls_um": 1.7301351908370337,
+          "throat_through_plane_ly_um": 0.41084123222748814,
+          "chord_in_plane_lx_um": 0.45269255874673636,
+          "pore_anisotropy_ratio": 1.1018673960555025,
+          "particle_aspect_ratio": 2.365650410184364,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.1381976597885342,
+          "particle_d90_um": 0.6227628987130351,
+          "slurry_dispersion_index": 3.7844169129077287
+        },
+        "bse_kmeans_control": {
+          "porosity_pct": 9.757691972457074,
+          "porosity_ci95_pct": 1.1884462114093428,
+          "active_material_pct": 83.72342020395712,
+          "cbd_pct": 4.878845986228537,
+          "inclusion_pct": 6.5188878235858105,
+          "char_length_scale_cls_um": 1.7303076000232502,
+          "throat_through_plane_ly_um": 0.40954332552693207,
+          "chord_in_plane_lx_um": 0.4535320803629293,
+          "pore_anisotropy_ratio": 1.107409282716059,
+          "particle_aspect_ratio": 2.3752125563730044,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.1381976597885342,
+          "particle_d90_um": 0.6863293699524018,
+          "slurry_dispersion_index": 3.789451197520538
+        },
+        "stacked_three_channel": {
+          "porosity_pct": 8.929713239780353,
+          "porosity_ci95_pct": 1.1469233913658727,
+          "active_material_pct": 73.6640896016735,
+          "cbd_pct": 4.464856619890177,
+          "inclusion_pct": 17.406197158546153,
+          "char_length_scale_cls_um": 1.7375997122342737,
+          "throat_through_plane_ly_um": 0.4759814814814815,
+          "chord_in_plane_lx_um": 0.533665008291874,
+          "pore_anisotropy_ratio": 1.1211885946294673,
+          "particle_aspect_ratio": 2.9150729656408925,
+          "particle_d10_um": 0.097720502380584,
+          "particle_d50_um": 0.18712051592547777,
+          "particle_d90_um": 0.6457444935117649,
+          "slurry_dispersion_index": 4.8201912211928795
+        }
+      },
+      "agreement_with_original": {
+        "bse_kmeans_control": {
+          "changed_pixel_fraction": 0.0010414015514686656,
+          "pore_iou": 0.9914202769093345,
+          "pore_dice": 0.995691656256518,
+          "pore_changed_pixel_fraction": 0.000837182951276911,
+          "graphite_iou": 0.9987573832371331,
+          "graphite_dice": 0.9993783053544726,
+          "graphite_changed_pixel_fraction": 0.0010414015514686656,
+          "silicon_iou": 0.9968770617989884,
+          "silicon_dice": 0.9984360889006366,
+          "silicon_changed_pixel_fraction": 0.00020421860019175455
+        },
+        "stacked_three_channel": {
+          "changed_pixel_fraction": 0.12493462912926,
+          "pore_iou": 0.844676161996785,
+          "pore_dice": 0.91579885878989,
+          "pore_changed_pixel_fraction": 0.01566451669136233,
+          "graphite_iou": 0.852986989221094,
+          "graphite_dice": 0.9206616065660002,
+          "graphite_changed_pixel_fraction": 0.1249189401202824,
+          "silicon_iou": 0.3732549816250715,
+          "silicon_dice": 0.5436062298982116,
+          "silicon_changed_pixel_fraction": 0.10928580144687527
+        }
+      },
+      "added_channel_effect": {
+        "changed_pixel_fraction": 0.12548330863767104,
+        "pore_iou": 0.8417365190246383,
+        "pore_dice": 0.9140683374953241,
+        "pore_changed_pixel_fraction": 0.016058397977861065,
+        "graphite_iou": 0.8523380279840768,
+        "graphite_dice": 0.9202834635011917,
+        "graphite_changed_pixel_fraction": 0.12546387169877102,
+        "silicon_iou": 0.3722635217893405,
+        "silicon_dice": 0.5425539859923313,
+        "silicon_changed_pixel_fraction": 0.10944434759871001
+      }
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "fspqbkxl",
+      "third_channel": "ETD",
+      "input_files": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fspqbkxl_BSE.tif",
+          "sha256": "cb4a6fe9006a2d23c765fd07316bc33b6b39ffd68485ecc811aea7d7f74a55ff"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fspqbkxl_Inlens.tif",
+          "sha256": "069175c3714da9a8df9a7562ecd90896af548e4be966905bd1e26dd745800159"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fspqbkxl_ETD.tif",
+          "sha256": "a8cdd53426e324f5da58457681b17e6a6a963cd866482a637843215b41fa6c61"
+        }
+      ],
+      "native_shape": [
+        2148,
+        7000
+      ],
+      "crop_shape": [
+        1719,
+        7000
+      ],
+      "original_thresholds": [
+        31.961612520018654,
+        79.46419259564271
+      ],
+      "original_max_absolute_feature_error": null,
+      "original_verification": "New sample; no previous export to compare",
+      "fits": {
+        "bse_kmeans_control": {
+          "channel_means": [
+            50.99957403591006
+          ],
+          "channel_population_sd": [
+            20.11092480467446
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.9087691600042218
+            ],
+            [
+              0.024159799111204784
+            ],
+            [
+              2.8047121362708354
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.9071787435270497
+            ],
+            [
+              0.024327015932129752
+            ],
+            [
+              2.804478064297555
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              12.644445735764037
+            ],
+            [
+              51.48881282404324
+            ],
+            [
+              107.40022150335717
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 1,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        },
+        "stacked_three_channel": {
+          "channel_means": [
+            50.99957403591006,
+            124.09705442348678,
+            72.91396715373678
+          ],
+          "channel_population_sd": [
+            20.11092480467446,
+            48.67776723369651,
+            29.987567888997525
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.908769160004225,
+              -1.1386247501445939,
+              -2.027181767667841
+            ],
+            [
+              0.024159799111204732,
+              0.0399997390167724,
+              0.11003334700025959
+            ],
+            [
+              2.8047121362708385,
+              1.3057498507003036,
+              1.760985029911227
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.8833952386220973,
+              -1.2635477933664077,
+              -2.1549006113166302
+            ],
+            [
+              -0.05850038373892534,
+              -0.139382725962327,
+              -0.014713780320290588
+            ],
+            [
+              1.4620992924928453,
+              1.4700272134207206,
+              1.4081460450680885
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              13.122754014499144,
+              62.59036904934594,
+              8.293738777837063
+            ],
+            [
+              49.82307721749193,
+              117.31221453269453,
+              72.47273666747827
+            ],
+            [
+              80.4037429642014,
+              195.6546969455801,
+              115.14084227783945
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 10,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        }
+      },
+      "measurements": {
+        "original_bse_otsu": {
+          "porosity_pct": 9.765769134879083,
+          "porosity_ci95_pct": 1.4738276931849217,
+          "active_material_pct": 84.3531455164963,
+          "cbd_pct": 4.882880412199784,
+          "inclusion_pct": 5.881085348624616,
+          "char_length_scale_cls_um": 2.1967403195527786,
+          "throat_through_plane_ly_um": 0.4205774647887324,
+          "chord_in_plane_lx_um": 0.44931776834445125,
+          "pore_anisotropy_ratio": 1.0683353388183932,
+          "particle_aspect_ratio": 2.490878354801959,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.35727015950552526,
+          "slurry_dispersion_index": 4.16226594984249
+        },
+        "bse_kmeans_control": {
+          "porosity_pct": 9.797033158813264,
+          "porosity_ci95_pct": 1.4765782956695173,
+          "active_material_pct": 84.31884816753926,
+          "cbd_pct": 4.898512424166874,
+          "inclusion_pct": 5.884118673647469,
+          "char_length_scale_cls_um": 2.1977064160666497,
+          "throat_through_plane_ly_um": 0.4203116226838855,
+          "chord_in_plane_lx_um": 0.4491238670694864,
+          "pore_anisotropy_ratio": 1.0685497208038677,
+          "particle_aspect_ratio": 2.489588147020315,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.3571588254367824,
+          "slurry_dispersion_index": 4.16347277902309
+        },
+        "stacked_three_channel": {
+          "porosity_pct": 9.496035901271503,
+          "porosity_ci95_pct": 1.5221926265425831,
+          "active_material_pct": 75.09641818332918,
+          "cbd_pct": 4.748017950635751,
+          "inclusion_pct": 15.407545915399318,
+          "char_length_scale_cls_um": 2.2973942761689754,
+          "throat_through_plane_ly_um": 0.5158994334277621,
+          "chord_in_plane_lx_um": 0.5769477911646587,
+          "pore_anisotropy_ratio": 1.118333833652959,
+          "particle_aspect_ratio": 3.126595188343629,
+          "particle_d10_um": 0.097720502380584,
+          "particle_d50_um": 0.18498192550829798,
+          "particle_d90_um": 0.6921389879977902,
+          "slurry_dispersion_index": 6.43327207824948
+        }
+      },
+      "agreement_with_original": {
+        "bse_kmeans_control": {
+          "changed_pixel_fraction": 0.00034297348957034823,
+          "pore_iou": 0.9968088273840273,
+          "pore_dice": 0.9984018637276593,
+          "pore_changed_pixel_fraction": 0.00031264023934181003,
+          "graphite_iou": 0.9995934075872686,
+          "graphite_dice": 0.999796662455883,
+          "graphite_changed_pixel_fraction": 0.00034297348957034823,
+          "silicon_iou": 0.999484489489235,
+          "silicon_dice": 0.9997421782897167,
+          "silicon_changed_pixel_fraction": 3.0333250228538186e-05
+        },
+        "stacked_three_channel": {
+          "changed_pixel_fraction": 0.1146494639740713,
+          "pore_iou": 0.8258203210544476,
+          "pore_dice": 0.9046019605888929,
+          "pore_changed_pixel_fraction": 0.018375384359677553,
+          "graphite_iou": 0.8658516910471811,
+          "graphite_dice": 0.9281034448790888,
+          "graphite_changed_pixel_fraction": 0.11463874345549738,
+          "silicon_iou": 0.3771423256894149,
+          "silicon_dice": 0.5477172818729723,
+          "silicon_changed_pixel_fraction": 0.09628480013296767
+        }
+      },
+      "added_channel_effect": {
+        "changed_pixel_fraction": 0.11470148757583312,
+        "pore_iou": 0.825400320020129,
+        "pore_dice": 0.9043499236496542,
+        "pore_changed_pixel_fraction": 0.01845383528629602,
+        "graphite_iou": 0.8657691428571429,
+        "graphite_dice": 0.9280560204049131,
+        "graphite_changed_pixel_fraction": 0.1146896866949223,
+        "silicon_iou": 0.37731633549408167,
+        "silicon_dice": 0.5479007629118517,
+        "silicon_changed_pixel_fraction": 0.09625945317044793
+      }
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "soo2ax3r",
+      "third_channel": "ETD",
+      "input_files": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_soo2ax3r_BSE.tif",
+          "sha256": "c73b525da79bf5c8efd7c938e87e7e7dd6a97633c6a7e3db3f24a160c5b96b75"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_soo2ax3r_Inlens.tif",
+          "sha256": "91b8a3cef31af4e55c99b587100c8fdebfff1fdf47caf7478d6ee81a468fe7a4"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_soo2ax3r_ETD.tif",
+          "sha256": "41c606643c3544662da97bae895ae947a102fd348c65511fb6198d23b7cf091c"
+        }
+      ],
+      "native_shape": [
+        2156,
+        7000
+      ],
+      "crop_shape": [
+        1725,
+        7000
+      ],
+      "original_thresholds": [
+        41.07670194638211,
+        84.81304646483213
+      ],
+      "original_max_absolute_feature_error": null,
+      "original_verification": "New sample; no previous export to compare",
+      "fits": {
+        "bse_kmeans_control": {
+          "channel_means": [
+            61.174092898579204
+          ],
+          "channel_population_sd": [
+            20.421092487871555
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -2.0357338983578366
+            ],
+            [
+              0.05629916319350824
+            ],
+            [
+              2.273492570354683
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -2.0403806656750554
+            ],
+            [
+              0.05624039097655433
+            ],
+            [
+              2.2796087287353752
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              19.507290614363967
+            ],
+            [
+              62.32258312426548
+            ],
+            [
+              107.72619358424359
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 1,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        },
+        "stacked_three_channel": {
+          "channel_means": [
+            61.174092898579204,
+            153.15866135379085,
+            78.35933586976503
+          ],
+          "channel_population_sd": [
+            20.421092487871555,
+            44.30731597056495,
+            30.29212569776796
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -2.0357338983578415,
+              -1.650945311541554,
+              -2.0429386485216
+            ],
+            [
+              0.05629916319350833,
+              0.10894259754223767,
+              0.13239587092368094
+            ],
+            [
+              2.2734925703546813,
+              1.1372063208010992,
+              1.472355330321991
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.988501245315605,
+              -1.8226445850102388,
+              -2.078840804693679
+            ],
+            [
+              0.007314886157374124,
+              0.02550541551436149,
+              0.036740499436093435
+            ],
+            [
+              1.4735246371200201,
+              1.2518709364343625,
+              1.4035018968511945
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              20.566725055741472,
+              72.40217182370297,
+              15.38682890833502
+            ],
+            [
+              61.32347086533719,
+              154.28873785794622,
+              79.47228369688195
+            ],
+            [
+              91.2650757963645,
+              208.62570248875517,
+              120.87439174623718
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 8,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        }
+      },
+      "measurements": {
+        "original_bse_otsu": {
+          "porosity_pct": 10.678095238095239,
+          "porosity_ci95_pct": 1.1819495181571869,
+          "active_material_pct": 81.89334161490683,
+          "cbd_pct": 5.339047619047619,
+          "inclusion_pct": 7.42856314699793,
+          "char_length_scale_cls_um": 1.6962917587185773,
+          "throat_through_plane_ly_um": 0.3926650366748166,
+          "chord_in_plane_lx_um": 0.45221226927252994,
+          "pore_anisotropy_ratio": 1.1516489298410009,
+          "particle_aspect_ratio": 2.8268571224718677,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.366070633458355,
+          "slurry_dispersion_index": 3.914115142662286
+        },
+        "bse_kmeans_control": {
+          "porosity_pct": 10.622550724637682,
+          "porosity_ci95_pct": 1.1782417157020788,
+          "active_material_pct": 82.00342857142857,
+          "cbd_pct": 5.311271221532091,
+          "inclusion_pct": 7.374020703933748,
+          "char_length_scale_cls_um": 1.694858777941767,
+          "throat_through_plane_ly_um": 0.39328578455484503,
+          "chord_in_plane_lx_um": 0.4518129770992366,
+          "pore_anisotropy_ratio": 1.1488159370180078,
+          "particle_aspect_ratio": 2.837424356745573,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.3645468110980161,
+          "slurry_dispersion_index": 3.9090890895931447
+        },
+        "stacked_three_channel": {
+          "porosity_pct": 10.648115942028985,
+          "porosity_ci95_pct": 1.2175213817186392,
+          "active_material_pct": 75.43170186335404,
+          "cbd_pct": 5.324057971014493,
+          "inclusion_pct": 13.920182194616979,
+          "char_length_scale_cls_um": 1.7495077113308104,
+          "throat_through_plane_ly_um": 0.4410566868464502,
+          "chord_in_plane_lx_um": 0.5256786616161616,
+          "pore_anisotropy_ratio": 1.191861901867439,
+          "particle_aspect_ratio": 3.4368902694210033,
+          "particle_d10_um": 0.097720502380584,
+          "particle_d50_um": 0.17841241161527713,
+          "particle_d90_um": 0.5944106103225343,
+          "slurry_dispersion_index": 3.975838977754853
+        }
+      },
+      "agreement_with_original": {
+        "bse_kmeans_control": {
+          "changed_pixel_fraction": 0.0011008695652173913,
+          "pore_iou": 0.9947982751399898,
+          "pore_dice": 0.9973923554452416,
+          "pore_changed_pixel_fraction": 0.0005554451345755693,
+          "graphite_iou": 0.9986575322710337,
+          "graphite_dice": 0.9993283152779852,
+          "graphite_changed_pixel_fraction": 0.0011008695652173913,
+          "silicon_iou": 0.9926577398637011,
+          "silicon_dice": 0.9963153430770298,
+          "silicon_changed_pixel_fraction": 0.000545424430641822
+        },
+        "stacked_three_channel": {
+          "changed_pixel_fraction": 0.09102683229813664,
+          "pore_iou": 0.8113486252083817,
+          "pore_dice": 0.8958503227009017,
+          "pore_changed_pixel_fraction": 0.022211180124223604,
+          "graphite_iou": 0.8906113531033615,
+          "graphite_dice": 0.9421411245007698,
+          "graphite_changed_pixel_fraction": 0.09102650103519669,
+          "silicon_iou": 0.5124679727318651,
+          "silicon_dice": 0.677657949749812,
+          "silicon_changed_pixel_fraction": 0.068815983436853
+        }
+      },
+      "added_channel_effect": {
+        "changed_pixel_fraction": 0.0913047619047619,
+        "pore_iou": 0.8112799457835956,
+        "pore_dice": 0.895808455972961,
+        "pore_changed_pixel_fraction": 0.022162236024844722,
+        "graphite_iou": 0.8903680910767544,
+        "graphite_dice": 0.9420049939264479,
+        "graphite_changed_pixel_fraction": 0.09130451345755694,
+        "silicon_iou": 0.5097731354886744,
+        "silicon_dice": 0.6752976636104656,
+        "silicon_changed_pixel_fraction": 0.06914277432712215
+      }
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "xrv9xvzb",
+      "third_channel": "ETD",
+      "input_files": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_xrv9xvzb_BSE.tif",
+          "sha256": "2bb8f7cb564a15879e49a99b7ff9f319472585ef2ba524bf4816ec5c74ffa222"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_xrv9xvzb_Inlens.tif",
+          "sha256": "19b9e6f2a0445b4584e3a77224bbe609ec213a8f4e77112d964d53187ca88e30"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_xrv9xvzb_ETD.tif",
+          "sha256": "a05becd6d1e4b530197c2bf93636422d2d88d7d42fef259ec4dced9619f751d0"
+        }
+      ],
+      "native_shape": [
+        2088,
+        7000
+      ],
+      "crop_shape": [
+        1671,
+        7000
+      ],
+      "original_thresholds": [
+        41.832562398518284,
+        82.84487847549698
+      ],
+      "original_max_absolute_feature_error": 0.0,
+      "original_verification": "Compared with saved values",
+      "fits": {
+        "bse_kmeans_control": {
+          "channel_means": [
+            57.90552044068993
+          ],
+          "channel_population_sd": [
+            18.324514047922815
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.8690884420427842
+            ],
+            [
+              0.1195024751338296
+            ],
+            [
+              2.60300838028172
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.8679239046865275
+            ],
+            [
+              0.11968554223407742
+            ],
+            [
+              2.603008380281713
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              23.676722608810827
+            ],
+            [
+              60.098699840691545
+            ],
+            [
+              105.60438407202301
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 1,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        },
+        "stacked_three_channel": {
+          "channel_means": [
+            57.90552044068993,
+            130.84558498766518,
+            79.80604320156407
+          ],
+          "channel_population_sd": [
+            18.324514047922815,
+            40.33231083456835,
+            34.79433870718332
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -1.869088442042781,
+              -1.0977966351645396,
+              -1.791270665752832
+            ],
+            [
+              0.11950247513383011,
+              0.1551828335310256,
+              0.18259302297545912
+            ],
+            [
+              2.6030083802817274,
+              0.2828867237297779,
+              1.5394803149397474
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -1.884131665112206,
+              -1.295428410946674,
+              -1.8880656142958099
+            ],
+            [
+              0.042935260772590134,
+              -0.0427950835886784,
+              0.019798410326447573
+            ],
+            [
+              1.2292502717448337,
+              1.1515028317878646,
+              1.3420833286673983
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              23.37972327520511,
+              78.59796365343297,
+              14.112048716369515
+            ],
+            [
+              58.69228822986849,
+              129.11956037417525,
+              80.49491579632628
+            ],
+            [
+              80.43093431369107,
+              177.28835512621902,
+              126.50294511248156
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 10,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        }
+      },
+      "measurements": {
+        "original_bse_otsu": {
+          "porosity_pct": 12.942446781225955,
+          "porosity_ci95_pct": 1.6361454069229535,
+          "active_material_pct": 81.4724459263059,
+          "cbd_pct": 6.471223390612978,
+          "inclusion_pct": 5.585107292468154,
+          "char_length_scale_cls_um": 2.1263348507252284,
+          "throat_through_plane_ly_um": 0.48685619581846,
+          "chord_in_plane_lx_um": 0.5496699196326061,
+          "pore_anisotropy_ratio": 1.129019049882993,
+          "particle_aspect_ratio": 2.7576479494538275,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.1438406847937898,
+          "particle_d90_um": 0.5278999914001974,
+          "slurry_dispersion_index": 5.005198716402209
+        },
+        "bse_kmeans_control": {
+          "porosity_pct": 12.965700606993247,
+          "porosity_ci95_pct": 1.6380957119896982,
+          "active_material_pct": 81.44982474138668,
+          "cbd_pct": 6.482850303496623,
+          "inclusion_pct": 5.584474651620074,
+          "char_length_scale_cls_um": 2.127243681660075,
+          "throat_through_plane_ly_um": 0.4883869321082185,
+          "chord_in_plane_lx_um": 0.5484571428571429,
+          "pore_anisotropy_ratio": 1.1229971704804211,
+          "particle_aspect_ratio": 2.761452559643364,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.1438406847937898,
+          "particle_d90_um": 0.5282011347437374,
+          "slurry_dispersion_index": 5.00502872817958
+        },
+        "stacked_three_channel": {
+          "porosity_pct": 12.21996238351714,
+          "porosity_ci95_pct": 1.6184509172806782,
+          "active_material_pct": 71.37215525348381,
+          "cbd_pct": 6.109976917158246,
+          "inclusion_pct": 16.40788236299906,
+          "char_length_scale_cls_um": 2.155697904452555,
+          "throat_through_plane_ly_um": 0.5311690223792698,
+          "chord_in_plane_lx_um": 0.603941215764863,
+          "pore_anisotropy_ratio": 1.1370038355392493,
+          "particle_aspect_ratio": 3.4629776283372027,
+          "particle_d10_um": 0.097720502380584,
+          "particle_d50_um": 0.18281831978578633,
+          "particle_d90_um": 0.7315990149553713,
+          "slurry_dispersion_index": 5.321463412761428
+        }
+      },
+      "agreement_with_original": {
+        "bse_kmeans_control": {
+          "changed_pixel_fraction": 0.00023886466615371464,
+          "pore_iou": 0.9982065122069262,
+          "pore_dice": 0.9991024512320836,
+          "pore_changed_pixel_fraction": 0.00023253825767290758,
+          "graphite_iou": 0.9997068176748019,
+          "graphite_dice": 0.9998533873452814,
+          "graphite_changed_pixel_fraction": 0.00023886466615371464,
+          "silicon_iou": 0.9998867271808844,
+          "silicon_dice": 0.9999433603825777,
+          "silicon_changed_pixel_fraction": 6.326408480807045e-06
+        },
+        "stacked_three_channel": {
+          "changed_pixel_fraction": 0.1328912541677353,
+          "pore_iou": 0.8260870913984432,
+          "pore_dice": 0.9047619856573369,
+          "pore_changed_pixel_fraction": 0.023964178849277592,
+          "graphite_iou": 0.8400380600294559,
+          "graphite_dice": 0.913065961272571,
+          "graphite_changed_pixel_fraction": 0.13287398478242285,
+          "silicon_iou": 0.3374710996708469,
+          "silicon_dice": 0.5046405858846579,
+          "silicon_changed_pixel_fraction": 0.1089443447037702
+        }
+      },
+      "added_channel_effect": {
+        "changed_pixel_fraction": 0.13295657006069933,
+        "pore_iou": 0.8258285115054516,
+        "pore_dice": 0.9046068744150901,
+        "pore_changed_pixel_fraction": 0.024025391125929725,
+        "graphite_iou": 0.8399443063287786,
+        "graphite_dice": 0.9130105769393755,
+        "graphite_changed_pixel_fraction": 0.13293895870736086,
+        "silicon_iou": 0.33744027534431037,
+        "silicon_dice": 0.504606121955524,
+        "silicon_changed_pixel_fraction": 0.10894879028810805
+      }
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "y59rxmxl",
+      "third_channel": "ETD",
+      "input_files": [
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_y59rxmxl_BSE.tif",
+          "sha256": "17d7d7ab53c90d95df77b9f480e8424d77972cb3a7f5f854f16bd52e9c26a482"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_y59rxmxl_Inlens.tif",
+          "sha256": "c1b05eac6e4ad2fff8164b6767a5a79d8a7c9bda69704739fbff16dced5fde13"
+        },
+        {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_y59rxmxl_ETD.tif",
+          "sha256": "8bef1eefa4c6ce7ed7c7c11d793317f8a6fd2930bbf42c6c995bf8f99ed78946"
+        }
+      ],
+      "native_shape": [
+        1880,
+        7000
+      ],
+      "crop_shape": [
+        1504,
+        7000
+      ],
+      "original_thresholds": [
+        37.7040057606398,
+        83.06220817945461
+      ],
+      "original_max_absolute_feature_error": null,
+      "original_verification": "New sample; no previous export to compare",
+      "fits": {
+        "bse_kmeans_control": {
+          "channel_means": [
+            57.21171092887806
+          ],
+          "channel_population_sd": [
+            19.725001165742174
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -2.1279986536644833
+            ],
+            [
+              0.14537159869537963
+            ],
+            [
+              2.4936275844569913
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -2.1301344613128252
+            ],
+            [
+              0.146103639636996
+            ],
+            [
+              2.5127582668022126
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              15.194806196295005
+            ],
+            [
+              60.09360539103698
+            ],
+            [
+              106.77587067078
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 2,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        },
+        "stacked_three_channel": {
+          "channel_means": [
+            57.21171092887806,
+            131.47602155667622,
+            82.82378030085223
+          ],
+          "channel_population_sd": [
+            19.725001165742174,
+            47.68861462032474,
+            31.33058242198991
+          ],
+          "initial_normalised_centres_in_original_phase_order": [
+            [
+              -2.127998653664485,
+              -1.297866086427423,
+              -2.1413460629872434
+            ],
+            [
+              0.1453715986953791,
+              0.09139996870167717,
+              0.19522767297174537
+            ],
+            [
+              2.4936275844569913,
+              1.4785970512385864,
+              1.6029628317607771
+            ]
+          ],
+          "normalised_cluster_centres_in_phase_order": [
+            [
+              -2.1907062818249883,
+              -1.471253583576707,
+              -2.2818203139486375
+            ],
+            [
+              0.043940833861073086,
+              -0.12610290985091124,
+              0.06787830833083013
+            ],
+            [
+              1.0712699113336213,
+              1.3442347825762353,
+              1.0273636826446884
+            ]
+          ],
+          "raw_cluster_centres_in_phase_order": [
+            [
+              14.000026966081464,
+              61.31397640071489,
+              11.333020882513551
+            ],
+            [
+              58.07844392801141,
+              125.46234848629456,
+              84.95044723467655
+            ],
+            [
+              78.34251117875826,
+              195.58071606219033,
+              115.01168283731073
+            ]
+          ],
+          "sampled_pixels": 100000,
+          "seed": 42,
+          "iterations": 16,
+          "normalisation": "Per-image mean and population SD; each included channel has equal weight",
+          "initialisation": "Means of sampled pixels in the original three BSE Multi-Otsu masks",
+          "phase_mapping": "Increasing BSE cluster-centre intensity: pore, graphite, silicon"
+        }
+      },
+      "measurements": {
+        "original_bse_otsu": {
+          "porosity_pct": 11.213411854103343,
+          "porosity_ci95_pct": 1.9830069815923432,
+          "active_material_pct": 84.19089095744681,
+          "cbd_pct": 5.606705927051672,
+          "inclusion_pct": 4.595697188449848,
+          "char_length_scale_cls_um": 2.6009891959260707,
+          "throat_through_plane_ly_um": 0.43846614739364886,
+          "chord_in_plane_lx_um": 0.5316476054324517,
+          "pore_anisotropy_ratio": 1.2125168809329898,
+          "particle_aspect_ratio": 2.9320081736039527,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.3147595154841155,
+          "slurry_dispersion_index": 3.1686918418388137
+        },
+        "bse_kmeans_control": {
+          "porosity_pct": 11.194766337386017,
+          "porosity_ci95_pct": 1.981307095196673,
+          "active_material_pct": 84.28609422492401,
+          "cbd_pct": 5.5973784194528875,
+          "inclusion_pct": 4.51913943768997,
+          "char_length_scale_cls_um": 2.600649790089072,
+          "throat_through_plane_ly_um": 0.4375524266027562,
+          "chord_in_plane_lx_um": 0.5302857142857142,
+          "pore_anisotropy_ratio": 1.2119364036052953,
+          "particle_aspect_ratio": 2.9613591040723533,
+          "particle_d10_um": 0.09356025796273888,
+          "particle_d50_um": 0.13528790949515024,
+          "particle_d90_um": 0.3147595154841155,
+          "slurry_dispersion_index": 3.1596489142168367
+        },
+        "stacked_three_channel": {
+          "porosity_pct": 10.291603343465045,
+          "porosity_ci95_pct": 1.9252020053498284,
+          "active_material_pct": 71.6546447568389,
+          "cbd_pct": 5.145801671732523,
+          "inclusion_pct": 18.05375189969605,
+          "char_length_scale_cls_um": 2.6222561570207694,
+          "throat_through_plane_ly_um": 0.5154807692307692,
+          "chord_in_plane_lx_um": 0.6463311382878645,
+          "pore_anisotropy_ratio": 1.253841417309045,
+          "particle_aspect_ratio": 2.863464644588321,
+          "particle_d10_um": 0.097720502380584,
+          "particle_d50_um": 0.1761681409986482,
+          "particle_d90_um": 0.5957478687288161,
+          "slurry_dispersion_index": 6.069166212443094
+        }
+      },
+      "agreement_with_original": {
+        "bse_kmeans_control": {
+          "changed_pixel_fraction": 0.0009520326747720364,
+          "pore_iou": 0.9983372128875743,
+          "pore_dice": 0.9991679146533917,
+          "pore_changed_pixel_fraction": 0.00018645516717325227,
+          "graphite_iou": 0.9988704747995186,
+          "graphite_dice": 0.999434918262728,
+          "graphite_changed_pixel_fraction": 0.0009520326747720364,
+          "silicon_iou": 0.9833414283795096,
+          "silicon_dice": 0.9916007544731714,
+          "silicon_changed_pixel_fraction": 0.0007655775075987842
+        },
+        "stacked_three_channel": {
+          "changed_pixel_fraction": 0.15188174392097264,
+          "pore_iou": 0.8568028566601549,
+          "pore_dice": 0.9228797269315845,
+          "pore_changed_pixel_fraction": 0.016584726443769,
+          "graphite_iou": 0.8224136619229434,
+          "graphite_dice": 0.902554320247098,
+          "graphite_changed_pixel_fraction": 0.1518647416413374,
+          "silicon_iou": 0.2520130633847188,
+          "silicon_dice": 0.4025725781221824,
+          "silicon_changed_pixel_fraction": 0.1353140197568389
+        }
+      },
+      "added_channel_effect": {
+        "changed_pixel_fraction": 0.15245668693009118,
+        "pore_iou": 0.8573620866046694,
+        "pore_dice": 0.9232040352152991,
+        "pore_changed_pixel_fraction": 0.016500664893617022,
+        "graphite_iou": 0.8218997408326514,
+        "graphite_dice": 0.9022447530038329,
+        "graphite_changed_pixel_fraction": 0.15244025455927052,
+        "silicon_iou": 0.2481507314090996,
+        "silicon_dice": 0.3976294291458691,
+        "silicon_changed_pixel_fraction": 0.13597245440729483
+      }
+    }
+  ]
+}

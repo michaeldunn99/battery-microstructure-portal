@@ -2,14 +2,25 @@ import verification from "@/validation/physical-rerun.json";
 import precisionVerification from "@/validation/physical-full-precision.json";
 
 const downloads = [
-  ["/test_1_physical_features.csv", "Test image measurements (CSV)", "Three image pairs, each with the original 13 descriptors and porosity uncertainty at full precision."],
-  ["/downloads/test-1-run.json", "Test extraction record (JSON)", "Input hashes, extractor settings and ImageRep revision for the three test samples."],
-  ["/physical_feature_vectors.csv", "Measurements and uncertainty (CSV)", "31 samples, each with 13 descriptors and a porosity uncertainty estimate, rounded to two decimal places."],
-  ["/qc_dataset_features.csv", "Full-precision measurements (CSV)", "The saved physical measurements used for batch comparisons."],
-  ["/qc_summary_report.json", "Batch summary (JSON)", "Sample counts and batch means."],
-  ["/physical_batch_statistics.json", "Statistical comparisons (JSON)", "Mean differences, pointwise 95% intervals, raw and Holm-adjusted p-values, settings and input hashes."],
+  ["/multichannel/test_assignments.csv", "Test assignments and confidence (CSV)", "All nine images, with the requested confidence bands."],
+  ["/multichannel/test_assignments.json", "Assignment measurements and validation (JSON)", "Per-image evidence, known-image validation and the fixed rule."],
+  ["/multichannel/test_feature_evidence.csv", "Assignment feature evidence (CSV)", "Every assignment input compared with the known batch means."],
+  ["/downloads/assign_multichannel_tests.py", "Batch assignment calculation (Python)", "Repeat known-image validation and test assignment."],
+  ["/multichannel/test_1.csv", "Combined method: all test vectors (CSV)", "One full-precision record per test sample, with 13 physical descriptors and porosity uncertainty."],
+  ["/multichannel/known_batches.csv", "Combined method: known-batch vectors (CSV)", "31 known samples processed by the same three-detector segmentation."],
+  ["/multichannel/summary.json", "Original and combined comparisons (JSON)", "Batch means, sample standard deviations and individual test values."],
+  ["/multichannel/original_known.csv", "Original BSE: known-batch vectors (CSV)", "The 14 physical fields used for the original report, at full precision."],
+  ["/test_1_physical_features.csv", "Original BSE: initial three test vectors (CSV)", "Full-precision records from the initial test release."],
+  ["/physical_feature_vectors.csv", "Original BSE: presentation vectors (CSV)", "31 known samples, rounded to two decimal places."],
+  ["/physical_batch_statistics.json", "Original BSE: supplementary mean tests (JSON)", "Mean differences, pointwise 95% intervals, raw and Holm-adjusted p-values, settings and input hashes."],
   ["/downloads/physical-method.md", "Protocol (Markdown)", "The measurement specification and test-set instructions."],
-  ["/downloads/extract_physical_features.py", "Extractor (Python)", "The executable calculation code shown in Methods."],
+  ["/downloads/run_multichannel_experiment.py", "Three-detector extractor (Python)", "Repeat segmentation, vector extraction and diagnostic figure generation."],
+  ["/downloads/multichannel-full-test-run.json", "Complete test extraction record (JSON)", "All detector input hashes, fitted centroids, settings and software versions."],
+  ["/downloads/multichannel-full-test-alignment.json", "Complete test alignment audit (JSON)", "Image grid and detector alignment diagnostics."],
+  ["/downloads/multichannel-run.json", "Initial combined extraction record (JSON)", "The known-batch run and its three initial test samples."],
+  ["/downloads/multichannel-run-source.py", "Initial combined run source (Python)", "The exact source snapshot recorded with the initial combined run."],
+  ["/downloads/multichannel-validation.json", "Combined extraction verification (JSON)", "Original-value reproduction and repeated pilot checks."],
+  ["/downloads/extract_physical_features.py", "Original BSE extractor (Python)", "The original calculation code shown in Methods."],
   ["/downloads/compare_physical_batches.py", "Batch comparison (Python)", "Repeat the statistical analysis or compare a new batch with the reference."],
   ["/downloads/physical-rerun.json", "Verification record (JSON)", "Run settings, dependency versions, input hashes and comparisons."],
   ["/physical-feature-vector.tex", "Feature vector (LaTeX)", "The 13-descriptor vector with its porosity uncertainty reported separately."],
@@ -18,7 +29,7 @@ const downloads = [
 export function VerificationDetails() {
   return (
     <details id="validation-record" className="scroll-mt-6 rounded-md border border-zinc-200">
-      <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Verification record and software versions</summary>
+      <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Original BSE verification and software versions</summary>
       <div className="space-y-4 border-t border-zinc-200 p-4 text-sm leading-6 text-zinc-700">
         <p>{verification.comparison.matched_numeric_values} of {verification.numeric_value_count} values matched across {verification.sample_count} samples at two decimal places. This verifies reproduction of the saved measurements; it does not validate phase assignment or release criteria.</p>
         <p>The full-precision export was also checked across {precisionVerification.sample_count} samples: all {precisionVerification.exact_matches} values matched the saved raw measurements exactly. The default two-decimal export was unchanged for the checked example.</p>
@@ -49,9 +60,9 @@ export function ReportDownloads() {
 }
 
 const references = [
-  { id: "ref-moon", label: "Moon et al. (2021)", title: "Interplay between electrochemical reactions and mechanical responses in silicon-graphite anodes", journal: "Nature Communications", href: "", use: "Silicon particle size and composite degradation. Bibliographic description supplied in the literature notes; DOI not supplied." },
-  { id: "ref-otero", label: "Otero et al. (2018)", title: "Design considerations for silicon/graphite and tin/graphite composite electrodes", journal: "Scientific Reports", href: "", use: "Analytical model of initial porosity and expansion tolerance. Bibliographic description supplied in the literature notes; DOI not supplied." },
-  { id: "ref-cabello", label: "Cabello et al. (2020)", title: "Si@graphite anode by wet ball milling", journal: "Molecules", href: "", use: "Silicon agglomeration and processing. Bibliographic description supplied in the literature notes; DOI not supplied." },
+  { id: "ref-moon", label: "Moon et al. (2021)", title: "Interplay between electrochemical reactions and mechanical responses in silicon–graphite anodes and its impact on degradation", journal: "Nature Communications 12, 2714", href: "https://doi.org/10.1038/s41467-021-22662-7", use: "Silicon particle size, expansion and composite degradation; does not validate our segmented boundaries." },
+  { id: "ref-otero", label: "Otero et al. (2018)", title: "Design-Considerations regarding Silicon/Graphite and Tin/Graphite Composite Electrodes for Lithium-Ion Batteries", journal: "Scientific Reports 8, 15851", href: "https://doi.org/10.1038/s41598-018-33405-y", use: "Analytical model of initial porosity and expansion tolerance; does not validate a pore-chord threshold." },
+  { id: "ref-cabello", label: "Cabello et al. (2020)", title: "Towards a High-Power Si@graphite Anode for Lithium Ion Batteries through a Wet Ball Milling Process", journal: "Molecules 25, 2494", href: "https://doi.org/10.3390/molecules25112494", use: "Processing-dependent silicon agglomeration and distribution; does not calibrate our spatial-variation statistic." },
   { id: "ref-microlib", label: "Kench, Squires, Dahari and Cooper (2022)", title: "MicroLib: A library of 3D microstructures generated from 2D micrographs using SliceGAN", journal: "Scientific Data 9, 645", href: "https://doi.org/10.1038/s41597-022-01744-1", use: "Compares phase fraction, surface-area density and two-point correlation to assess generated microstructures. It does not prescribe our Holm correction or a batch-assignment rule." },
   { id: "ref-equivalence", label: "Yen, Leber and Pibida (2020)", title: "Comparing Instruments", journal: "NIST Technical Note 2106", href: "https://doi.org/10.6028/NIST.TN.2106", use: "Equivalence requires a predefined range of practically acceptable differences. This statistical guidance does not supply electrode acceptance limits." },
   { id: "ref-welch", label: "SciPy", title: "Independent two-sample t-test", journal: "Statistical software documentation", href: "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html", use: "Welch's unequal-variance test and confidence interval for the difference in means." },
@@ -67,6 +78,7 @@ const references = [
   { id: "ref-polaron", label: "Polaron (2026)", title: "Quantifying and Optimising Solid-State Battery Electrodes", journal: "Industrial case study", href: "https://www.polaron.ai/newsroom/quantifying-and-optimising-solid-state-battery-electrodes", use: "Phase-specific interfaces, connectivity and transport from reconstructed solid-state electrodes. A different chemistry and measurement scope from this report." },
   { id: "ref-kelly", label: "Kelly (2007)", title: "Some Aspects of Measurement Error in Linear Regression of Astronomical Data", journal: "The Astrophysical Journal 665, 1489-1506", href: "https://arxiv.org/abs/0705.2774", use: "Example of modelling measurement uncertainties separately from observed values; not an electrode study." },
   { id: "ref-multiotsu", label: "scikit-image", title: "Multi-Otsu thresholding", journal: "Software documentation", href: "https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_multiotsu.html", use: "Intensity-based segmentation." },
+  { id: "ref-kmeans", label: "scikit-learn", title: "KMeans", journal: "Software documentation", href: "https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html", use: "Joint intensity clustering with explicit initial centroids. Algorithm documentation does not validate our material labels." },
   { id: "ref-regionprops", label: "scikit-image", title: "Region measurements", journal: "Software documentation", href: "https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops", use: "Component area, equivalent diameter and ellipse axes." },
   { id: "ref-numpy", label: "NumPy", title: "Standard deviation", journal: "Software documentation", href: "https://numpy.org/doc/stable/reference/generated/numpy.std.html", use: "Population standard deviation used for spatial variation." },
 ];

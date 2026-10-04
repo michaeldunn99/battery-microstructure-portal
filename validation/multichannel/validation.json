@@ -1,0 +1,10 @@
+{
+  "original_numeric_values_checked": 476,
+  "max_original_reproduction_error": 0,
+  "pilot_feature_values_repeated_exactly": 252,
+  "pilot_masks_repeated_identically": 18,
+  "source_snapshot_hashes_verified": 4,
+  "saved_masks": 102,
+  "saved_sample_figures": 34,
+  "analytical_unit_tests_passed": 4
+}

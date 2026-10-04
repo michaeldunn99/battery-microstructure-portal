@@ -1,9 +1,39 @@
 import Image from "next/image";
 
-function FullResolutionView({ src, width, height, alt, label }: {
+const figureWidth = 1800;
+const figureHeight = 1470;
+const figureSizes = "(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) calc(100vw - 96px), (max-width: 1280px) calc(100vw - 144px), 1134px";
+
+type SampleFigure = {
+  sampleId: string;
+  batch: string;
+  detector: "ETD" | "SE";
+  number?: number;
+};
+
+const mainFigures: SampleFigure[] = [
+  { sampleId: "4ih2ggld", batch: "Batch 1", detector: "ETD", number: 1 },
+  { sampleId: "0grcilhi", batch: "Batch 3", detector: "ETD", number: 2 },
+];
+
+const additionalFigures: SampleFigure[] = [
+  { sampleId: "rxax5ozo", batch: "Batch 2", detector: "SE" },
+];
+
+const testFigures: SampleFigure[] = [
+  { sampleId: "0eryguqq", batch: "test_1", detector: "ETD" },
+  { sampleId: "3e122cbj", batch: "test_1", detector: "ETD" },
+  { sampleId: "4hq27w4c", batch: "test_1", detector: "ETD" },
+  { sampleId: "fhwrjtet", batch: "test_1", detector: "ETD" },
+  { sampleId: "fn0mhxef", batch: "test_1", detector: "ETD" },
+  { sampleId: "fspqbkxl", batch: "test_1", detector: "ETD" },
+  { sampleId: "soo2ax3r", batch: "test_1", detector: "ETD" },
+  { sampleId: "xrv9xvzb", batch: "test_1", detector: "ETD" },
+  { sampleId: "y59rxmxl", batch: "test_1", detector: "ETD" },
+];
+
+function FullResolutionView({ src, alt, label }: {
   src: string;
-  width: number;
-  height: number;
   alt: string;
   label: string;
 }) {
@@ -13,9 +43,38 @@ function FullResolutionView({ src, width, height, alt, label }: {
         Inspect at full resolution
         <span className="sr-only">: {label}</span>
       </summary>
-      <p className="px-4 pb-3 text-xs text-zinc-600">Scroll within the image to inspect details.</p>
+      <p className="px-4 pb-3 text-sm text-zinc-600">Scroll within the image to inspect details.</p>
       <div role="region" aria-label={`${label}, full-resolution image`} tabIndex={0} className="max-h-[70vh] overflow-auto border-t border-zinc-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600">
-        <Image src={src} width={width} height={height} unoptimized className="h-auto w-auto max-w-none" alt={alt} />
+        <Image src={src} width={figureWidth} height={figureHeight} unoptimized className="h-auto w-auto max-w-none" alt={alt} />
+      </div>
+    </details>
+  );
+}
+
+function MethodFigure({ sampleId, batch, detector, number }: SampleFigure) {
+  const src = `/multichannel/${sampleId}.png`;
+  const label = `${number ? `Fig. ${number}. ` : ""}${batch}, sample ${sampleId}`;
+  const alt = `${batch}, sample ${sampleId}: smoothed BSE, Inlens and ${detector} views above the original BSE Multi-Otsu, BSE-only KMeans and three-channel KMeans masks.`;
+
+  return (
+    <figure>
+      <Image src={src} width={figureWidth} height={figureHeight} sizes={figureSizes} className="h-auto w-full" alt={alt} />
+      <FullResolutionView src={src} label={label} alt={alt} />
+      <figcaption className="mt-3 text-sm leading-6 text-zinc-600">
+        <strong className="font-semibold text-zinc-800">{label}.</strong> Detector views and segmentation outputs from the combined run. The third detector is {detector}. Silicon-labelled mask boundaries remain provisional.
+      </figcaption>
+    </figure>
+  );
+}
+
+function ExpandableFigure({ figure }: { figure: SampleFigure }) {
+  return (
+    <details className="rounded-md border border-zinc-200">
+      <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
+        {figure.batch}, sample {figure.sampleId}
+      </summary>
+      <div className="border-t border-zinc-200 p-4">
+        <MethodFigure {...figure} />
       </div>
     </details>
   );
@@ -23,28 +82,34 @@ function FullResolutionView({ src, width, height, alt, label }: {
 
 export default function PhysicalMethodFigures() {
   return (
-    <details id="preprocessing-figures" className="scroll-mt-6 rounded-md border border-zinc-200">
-      <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Preprocessing figures</summary>
-      <div className="space-y-6 border-t border-zinc-200 p-4">
-      <figure>
-        <Image src="/segmentation_batch1_demo.png" width={3200} height={800} unoptimized className="h-auto w-full" alt="Raw BSE and Inlens crops followed by binary Otsu and three-class Multi-Otsu segmentation." />
-        <FullResolutionView src="/segmentation_batch1_demo.png" width={3200} height={800} label="Fig. 1. Image-to-mask mapping" alt="Full-resolution raw BSE and Inlens crops alongside binary Otsu and three-class Multi-Otsu segmentation." />
-        <figcaption className="mt-3 text-sm leading-relaxed text-zinc-600"><strong className="font-semibold text-zinc-800">Fig. 1. Image-to-mask mapping.</strong> Raw BSE and Inlens images alongside binary and multi-level thresholding outputs.</figcaption>
-      </figure>
-      <figure className="border-t border-zinc-200 pt-6">
-        <Image src="/porosity_validation_dashboard.png" width={3170} height={1742} unoptimized className="h-auto w-full" alt="Porosity example with raw BSE, intensity histogram, segmented mask, Inlens overlay, local profile and sensitivity to threshold selection." />
-        <FullResolutionView src="/porosity_validation_dashboard.png" width={3170} height={1742} label="Fig. 2. Porosity and threshold sensitivity" alt="Full-resolution porosity example with raw BSE, intensity histogram, segmented mask, Inlens overlay, local profile and threshold sensitivity." />
-        <figcaption className="mt-3 text-sm leading-relaxed text-zinc-600"><strong className="font-semibold text-zinc-800">Fig. 2. Porosity and threshold sensitivity.</strong> An illustrative field showing mask construction, detector comparison and the dependence of estimated porosity on threshold selection. The values describe this example, not the batch means.</figcaption>
-      </figure>
-      <details className="border-t border-zinc-200 pt-4">
-        <summary className="cursor-pointer text-sm font-semibold text-zinc-800">Additional detector comparison</summary>
-        <figure className="mt-4">
-          <Image src="/multimodal_detector_fusion.png" width={3491} height={2180} unoptimized className="h-auto w-full" alt="BSE, Inlens and ETD views with a combined image, example segmentation and detector intensity scatter plot." />
-          <FullResolutionView src="/multimodal_detector_fusion.png" width={3491} height={2180} label="Additional detector comparison" alt="Full-resolution BSE, Inlens and ETD views with a combined image, example segmentation and detector intensity scatter plot." />
-          <figcaption className="mt-3 text-sm leading-relaxed text-zinc-600">Comparison of detector contrast and an example multi-detector segmentation. Phase names retain the assignments used in the original figure.</figcaption>
-        </figure>
-      </details>
+    <section id="preprocessing-figures" aria-labelledby="preprocessing-figures-heading" className="scroll-mt-6 space-y-5 border-t border-zinc-200 pt-6">
+      <div className="space-y-2">
+        <h3 id="preprocessing-figures-heading" className="text-base font-semibold text-zinc-950">Three-channel segmentation</h3>
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">Each pixel contributes separately standardized BSE, Inlens and ETD/SE intensities to KMeans. The channels are stacked, not averaged, and retain their original coordinates without automatic registration.</p>
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">The top row shows detector views after Gaussian smoothing (σ = 1 pixel). The bottom row compares original BSE Multi-Otsu, BSE-only KMeans and three-channel KMeans. Each figure displays the same central 900 × 900 pixel window; percentages use the whole crop, which retains the central 80% of image height. The separate CBD median allocation is not shown.</p>
       </div>
-    </details>
+
+      <div className="space-y-6 divide-y divide-zinc-200">
+        {mainFigures.map((figure, index) => (
+          <div key={figure.sampleId} className={index > 0 ? "pt-6" : undefined}>
+            <MethodFigure {...figure} />
+          </div>
+        ))}
+      </div>
+
+      <div className="space-y-3 border-t border-zinc-200 pt-5">
+        <h4 className="text-sm font-semibold text-zinc-800">Additional known sample</h4>
+        {additionalFigures.map((figure) => (
+          <ExpandableFigure key={figure.sampleId} figure={figure} />
+        ))}
+      </div>
+
+      <div className="space-y-3 border-t border-zinc-200 pt-5">
+        <h4 className="text-sm font-semibold text-zinc-800">Full test set ({testFigures.length} samples)</h4>
+        {testFigures.map((figure) => (
+          <ExpandableFigure key={figure.sampleId} figure={figure} />
+        ))}
+      </div>
+    </section>
   );
 }

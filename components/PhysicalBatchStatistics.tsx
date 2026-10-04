@@ -29,7 +29,7 @@ export default async function PhysicalBatchStatistics() {
   }
   return (
     <div id="batch-statistics" className="scroll-mt-6 space-y-4 border-t border-zinc-200 pt-6">
-      <h3 className="text-lg font-semibold text-zinc-900">Uncertainty in mean differences</h3>
+      <h3 className="text-lg font-semibold text-zinc-900">Original BSE results: uncertainty in mean differences</h3>
       <p className="max-w-4xl text-sm leading-6 text-zinc-600">
         <strong className="font-semibold text-zinc-900">Exploratory mean comparisons.</strong>{" "}
         These tests assume independent observations. The organisers describe crops drawn from approximately

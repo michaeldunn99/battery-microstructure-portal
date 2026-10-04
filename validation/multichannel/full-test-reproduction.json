@@ -1,0 +1,37 @@
+{
+  "previous_run": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/results",
+  "current_run": "/Users/michaeldunn/bio-hack/experiments/multichannel_segmentation_v1/full_test",
+  "samples": [
+    "3e122cbj",
+    "fn0mhxef",
+    "xrv9xvzb"
+  ],
+  "numerical_values_compared": 126,
+  "numeric_differences": [],
+  "mask_sha256_matches": {
+    "3e122cbj_original_bse_otsu.png": true,
+    "3e122cbj_bse_kmeans_control.png": true,
+    "3e122cbj_stacked_three_channel.png": true,
+    "fn0mhxef_original_bse_otsu.png": true,
+    "fn0mhxef_bse_kmeans_control.png": true,
+    "fn0mhxef_stacked_three_channel.png": true,
+    "xrv9xvzb_original_bse_otsu.png": true,
+    "xrv9xvzb_bse_kmeans_control.png": true,
+    "xrv9xvzb_stacked_three_channel.png": true
+  },
+  "figure_sha256_matches": {
+    "3e122cbj.png": true,
+    "fn0mhxef.png": true,
+    "xrv9xvzb.png": true
+  },
+  "all_old_values_exact": true,
+  "all_old_masks_exact": true,
+  "new_samples_without_previous_exports": [
+    "0eryguqq",
+    "4hq27w4c",
+    "fhwrjtet",
+    "fspqbkxl",
+    "soo2ax3r",
+    "y59rxmxl"
+  ]
+}

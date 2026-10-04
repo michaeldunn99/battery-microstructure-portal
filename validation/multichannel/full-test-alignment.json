@@ -1,0 +1,2525 @@
+{
+  "schema_version": 1,
+  "method": {
+    "channels": [
+      "BSE",
+      "Inlens",
+      "third detector: ETD or SE"
+    ],
+    "third_detector_semantics": "All supplied images included; ETD and SE names recorded separately, without assuming equivalent detector settings",
+    "third_channel_key": "ETD is the internal pair key; third_detector_name and source path identify whether the file is ETD or SE",
+    "input": "Native first intensity channel; central 80% of rows; every column",
+    "gradient_preparation": "Gaussian sigma1 native pixels, antialiased resizing, Gaussian gradient magnitude sigma0.7 reduced pixels",
+    "max_dimension": 1024,
+    "registration_estimator": "skimage phase_cross_correlation, upsample_factor10; phase-normalised global and three full-height horizontal thirds, plus unnormalised global cross-check",
+    "review_screening_threshold_native_px": 5.0,
+    "threshold_scope": "Descriptive manual-review trigger, not a validated alignment tolerance",
+    "automatic_registration": false,
+    "limitations": "Cross-detector contrast changes can move or obscure peaks. Downsampling limits sensitivity to small/local shifts. Matching geometry is plausible only after visual review; estimated shifts are not proof of misalignment."
+  },
+  "counts": {
+    "known_complete_triplets": 0,
+    "test_complete_triplets": 9,
+    "excluded_incomplete_triplets": 0,
+    "third_detector_counts": {
+      "ETD": 9,
+      "SE": 0
+    },
+    "manual_review_triplets": 0
+  },
+  "script_sha256": "f02b3070a571b74cadc35628700f6fc32b7b14ca0421133fd3205e07c095a0f2",
+  "contact_sheet": "alignment_test_contact_sheet.png",
+  "records": [
+    {
+      "batch": "test_1",
+      "sample_id": "0eryguqq",
+      "channels": {
+        "BSE": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_0eryguqq_BSE.tif",
+          "sha256": "4fffed829318f1a14184bfc3f9524eca07ad3b7592284babeaf3f53ebf9e6e55",
+          "mode": "RGB",
+          "native_shape": [
+            1612,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            1612,
+            7000
+          ],
+          "crop_rows_native": [
+            161,
+            1450
+          ],
+          "crop_shape": [
+            1289,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "Inlens": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_0eryguqq_Inlens.tif",
+          "sha256": "0dce1c504df5e1b27b4af9d19620c1141d77e9de065bfebaced5d9b1f62c234e",
+          "mode": "RGB",
+          "native_shape": [
+            1612,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            1612,
+            7000
+          ],
+          "crop_rows_native": [
+            161,
+            1450
+          ],
+          "crop_shape": [
+            1289,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "ETD": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_0eryguqq_ETD.tif",
+          "sha256": "e88660f85916259cc90978c2a90e9db4baeb3050ca2c08f693fff61ef9f82fb3",
+          "mode": "RGB",
+          "native_shape": [
+            1612,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            1612,
+            7000
+          ],
+          "crop_rows_native": [
+            161,
+            1450
+          ],
+          "crop_shape": [
+            1289,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        }
+      },
+      "third_detector_name": "ETD",
+      "equal_native_first_channel_shapes": true,
+      "equal_crop_shapes": true,
+      "downsampled_shape": [
+        189,
+        1024
+      ],
+      "native_pixels_per_downsampled_pixel_yx": [
+        6.8201058201058204,
+        6.8359375
+      ],
+      "pairs": {
+        "Inlens": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.1,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.6820105820105821,
+              0.0
+            ],
+            "library_error": 1.0,
+            "gradient_ncc_unshifted": 0.4765792255766634,
+            "gradient_ncc_at_estimated_shift": 0.48251988924149763
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.7363825323841234,
+            "gradient_ncc_unshifted": 0.4765792255766634,
+            "gradient_ncc_at_estimated_shift": 0.4765792255766634
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999999,
+              "gradient_ncc_unshifted": 0.45263858195335505,
+              "gradient_ncc_at_estimated_shift": 0.45608617019381403
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.1,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.6820105820105821,
+                0.0
+              ],
+              "library_error": 0.9999999999999998,
+              "gradient_ncc_unshifted": 0.5103473738562236,
+              "gradient_ncc_at_estimated_shift": 0.5167850152660955
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999999,
+              "gradient_ncc_unshifted": 0.465091863219992,
+              "gradient_ncc_at_estimated_shift": 0.465091863219992
+            }
+          ],
+          "manual_review_flags": []
+        },
+        "ETD": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999996,
+            "gradient_ncc_unshifted": 0.7328054935975743,
+            "gradient_ncc_at_estimated_shift": 0.7352852107193891
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.5553588098768221,
+            "gradient_ncc_unshifted": 0.7328054935975743,
+            "gradient_ncc_at_estimated_shift": 0.7352852107193891
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999973,
+              "gradient_ncc_unshifted": 0.7109241324533839,
+              "gradient_ncc_at_estimated_shift": 0.7131502311617611
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999951,
+              "gradient_ncc_unshifted": 0.7455359679578225,
+              "gradient_ncc_at_estimated_shift": 0.7481261970825459
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999956,
+              "gradient_ncc_unshifted": 0.7438823429953281,
+              "gradient_ncc_at_estimated_shift": 0.747161930046837
+            }
+          ],
+          "manual_review_flags": []
+        }
+      },
+      "needs_manual_review": false
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "3e122cbj",
+      "channels": {
+        "BSE": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_3e122cbj_BSE.tif",
+          "sha256": "efad123af7f20e762d44b0de140dea5ac3c7593d7b323d4da020eef2d1159374",
+          "mode": "RGB",
+          "native_shape": [
+            2316,
+            6996,
+            3
+          ],
+          "first_channel_shape": [
+            2316,
+            6996
+          ],
+          "crop_rows_native": [
+            231,
+            2084
+          ],
+          "crop_shape": [
+            1853,
+            6996
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "Inlens": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_3e122cbj_Inlens.tif",
+          "sha256": "c03147055308da8bd2e06b4b6d6f58efe1237aa1c17067545be886f6502c4436",
+          "mode": "RGB",
+          "native_shape": [
+            2316,
+            6996,
+            3
+          ],
+          "first_channel_shape": [
+            2316,
+            6996
+          ],
+          "crop_rows_native": [
+            231,
+            2084
+          ],
+          "crop_shape": [
+            1853,
+            6996
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "ETD": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_3e122cbj_ETD.tif",
+          "sha256": "78133a28d1f0b68faf7dc4faf03c62fa7b6c86076766b50e3237777060d65e1d",
+          "mode": "RGB",
+          "native_shape": [
+            2316,
+            6996,
+            3
+          ],
+          "first_channel_shape": [
+            2316,
+            6996
+          ],
+          "crop_rows_native": [
+            231,
+            2084
+          ],
+          "crop_shape": [
+            1853,
+            6996
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        }
+      },
+      "third_detector_name": "ETD",
+      "equal_native_first_channel_shapes": true,
+      "equal_crop_shapes": true,
+      "downsampled_shape": [
+        271,
+        1024
+      ],
+      "native_pixels_per_downsampled_pixel_yx": [
+        6.837638376383764,
+        6.83203125
+      ],
+      "pairs": {
+        "Inlens": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.9999999999999999,
+            "gradient_ncc_unshifted": 0.6878933993476385,
+            "gradient_ncc_at_estimated_shift": 0.6878933993476385
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.572086874575001,
+            "gradient_ncc_unshifted": 0.6878933993476385,
+            "gradient_ncc_at_estimated_shift": 0.6878933993476385
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999996,
+              "gradient_ncc_unshifted": 0.6986821133272255,
+              "gradient_ncc_at_estimated_shift": 0.6986821133272255
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999996,
+              "gradient_ncc_unshifted": 0.6971413608451171,
+              "gradient_ncc_at_estimated_shift": 0.6971413608451171
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999996,
+              "gradient_ncc_unshifted": 0.6662736334640674,
+              "gradient_ncc_at_estimated_shift": 0.6662736334640674
+            }
+          ],
+          "manual_review_flags": []
+        },
+        "ETD": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.683203125
+            ],
+            "library_error": 0.9999999999999998,
+            "gradient_ncc_unshifted": 0.7867226468617664,
+            "gradient_ncc_at_estimated_shift": 0.7917046605372657
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.683203125
+            ],
+            "library_error": 0.48829673602551676,
+            "gradient_ncc_unshifted": 0.7867226468617664,
+            "gradient_ncc_at_estimated_shift": 0.7917046605372657
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.683203125
+              ],
+              "library_error": 0.9999999999999987,
+              "gradient_ncc_unshifted": 0.7939299464618611,
+              "gradient_ncc_at_estimated_shift": 0.7979587125190177
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.683203125
+              ],
+              "library_error": 0.9999999999999988,
+              "gradient_ncc_unshifted": 0.7781924424383876,
+              "gradient_ncc_at_estimated_shift": 0.7831579371737727
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.683203125
+              ],
+              "library_error": 0.9999999999999986,
+              "gradient_ncc_unshifted": 0.7880864962552924,
+              "gradient_ncc_at_estimated_shift": 0.7938869155625814
+            }
+          ],
+          "manual_review_flags": []
+        }
+      },
+      "needs_manual_review": false
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "4hq27w4c",
+      "channels": {
+        "BSE": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_4hq27w4c_BSE.tif",
+          "sha256": "e0184e85877644c730f83121ddc7eef12af691bd5947e59c1eb3ae69543270dd",
+          "mode": "RGB",
+          "native_shape": [
+            2148,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2148,
+            7000
+          ],
+          "crop_rows_native": [
+            214,
+            1933
+          ],
+          "crop_shape": [
+            1719,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": false,
+          "cropped_rgb_channels_equal": false,
+          "cropped_non_grayscale_pixel_pct": 0.014285714285714285,
+          "cropped_non_grayscale_columns": [
+            6999
+          ],
+          "dtype": "uint8"
+        },
+        "Inlens": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_4hq27w4c_Inlens.tif",
+          "sha256": "2828e51c5c027b2c7a519b8c5374300bfb2a40937b2f89b2baaba382eb8875cf",
+          "mode": "RGB",
+          "native_shape": [
+            2148,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2148,
+            7000
+          ],
+          "crop_rows_native": [
+            214,
+            1933
+          ],
+          "crop_shape": [
+            1719,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": false,
+          "cropped_rgb_channels_equal": false,
+          "cropped_non_grayscale_pixel_pct": 0.014285714285714285,
+          "cropped_non_grayscale_columns": [
+            6999
+          ],
+          "dtype": "uint8"
+        },
+        "ETD": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_4hq27w4c_ETD.tif",
+          "sha256": "eded4fb6af8d8b74f13ce0adc095b535cb6647f91dbedd0c2994ec1b98ea6c23",
+          "mode": "RGB",
+          "native_shape": [
+            2148,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2148,
+            7000
+          ],
+          "crop_rows_native": [
+            214,
+            1933
+          ],
+          "crop_shape": [
+            1719,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": false,
+          "cropped_rgb_channels_equal": false,
+          "cropped_non_grayscale_pixel_pct": 0.014285714285714285,
+          "cropped_non_grayscale_columns": [
+            6999
+          ],
+          "dtype": "uint8"
+        }
+      },
+      "third_detector_name": "ETD",
+      "equal_native_first_channel_shapes": true,
+      "equal_crop_shapes": true,
+      "downsampled_shape": [
+        251,
+        1024
+      ],
+      "native_pixels_per_downsampled_pixel_yx": [
+        6.848605577689243,
+        6.8359375
+      ],
+      "pairs": {
+        "Inlens": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.9999999999999999,
+            "gradient_ncc_unshifted": 0.63681474376649,
+            "gradient_ncc_at_estimated_shift": 0.63681474376649
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.6411684514468049,
+            "gradient_ncc_unshifted": 0.63681474376649,
+            "gradient_ncc_at_estimated_shift": 0.63681474376649
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999996,
+              "gradient_ncc_unshifted": 0.600139815332545,
+              "gradient_ncc_at_estimated_shift": 0.600139815332545
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999992,
+              "gradient_ncc_unshifted": 0.6336533396019987,
+              "gradient_ncc_at_estimated_shift": 0.6336533396019987
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.999999999999999,
+              "gradient_ncc_unshifted": 0.6806223463050545,
+              "gradient_ncc_at_estimated_shift": 0.6806223463050545
+            }
+          ],
+          "manual_review_flags": []
+        },
+        "ETD": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999996,
+            "gradient_ncc_unshifted": 0.8170674100847592,
+            "gradient_ncc_at_estimated_shift": 0.8207004623163726
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.48099576557113816,
+            "gradient_ncc_unshifted": 0.8170674100847592,
+            "gradient_ncc_at_estimated_shift": 0.8207004623163726
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999977,
+              "gradient_ncc_unshifted": 0.7732809822299127,
+              "gradient_ncc_at_estimated_shift": 0.777093509756765
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999942,
+              "gradient_ncc_unshifted": 0.8484237332441301,
+              "gradient_ncc_at_estimated_shift": 0.8521317098345265
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999941,
+              "gradient_ncc_unshifted": 0.8464774882571375,
+              "gradient_ncc_at_estimated_shift": 0.8502221277652195
+            }
+          ],
+          "manual_review_flags": []
+        }
+      },
+      "needs_manual_review": false
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "fhwrjtet",
+      "channels": {
+        "BSE": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fhwrjtet_BSE.tif",
+          "sha256": "744830f0dd983f8275252edb55d7ef2befe6356edf8a202670ce9d6401d81e38",
+          "mode": "RGB",
+          "native_shape": [
+            1612,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            1612,
+            7000
+          ],
+          "crop_rows_native": [
+            161,
+            1450
+          ],
+          "crop_shape": [
+            1289,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "Inlens": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fhwrjtet_Inlens.tif",
+          "sha256": "76cb0e8d605172ad16a5d6231617b8cd6acb6cabffefb29b0055781ac1395349",
+          "mode": "RGB",
+          "native_shape": [
+            1612,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            1612,
+            7000
+          ],
+          "crop_rows_native": [
+            161,
+            1450
+          ],
+          "crop_shape": [
+            1289,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "ETD": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fhwrjtet_ETD.tif",
+          "sha256": "024b3072744ff0ec9e6949a8ff347150e59bb2f18541995f37d01bede46bf117",
+          "mode": "RGB",
+          "native_shape": [
+            1612,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            1612,
+            7000
+          ],
+          "crop_rows_native": [
+            161,
+            1450
+          ],
+          "crop_shape": [
+            1289,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        }
+      },
+      "third_detector_name": "ETD",
+      "equal_native_first_channel_shapes": true,
+      "equal_crop_shapes": true,
+      "downsampled_shape": [
+        189,
+        1024
+      ],
+      "native_pixels_per_downsampled_pixel_yx": [
+        6.8201058201058204,
+        6.8359375
+      ],
+      "pairs": {
+        "Inlens": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 1.0,
+            "gradient_ncc_unshifted": 0.4636670430376043,
+            "gradient_ncc_at_estimated_shift": 0.4636670430376043
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.68359375
+            ],
+            "library_error": 0.7462380818492107,
+            "gradient_ncc_unshifted": 0.4636670430376043,
+            "gradient_ncc_at_estimated_shift": 0.4677250799138084
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999998,
+              "gradient_ncc_unshifted": 0.5055287092183453,
+              "gradient_ncc_at_estimated_shift": 0.5055287092183453
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.1,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.6820105820105821,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999999,
+              "gradient_ncc_unshifted": 0.42645802076091893,
+              "gradient_ncc_at_estimated_shift": 0.43235622042738575
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999999,
+              "gradient_ncc_unshifted": 0.4644873632843891,
+              "gradient_ncc_at_estimated_shift": 0.4644873632843891
+            }
+          ],
+          "manual_review_flags": []
+        },
+        "ETD": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999996,
+            "gradient_ncc_unshifted": 0.7603778141817236,
+            "gradient_ncc_at_estimated_shift": 0.7631698994792088
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.5332309619761944,
+            "gradient_ncc_unshifted": 0.7603778141817236,
+            "gradient_ncc_at_estimated_shift": 0.7631698994792088
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.999999999999994,
+              "gradient_ncc_unshifted": 0.7945207248577305,
+              "gradient_ncc_at_estimated_shift": 0.7972300785010646
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999973,
+              "gradient_ncc_unshifted": 0.7502114063422772,
+              "gradient_ncc_at_estimated_shift": 0.7538036259233971
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999971,
+              "gradient_ncc_unshifted": 0.7410265523187405,
+              "gradient_ncc_at_estimated_shift": 0.7431184607846344
+            }
+          ],
+          "manual_review_flags": []
+        }
+      },
+      "needs_manual_review": false
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "fn0mhxef",
+      "channels": {
+        "BSE": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fn0mhxef_BSE.tif",
+          "sha256": "be7677781389261f500c317fe20ebf972fa1389f32447b777072e82ecdcd7958",
+          "mode": "RGB",
+          "native_shape": [
+            2048,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2048,
+            7000
+          ],
+          "crop_rows_native": [
+            204,
+            1843
+          ],
+          "crop_shape": [
+            1639,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": false,
+          "cropped_rgb_channels_equal": false,
+          "cropped_non_grayscale_pixel_pct": 0.02857142857142857,
+          "cropped_non_grayscale_columns": [
+            0,
+            1
+          ],
+          "dtype": "uint8"
+        },
+        "Inlens": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fn0mhxef_Inlens.tif",
+          "sha256": "670ea5dc3006b20a847e2aeaf134d063927c172be71adbb189cc1bac0cecbfad",
+          "mode": "RGB",
+          "native_shape": [
+            2048,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2048,
+            7000
+          ],
+          "crop_rows_native": [
+            204,
+            1843
+          ],
+          "crop_shape": [
+            1639,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": false,
+          "cropped_rgb_channels_equal": false,
+          "cropped_non_grayscale_pixel_pct": 0.02857142857142857,
+          "cropped_non_grayscale_columns": [
+            0,
+            1
+          ],
+          "dtype": "uint8"
+        },
+        "ETD": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fn0mhxef_ETD.tif",
+          "sha256": "02635143bbc1d158142a95d406cbca7ce94b40d9326068c70bbcb07fbe32c7fb",
+          "mode": "RGB",
+          "native_shape": [
+            2048,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2048,
+            7000
+          ],
+          "crop_rows_native": [
+            204,
+            1843
+          ],
+          "crop_shape": [
+            1639,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": false,
+          "cropped_rgb_channels_equal": false,
+          "cropped_non_grayscale_pixel_pct": 0.02857142857142857,
+          "cropped_non_grayscale_columns": [
+            0,
+            1
+          ],
+          "dtype": "uint8"
+        }
+      },
+      "third_detector_name": "ETD",
+      "equal_native_first_channel_shapes": true,
+      "equal_crop_shapes": true,
+      "downsampled_shape": [
+        240,
+        1024
+      ],
+      "native_pixels_per_downsampled_pixel_yx": [
+        6.829166666666667,
+        6.8359375
+      ],
+      "pairs": {
+        "Inlens": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999999,
+            "gradient_ncc_unshifted": 0.5610495349384083,
+            "gradient_ncc_at_estimated_shift": 0.565025153289134
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.6718327621153085,
+            "gradient_ncc_unshifted": 0.5610495349384083,
+            "gradient_ncc_at_estimated_shift": 0.5610495349384083
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999996,
+              "gradient_ncc_unshifted": 0.5737652184885227,
+              "gradient_ncc_at_estimated_shift": 0.5737652184885227
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999997,
+              "gradient_ncc_unshifted": 0.5582646825174451,
+              "gradient_ncc_at_estimated_shift": 0.5619435672236144
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999997,
+              "gradient_ncc_unshifted": 0.5536196037753359,
+              "gradient_ncc_at_estimated_shift": 0.5536196037753359
+            }
+          ],
+          "manual_review_flags": []
+        },
+        "ETD": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              -0.1,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              -0.6829166666666667,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999996,
+            "gradient_ncc_unshifted": 0.8339877159161054,
+            "gradient_ncc_at_estimated_shift": 0.8402481994508118
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              -0.1,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              -0.6829166666666667,
+              -0.68359375
+            ],
+            "library_error": 0.44628893025647876,
+            "gradient_ncc_unshifted": 0.8339877159161054,
+            "gradient_ncc_at_estimated_shift": 0.8402481994508118
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                -0.1,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                -0.6829166666666667,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999956,
+              "gradient_ncc_unshifted": 0.851759824357113,
+              "gradient_ncc_at_estimated_shift": 0.8575468792882062
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                -0.1,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                -0.6829166666666667,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999966,
+              "gradient_ncc_unshifted": 0.8362263446277394,
+              "gradient_ncc_at_estimated_shift": 0.841951799469012
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                -0.1,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                -0.6829166666666667,
+                -0.68359375
+              ],
+              "library_error": 0.999999999999997,
+              "gradient_ncc_unshifted": 0.8162641810163145,
+              "gradient_ncc_at_estimated_shift": 0.8232882374790218
+            }
+          ],
+          "manual_review_flags": []
+        }
+      },
+      "needs_manual_review": false
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "fspqbkxl",
+      "channels": {
+        "BSE": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fspqbkxl_BSE.tif",
+          "sha256": "cb4a6fe9006a2d23c765fd07316bc33b6b39ffd68485ecc811aea7d7f74a55ff",
+          "mode": "RGB",
+          "native_shape": [
+            2148,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2148,
+            7000
+          ],
+          "crop_rows_native": [
+            214,
+            1933
+          ],
+          "crop_shape": [
+            1719,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "Inlens": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fspqbkxl_Inlens.tif",
+          "sha256": "069175c3714da9a8df9a7562ecd90896af548e4be966905bd1e26dd745800159",
+          "mode": "RGB",
+          "native_shape": [
+            2148,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2148,
+            7000
+          ],
+          "crop_rows_native": [
+            214,
+            1933
+          ],
+          "crop_shape": [
+            1719,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "ETD": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_fspqbkxl_ETD.tif",
+          "sha256": "a8cdd53426e324f5da58457681b17e6a6a963cd866482a637843215b41fa6c61",
+          "mode": "RGB",
+          "native_shape": [
+            2148,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2148,
+            7000
+          ],
+          "crop_rows_native": [
+            214,
+            1933
+          ],
+          "crop_shape": [
+            1719,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        }
+      },
+      "third_detector_name": "ETD",
+      "equal_native_first_channel_shapes": true,
+      "equal_crop_shapes": true,
+      "downsampled_shape": [
+        251,
+        1024
+      ],
+      "native_pixels_per_downsampled_pixel_yx": [
+        6.848605577689243,
+        6.8359375
+      ],
+      "pairs": {
+        "Inlens": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.9999999999999999,
+            "gradient_ncc_unshifted": 0.6008506129127298,
+            "gradient_ncc_at_estimated_shift": 0.6008506129127298
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.659860118743453,
+            "gradient_ncc_unshifted": 0.6008506129127298,
+            "gradient_ncc_at_estimated_shift": 0.6045884086815526
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999997,
+              "gradient_ncc_unshifted": 0.5993159707086199,
+              "gradient_ncc_at_estimated_shift": 0.5993159707086199
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999994,
+              "gradient_ncc_unshifted": 0.6295638018363955,
+              "gradient_ncc_at_estimated_shift": 0.6295638018363955
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999997,
+              "gradient_ncc_unshifted": 0.572170006208791,
+              "gradient_ncc_at_estimated_shift": 0.5763884960428144
+            }
+          ],
+          "manual_review_flags": []
+        },
+        "ETD": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999997,
+            "gradient_ncc_unshifted": 0.7700204618578733,
+            "gradient_ncc_at_estimated_shift": 0.7740478133270433
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.526196387516695,
+            "gradient_ncc_unshifted": 0.7700204618578733,
+            "gradient_ncc_at_estimated_shift": 0.7740478133270433
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999979,
+              "gradient_ncc_unshifted": 0.7655637823030472,
+              "gradient_ncc_at_estimated_shift": 0.7697837408555682
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999967,
+              "gradient_ncc_unshifted": 0.8016381831054494,
+              "gradient_ncc_at_estimated_shift": 0.805289359328777
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999982,
+              "gradient_ncc_unshifted": 0.7465714654128932,
+              "gradient_ncc_at_estimated_shift": 0.7509398216550977
+            }
+          ],
+          "manual_review_flags": []
+        }
+      },
+      "needs_manual_review": false
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "soo2ax3r",
+      "channels": {
+        "BSE": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_soo2ax3r_BSE.tif",
+          "sha256": "c73b525da79bf5c8efd7c938e87e7e7dd6a97633c6a7e3db3f24a160c5b96b75",
+          "mode": "RGB",
+          "native_shape": [
+            2156,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2156,
+            7000
+          ],
+          "crop_rows_native": [
+            215,
+            1940
+          ],
+          "crop_shape": [
+            1725,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "Inlens": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_soo2ax3r_Inlens.tif",
+          "sha256": "91b8a3cef31af4e55c99b587100c8fdebfff1fdf47caf7478d6ee81a468fe7a4",
+          "mode": "RGB",
+          "native_shape": [
+            2156,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2156,
+            7000
+          ],
+          "crop_rows_native": [
+            215,
+            1940
+          ],
+          "crop_shape": [
+            1725,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "ETD": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_soo2ax3r_ETD.tif",
+          "sha256": "41c606643c3544662da97bae895ae947a102fd348c65511fb6198d23b7cf091c",
+          "mode": "RGB",
+          "native_shape": [
+            2156,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2156,
+            7000
+          ],
+          "crop_rows_native": [
+            215,
+            1940
+          ],
+          "crop_shape": [
+            1725,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        }
+      },
+      "third_detector_name": "ETD",
+      "equal_native_first_channel_shapes": true,
+      "equal_crop_shapes": true,
+      "downsampled_shape": [
+        252,
+        1024
+      ],
+      "native_pixels_per_downsampled_pixel_yx": [
+        6.845238095238095,
+        6.8359375
+      ],
+      "pairs": {
+        "Inlens": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.9999999999999999,
+            "gradient_ncc_unshifted": 0.7399429960047279,
+            "gradient_ncc_at_estimated_shift": 0.7399429960047279
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.53401975866492,
+            "gradient_ncc_unshifted": 0.7399429960047279,
+            "gradient_ncc_at_estimated_shift": 0.7399429960047279
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999994,
+              "gradient_ncc_unshifted": 0.7210347141340081,
+              "gradient_ncc_at_estimated_shift": 0.7210347141340081
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999993,
+              "gradient_ncc_unshifted": 0.7600396078637982,
+              "gradient_ncc_at_estimated_shift": 0.7600396078637982
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999992,
+              "gradient_ncc_unshifted": 0.7393657691029581,
+              "gradient_ncc_at_estimated_shift": 0.7393657691029581
+            }
+          ],
+          "manual_review_flags": []
+        },
+        "ETD": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999998,
+            "gradient_ncc_unshifted": 0.7905121717898586,
+            "gradient_ncc_at_estimated_shift": 0.7951181413722234
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.49067676044760133,
+            "gradient_ncc_unshifted": 0.7905121717898586,
+            "gradient_ncc_at_estimated_shift": 0.7951181413722234
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999984,
+              "gradient_ncc_unshifted": 0.7832878463125769,
+              "gradient_ncc_at_estimated_shift": 0.7878321682582315
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                -0.1,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                -0.6845238095238095,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999982,
+              "gradient_ncc_unshifted": 0.8025818263200555,
+              "gradient_ncc_at_estimated_shift": 0.8077633217742821
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999978,
+              "gradient_ncc_unshifted": 0.7860105772636525,
+              "gradient_ncc_at_estimated_shift": 0.7913490254456161
+            }
+          ],
+          "manual_review_flags": []
+        }
+      },
+      "needs_manual_review": false
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "xrv9xvzb",
+      "channels": {
+        "BSE": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_xrv9xvzb_BSE.tif",
+          "sha256": "2bb8f7cb564a15879e49a99b7ff9f319472585ef2ba524bf4816ec5c74ffa222",
+          "mode": "RGB",
+          "native_shape": [
+            2088,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2088,
+            7000
+          ],
+          "crop_rows_native": [
+            208,
+            1879
+          ],
+          "crop_shape": [
+            1671,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "Inlens": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_xrv9xvzb_Inlens.tif",
+          "sha256": "19b9e6f2a0445b4584e3a77224bbe609ec213a8f4e77112d964d53187ca88e30",
+          "mode": "RGB",
+          "native_shape": [
+            2088,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2088,
+            7000
+          ],
+          "crop_rows_native": [
+            208,
+            1879
+          ],
+          "crop_shape": [
+            1671,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        },
+        "ETD": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_xrv9xvzb_ETD.tif",
+          "sha256": "a05becd6d1e4b530197c2bf93636422d2d88d7d42fef259ec4dced9619f751d0",
+          "mode": "RGB",
+          "native_shape": [
+            2088,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            2088,
+            7000
+          ],
+          "crop_rows_native": [
+            208,
+            1879
+          ],
+          "crop_shape": [
+            1671,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": true,
+          "cropped_rgb_channels_equal": true,
+          "cropped_non_grayscale_pixel_pct": 0.0,
+          "cropped_non_grayscale_columns": [],
+          "dtype": "uint8"
+        }
+      },
+      "third_detector_name": "ETD",
+      "equal_native_first_channel_shapes": true,
+      "equal_crop_shapes": true,
+      "downsampled_shape": [
+        244,
+        1024
+      ],
+      "native_pixels_per_downsampled_pixel_yx": [
+        6.848360655737705,
+        6.8359375
+      ],
+      "pairs": {
+        "Inlens": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.9999999999999999,
+            "gradient_ncc_unshifted": 0.5688439273019547,
+            "gradient_ncc_at_estimated_shift": 0.5688439273019547
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              0.0
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              0.0
+            ],
+            "library_error": 0.6770049499647597,
+            "gradient_ncc_unshifted": 0.5688439273019547,
+            "gradient_ncc_at_estimated_shift": 0.5688439273019547
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999996,
+              "gradient_ncc_unshifted": 0.5470194604072159,
+              "gradient_ncc_at_estimated_shift": 0.5470194604072159
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                0.0
+              ],
+              "library_error": 0.9999999999999994,
+              "gradient_ncc_unshifted": 0.6260803204700025,
+              "gradient_ncc_at_estimated_shift": 0.6260803204700025
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.1,
+                0.0
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.6848360655737705,
+                0.0
+              ],
+              "library_error": 0.9999999999999996,
+              "gradient_ncc_unshifted": 0.547405207094583,
+              "gradient_ncc_at_estimated_shift": 0.5533134683184374
+            }
+          ],
+          "manual_review_flags": []
+        },
+        "ETD": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999998,
+            "gradient_ncc_unshifted": 0.740605522808465,
+            "gradient_ncc_at_estimated_shift": 0.7453288245662051
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.5457151177157695,
+            "gradient_ncc_unshifted": 0.740605522808465,
+            "gradient_ncc_at_estimated_shift": 0.7453288245662051
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999981,
+              "gradient_ncc_unshifted": 0.7416574959675718,
+              "gradient_ncc_at_estimated_shift": 0.7466885650422289
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999979,
+              "gradient_ncc_unshifted": 0.7377558662047892,
+              "gradient_ncc_at_estimated_shift": 0.7419077129549799
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999974,
+              "gradient_ncc_unshifted": 0.7501685706425928,
+              "gradient_ncc_at_estimated_shift": 0.7557525849287067
+            }
+          ],
+          "manual_review_flags": []
+        }
+      },
+      "needs_manual_review": false
+    },
+    {
+      "batch": "test_1",
+      "sample_id": "y59rxmxl",
+      "channels": {
+        "BSE": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_y59rxmxl_BSE.tif",
+          "sha256": "17d7d7ab53c90d95df77b9f480e8424d77972cb3a7f5f854f16bd52e9c26a482",
+          "mode": "RGB",
+          "native_shape": [
+            1880,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            1880,
+            7000
+          ],
+          "crop_rows_native": [
+            188,
+            1692
+          ],
+          "crop_shape": [
+            1504,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": false,
+          "cropped_rgb_channels_equal": false,
+          "cropped_non_grayscale_pixel_pct": 0.02857142857142857,
+          "cropped_non_grayscale_columns": [
+            0,
+            1
+          ],
+          "dtype": "uint8"
+        },
+        "Inlens": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_y59rxmxl_Inlens.tif",
+          "sha256": "c1b05eac6e4ad2fff8164b6767a5a79d8a7c9bda69704739fbff16dced5fde13",
+          "mode": "RGB",
+          "native_shape": [
+            1880,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            1880,
+            7000
+          ],
+          "crop_rows_native": [
+            188,
+            1692
+          ],
+          "crop_shape": [
+            1504,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": false,
+          "cropped_rgb_channels_equal": false,
+          "cropped_non_grayscale_pixel_pct": 0.02857142857142857,
+          "cropped_non_grayscale_columns": [
+            0,
+            1
+          ],
+          "dtype": "uint8"
+        },
+        "ETD": {
+          "path": "/Users/michaeldunn/bio-hack/data/test_1/img_y59rxmxl_ETD.tif",
+          "sha256": "8bef1eefa4c6ce7ed7c7c11d793317f8a6fd2930bbf42c6c995bf8f99ed78946",
+          "mode": "RGB",
+          "native_shape": [
+            1880,
+            7000,
+            3
+          ],
+          "first_channel_shape": [
+            1880,
+            7000
+          ],
+          "crop_rows_native": [
+            188,
+            1692
+          ],
+          "crop_shape": [
+            1504,
+            7000
+          ],
+          "stored_channels": 3,
+          "native_rgb_channels_equal": false,
+          "cropped_rgb_channels_equal": false,
+          "cropped_non_grayscale_pixel_pct": 0.02857142857142857,
+          "cropped_non_grayscale_columns": [
+            0,
+            1
+          ],
+          "dtype": "uint8"
+        }
+      },
+      "third_detector_name": "ETD",
+      "equal_native_first_channel_shapes": true,
+      "equal_crop_shapes": true,
+      "downsampled_shape": [
+        220,
+        1024
+      ],
+      "native_pixels_per_downsampled_pixel_yx": [
+        6.836363636363636,
+        6.8359375
+      ],
+      "pairs": {
+        "Inlens": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999999,
+            "gradient_ncc_unshifted": 0.6744096483739264,
+            "gradient_ncc_at_estimated_shift": 0.678686918030498
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.5984036934818734,
+            "gradient_ncc_unshifted": 0.6744096483739264,
+            "gradient_ncc_at_estimated_shift": 0.678686918030498
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999992,
+              "gradient_ncc_unshifted": 0.7317512629799233,
+              "gradient_ncc_at_estimated_shift": 0.7364833445851463
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999994,
+              "gradient_ncc_unshifted": 0.6370567452884511,
+              "gradient_ncc_at_estimated_shift": 0.641590929035685
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999994,
+              "gradient_ncc_unshifted": 0.660976575900151,
+              "gradient_ncc_at_estimated_shift": 0.6650462728721879
+            }
+          ],
+          "manual_review_flags": []
+        },
+        "ETD": {
+          "phase_normalised": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.9999999999999996,
+            "gradient_ncc_unshifted": 0.8352717371467743,
+            "gradient_ncc_at_estimated_shift": 0.8387818741472053
+          },
+          "unnormalised_cross_correlation": {
+            "shift_to_apply_yx_downsampled_px": [
+              0.0,
+              -0.1
+            ],
+            "shift_to_apply_yx_native_px": [
+              0.0,
+              -0.68359375
+            ],
+            "library_error": 0.45053919577793144,
+            "gradient_ncc_unshifted": 0.8352717371467743,
+            "gradient_ncc_at_estimated_shift": 0.8387818741472053
+          },
+          "subwindows": [
+            {
+              "region": "left",
+              "columns_downsampled": [
+                0,
+                342
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999959,
+              "gradient_ncc_unshifted": 0.8756945569580961,
+              "gradient_ncc_at_estimated_shift": 0.8798697386268501
+            },
+            {
+              "region": "centre",
+              "columns_downsampled": [
+                342,
+                683
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999976,
+              "gradient_ncc_unshifted": 0.803036613521553,
+              "gradient_ncc_at_estimated_shift": 0.8064630773859656
+            },
+            {
+              "region": "right",
+              "columns_downsampled": [
+                683,
+                1024
+              ],
+              "shift_to_apply_yx_downsampled_px": [
+                0.0,
+                -0.1
+              ],
+              "shift_to_apply_yx_native_px": [
+                0.0,
+                -0.68359375
+              ],
+              "library_error": 0.9999999999999962,
+              "gradient_ncc_unshifted": 0.8314235008839334,
+              "gradient_ncc_at_estimated_shift": 0.8344698804418457
+            }
+          ],
+          "manual_review_flags": []
+        }
+      },
+      "needs_manual_review": false
+    }
+  ],
+  "excluded": []
+}
