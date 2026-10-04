@@ -22,7 +22,7 @@ const calculationLines: Record<(typeof physicalFeatures)[number]["key"], number>
 };
 
 export default function PhysicalFeatureVector({ example }: { example: Record<string, string> }) {
-  const symbols = String.raw`\phi_{\mathrm{pore}} \\ f_{\mathrm{graphite}} \\ f_{\mathrm{CBD}} \\ f_{\mathrm{inclusion}} \\ a_{\mathrm{CLS}} \\ L_y \\ L_x \\ L_x/L_y \\ A_{\mathrm{inclusion}} \\ D_{10} \\ D_{50} \\ D_{90} \\ \sigma_{\mathrm{inclusion}}`;
+  const symbols = String.raw`\phi_{\mathrm{pore}} \\ f_{\mathrm{graphite}} \\ f_{\mathrm{CBD}} \\ f_{\mathrm{silicon}} \\ a_{\mathrm{CLS}} \\ L_y \\ L_x \\ L_x/L_y \\ A_{\mathrm{silicon}} \\ D_{10} \\ D_{50} \\ D_{90} \\ \sigma_{\mathrm{silicon}}`;
   const values = descriptors.map((feature) => example[feature.key]).join(String.raw` \\ `);
   const vectorFormula = String.raw`\mathbf{x}_i = \begin{bmatrix} ${symbols} \end{bmatrix}, \qquad \mathbf{x}_{\mathrm{${example.sample_id}}} = \begin{bmatrix} ${values} \end{bmatrix} \in \mathbb{R}^{13}`;
   const uncertaintyFormula = String.raw`\begin{aligned} u_{95} &= ${example.porosity_ci95_pct}\,\text{percentage points} \\ \phi_{\mathrm{pore}} &= ${example.porosity_pct}\% \pm ${example.porosity_ci95_pct}\% \quad (95\%\,\mathrm{CI}) \end{aligned}`;
@@ -39,8 +39,8 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
         <ol className="mt-4 grid auto-rows-fr gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
             ["1. Prepare", "Take the first image channel, crop to the central 80% of image height and smooth BSE and Inlens with Gaussian σ = 1.0 pixel. Use 0.025 µm/pixel."],
-            ["2. Segment", "Fit three-class Multi-Otsu thresholds to each BSE image. Assign dark, middle and bright pixels to pore, graphite and inclusion masks."],
-            ["3. Measure", "Count phase pixels; apply ImageRep to the pore mask; sample pore chords; measure inclusion components and variation across 16 tiles."],
+            ["2. Segment", "Fit three-class Multi-Otsu thresholds to each BSE image. Assign dark, middle and bright pixels to pore, graphite and silicon particle masks."],
+            ["3. Measure", "Count phase pixels; apply ImageRep to the pore mask; sample pore chords; measure silicon particle components and variation across 16 tiles."],
             ["4. Export", "Save 13 physical descriptors and one porosity uncertainty estimate as a 14-field measurement record, rounded to two decimals. Batch summaries use the saved full-precision results."],
           ].map(([title, text]) => (
             <li key={title} className="rounded-md border border-zinc-200 p-4">

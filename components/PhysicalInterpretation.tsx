@@ -5,10 +5,10 @@ const families = [
     id: "phase-fractions",
     title: "Phase area fractions",
     label: "(a)",
-    measurements: "Pore, graphite, carbon-binder and inclusion area fractions.",
+    measurements: "Pore, graphite, carbon-binder and silicon particle area fractions.",
     performance: "The balance of active material, pore space and conductive material affects how much charge an electrode can store and how ions and electrons reach reaction sites. In a liquid-electrolyte electrode, pore space accommodates the ionic conductor, while solid active material supplies storage sites. More porosity is therefore not automatically better: transport and active-material loading must both be considered.",
     definition: "A phase is a distinct material or pore region, such as graphite or void space. Its area fraction is the percentage of the image assigned to it.",
-    meaning: "An electrode contains solid material and void space. In a conventional liquid-electrolyte cell, electrolyte in the pores carries ions; active material stores lithium; conductive carbon provides electronic connections. Area fractions describe how much of each assigned region is visible in a cross-section.",
+    meaning: "An electrode contains solid material and void space. In a conventional liquid-electrolyte cell, electrolyte in the pores carries ions; active material stores lithium; conductive carbon provides electronic connections. Area fractions describe how much of each assigned region is visible in a cross-section. The project lead identifies the silicon particles as silicon active material; their area fraction is not silicon weight fraction.",
     terms: [
       ["Phase", "A distinguishable constituent or region. Here, phase names are interpretations of image-intensity classes, rather than independently confirmed chemical identities."],
       ["Area fraction", "The share of the analysed two-dimensional image assigned to a region. It is not a mass fraction or a directly measured three-dimensional volume fraction."],
@@ -16,13 +16,14 @@ const families = [
       ["Carbon-binder domain (CBD)", "Conductive carbon and polymer binder associated with particle contacts. Our CBD value is an intensity-based allocation within the dark mask."],
     ],
     evidence: [
+      ["#ref-moon", "Moon et al. (2021)", "Silicon expansion and electrochemical–mechanical interactions affect degradation in silicon–graphite composites, motivating separate tracking of silicon content."],
       ["#ref-zielke", "Zielke et al. (2015)", "In reconstructed LiCoO₂ cathodes, pore space, active material and carbon-binder regions serve distinct ionic transport, lithium-storage and electronic transport roles. Including carbon-binder nanoporosity changed the calculated ionic conduction."],
       ["#ref-choi", "Choi et al. (2023)", "Experiments with graphite particle-size mixtures linked changes in packing and porosity with changes in electrochemical behaviour."],
     ],
     evidenceScope: "These studies motivate measuring phase proportions. They do not validate our image-intensity labels, CBD allocation or a batch acceptance threshold.",
     calculation: "Retain the central 80% of image rows and smooth both detector images with a Gaussian filter (σ = 1 pixel). Three-class Multi-Otsu fits two thresholds, T₁ and T₂, separately to each smoothed BSE image. Only BSE defines the three main masks; the paired Inlens image subdivides the pore-labelled mask. The assignment rule stays fixed across batches; the threshold values can change between images.",
     formula: String.raw`f_k = 100\,\frac{N_k}{N_{\mathrm{crop}}}\;[\%]`,
-    boundary: "Pore, graphite and inclusion fractions sum to 100%. CBD is a subset of the pore-labelled area, so adding it again would double count. The median split has not been independently calibrated as a binder measurement.",
+    boundary: "Pore, graphite and silicon particle fractions sum to 100%. CBD is a subset of the pore-labelled area, so adding it again would double count. The median split has not been independently calibrated as a binder measurement.",
     calculationLink: "#extractor-L113",
   },
   {
@@ -40,6 +41,7 @@ const families = [
       ["Tortuosity", "The transport penalty associated with the geometry of connected paths. It is not measured by this two-dimensional analysis."],
     ],
     evidence: [
+      ["#ref-otero", "Otero et al. (2018)", "An analytical composite-electrode model identifies initial porosity and expansion tolerance as design factors. It does not validate our pore chords as a measure of silicon expansion."],
       ["#ref-ebner", "Ebner et al. (2014)", "Tomography and diffusion simulations linked particle shape and alignment to direction-dependent tortuosity, showing why transport cannot be described by porosity alone."],
       ["#ref-mitsch", "Mitsch et al. (2014)", "Graphite-anode tomography found different tortuosity and surface area in aged and pristine material despite similar porosity."],
       ["#ref-dahari", "Dahari et al. (2025)", "The two-point correlation function was used to estimate phase-fraction representativity. This supports our correlation length and porosity interval, rather than a direct performance prediction."],
@@ -52,22 +54,23 @@ const families = [
   },
   {
     id: "inclusion-geometry",
-    title: "Inclusion size and shape",
+    title: "Silicon particle size and shape",
     label: "(c)",
-    measurements: "Inclusion aspect ratio and equivalent-diameter percentiles D10, D50 and D90.",
-    performance: "The size and shape of identified electrode particles can affect packing and pore geometry, with consequences for transport. Our measured objects are bright inclusions of unconfirmed identity. Their size and shape can reveal a changed image population, but a direct relationship to electrode performance has not been established for this population.",
-    definition: "The dimensions and elongation of connected bright regions in the image.",
-    meaning: "An inclusion is the name used here for a bright segmented region. Size and shape measurements describe this population so that batches can be compared even when their total bright area is similar. The images alone do not establish the regions' chemical identity.",
+    measurements: "Silicon particle aspect ratio and equivalent-diameter percentiles D10, D50 and D90.",
+    performance: "The size and shape of identified electrode particles can affect packing and pore geometry, with consequences for transport. Silicon particle size has been linked to degradation in silicon–graphite anodes. Our size and shape measurements describe the segmented regions, not their cycling performance.",
+    definition: "The dimensions and elongation of connected silicon particle regions in the image.",
+    meaning: "A silicon particle region is a connected component of the bright mask. Size and shape measurements describe this population so that batches can be compared even when their total bright area is similar. Here they are interpreted as silicon using the project lead’s identification, rather than brightness alone.",
     terms: [
       ["Equivalent diameter", "The diameter of a circle with the same area as a segmented region."],
       ["D10, D50 and D90", "The diameters below which 10%, 50% and 90% of the measured objects fall. Every retained object contributes one observation."],
       ["Aspect ratio", "The major-axis length divided by the minor-axis length of an ellipse fitted to an object's shape. Larger values indicate more elongated regions."],
     ],
     evidence: [
+      ["#ref-moon", "Moon et al. (2021)", "Silicon particle size and graphite hardness affected degradation in silicon–graphite anodes; this supports distinguishing silicon-region size from graphite-particle size."],
       ["#ref-choi", "Choi et al. (2023)", "Changing the size distribution of identified graphite particles altered packing, porosity and electrochemical behaviour in fabricated anodes."],
       ["#ref-ebner", "Ebner et al. (2014)", "Particle shape and fabrication-induced alignment were linked to directional tortuosity using tomography and diffusion simulations."],
     ],
-    evidenceScope: "These findings concern identified electrode particles. Our bright inclusions have unconfirmed composition, so their size and shape remain descriptive measurements without an established link to electrode performance or calendering damage.",
+    evidenceScope: "Silicon size may be relevant to degradation, but our 2D regions may contain merged particles. Silicon aspect ratio remains exploratory; no performance or damage threshold is established.",
     calculation: "Label connected components in the bright mask and retain components of at least 10 pixels. Convert their areas to equivalent-circle diameters and calculate unweighted diameter percentiles. Average major-axis/minor-axis ratios, with a one-pixel minimum denominator and zero minor axes excluded.",
     formula: String.raw`d_{\mathrm{eq}}=s\sqrt{\frac{4A}{\pi}},\qquad \overline{A_r}=\operatorname{mean}\!\left(\frac{a}{\max(b,1)}\right)`,
     boundary: "A is component area in pixels; a and b are ellipse axes in pixels. These objects are not separated by watershed, so touching regions may form one component. No defect threshold is inferred from their geometry.",
@@ -75,22 +78,23 @@ const families = [
   },
   {
     id: "spatial-variation",
-    title: "Inclusion spatial variation",
+    title: "Silicon particle spatial variation",
     label: "(d)",
-    measurements: "Standard deviation of local inclusion area fractions across 16 image regions.",
-    performance: "Spatially uneven electrode microstructure can create local differences in transport and reaction conditions, so equal average composition does not guarantee equal electrochemical behaviour. Our statistic asks whether bright-region coverage is uniform across an image. It is a screening measurement of heterogeneity, not a validated predictor of current distribution, capacity or a mixing defect.",
-    definition: "How unevenly bright material is distributed across different parts of an image.",
-    meaning: "Two cross-sections can contain the same overall inclusion fraction but distribute it differently: one relatively evenly, the other in concentrated regions. A spatial measurement captures this difference in local coverage.",
+    measurements: "Standard deviation of local silicon particle area fractions across 16 image regions.",
+    performance: "Spatially uneven electrode microstructure can create local differences in transport and reaction conditions, so equal average composition does not guarantee equal electrochemical behaviour. Our statistic asks whether silicon coverage is uniform across an image. It is a screening measurement of heterogeneity, not a validated predictor of current distribution, capacity or a mixing defect.",
+    definition: "How unevenly silicon particles is distributed across different parts of an image.",
+    meaning: "Two cross-sections can contain the same overall silicon particle fraction but distribute it differently: one relatively evenly, the other in concentrated regions. A spatial measurement captures this difference in local silicon coverage. It does not measure binder distribution or identify why clustering occurred.",
     terms: [
-      ["Local area fraction", "The percentage of one image region occupied by the inclusion mask."],
+      ["Local area fraction", "The percentage of one image region occupied by the silicon particle mask."],
       ["Spatial variation", "Differences in local area fraction between regions. This describes uneven coverage, rather than uncertainty in the overall mean."],
       ["Percentage points", "The units of differences between percentages. Variation from 5% to 8% is a difference of 3 percentage points."],
     ],
     evidence: [
+      ["#ref-cabello", "Cabello et al. (2020)", "Wet ball milling conditions affected silicon agglomeration and distribution. This motivates examining silicon coverage, but does not validate our 4 × 4 statistic as a processing diagnosis."],
       ["#ref-muller", "Müller et al. (2018)", "Tomography and electrochemical simulations of commercial graphite anodes showed uneven current distributions and higher local overpotentials in heterogeneous structures compared with a more uniform comparison."],
     ],
-    evidenceScope: "This supports examining spatial heterogeneity. It does not validate our 4 × 4 bright-inclusion statistic as a predictor of current distribution, capacity, mixing defects or failure.",
-    calculation: "Divide the inclusion mask into 4 × 4 tiles. Compute the inclusion area percentage in each tile, then take the population standard deviation of the 16 percentages (ddof = 0).",
+    evidenceScope: "This supports examining spatial heterogeneity. It does not validate our 4 × 4 silicon-particle statistic as a predictor of current distribution, capacity, mixing defects or failure.",
+    calculation: "Divide the silicon particle mask into 4 × 4 tiles. Compute the silicon particle area percentage in each tile, then take the population standard deviation of the 16 percentages (ddof = 0).",
     formula: String.raw`\sigma_{\mathrm{inc}}=\sqrt{\frac{1}{16}\sum_{j=1}^{16}(f_j-\overline f)^2}`,
     boundary: "This value depends on the tile size, image crop and segmentation. Higher variation indicates less uniform local coverage at that scale; it does not identify the manufacturing cause.",
     calculationLink: "#extractor-L166",
@@ -106,6 +110,15 @@ export default function PhysicalInterpretation() {
       <div className="space-y-2 border-b border-zinc-200 pb-5">
         <h2 id="physical-interpretation-heading" className="text-2xl font-semibold tracking-tight text-zinc-950 lg:text-3xl">2. Physical interpretation and glossary</h2>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">What the electrode characteristics mean, why we measured them, and how each measurement was obtained.</p>
+      </div>
+      <div className="max-w-4xl space-y-3 text-sm leading-7 text-zinc-600">
+        <h3 className="text-lg font-semibold text-zinc-900">Overall rationale</h3>
+        <p>A single number such as porosity cannot fully describe an electrode, because microstructure can change in ways one measure misses. The current report covers phase composition, pore organisation, silicon particle size and shape, and silicon particle spatial variation. These complementary families target different aspects of the microstructure (our interpretation).</p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>2D estimates of 3D properties can be biased and orientation-dependent. Tortuosity and 3D connectivity cannot be recovered reliably from these sections. Compare batches in the same orientation (our interpretation). <a href="#ref-taiwo" className={linkStyle}>Taiwo et al.</a></li>
+          <li>Representativity is property-specific: an image representative for phase fraction need not be representative for interface. <a href="#ref-dahari" className={linkStyle}>Dahari et al.</a></li>
+          <li>Uncertainty estimates assume perfect segmentation; segmentation error can exceed finite-image sampling error. <a href="#ref-dahari" className={linkStyle}>Dahari et al.</a></li>
+        </ul>
       </div>
       <div className="divide-y divide-zinc-200">
         {families.map((family) => (
@@ -143,7 +156,7 @@ export default function PhysicalInterpretation() {
                       <tbody className="divide-y divide-zinc-200 border-b border-zinc-200">
                         <tr><th scope="row" className="py-2 pr-4 font-medium">Pore-labelled area</th><td className="py-2">BSE intensity below T₁.</td></tr>
                         <tr><th scope="row" className="py-2 pr-4 font-medium">Graphite-labelled matrix</th><td className="py-2">BSE intensity at least T₁ and below T₂.</td></tr>
-                        <tr><th scope="row" className="py-2 pr-4 font-medium">Bright inclusions</th><td className="py-2">BSE intensity at least T₂; composition unconfirmed.</td></tr>
+                        <tr><th scope="row" className="py-2 pr-4 font-medium">Silicon particles</th><td className="py-2">BSE intensity at least T₂; identified as silicon by the project lead; not chemically verified by this intensity rule.</td></tr>
                         <tr><th scope="row" className="py-2 pr-4 font-medium">Carbon-binder allocation</th><td className="py-2">Within the pore-labelled area, Inlens intensity above its median. Pixels at or below that median form the open-pore subset.</td></tr>
                       </tbody>
                     </table>

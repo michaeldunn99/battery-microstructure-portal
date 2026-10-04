@@ -48,7 +48,7 @@ export default async function PhysicalBatchStatistics() {
         {significant.length === 0
           ? "No feature-mean difference meets the Holm-adjusted 0.05 criterion in this analysis. This does not establish batch equivalence or justify acceptance."
           : `${significant.length} feature-mean differences meet the Holm-adjusted 0.05 criterion. Statistical differences require physical interpretation and do not establish a manufacturing defect.`}
-        {" "}{estimable.length} of {statistics.method.family_size} planned comparisons are estimable. Both inclusion D10 comparisons have zero observed variance and cannot support a Welch test.
+        {" "}{estimable.length} of {statistics.method.family_size} planned comparisons are estimable. Both silicon particle D10 comparisons have zero observed variance and cannot support a Welch test.
       </p>
       <p className="max-w-4xl text-sm leading-6 text-zinc-600">
         Differences are incoming minus reference. Intervals are pointwise 95% confidence intervals for those differences.

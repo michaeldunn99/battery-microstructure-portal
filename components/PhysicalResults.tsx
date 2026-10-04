@@ -9,9 +9,9 @@ import PhysicalTableExplorer, { type PhysicalTableProps } from "./PhysicalTableE
 const metrics = [
   { key: "porosity_pct", testKey: "porosity_pct", label: "Pore area fraction", unit: "%", decimals: 2 },
   { key: "matrix_graphite_pct", testKey: "active_material_pct", label: "Graphite-labelled area fraction", unit: "%", decimals: 2 },
-  { key: "inclusion_pct", testKey: "inclusion_pct", label: "Inclusion area fraction", unit: "%", decimals: 2 },
+  { key: "inclusion_pct", testKey: "inclusion_pct", label: "Silicon particle area fraction", unit: "%", decimals: 2 },
   { key: "chord_y_um", testKey: "throat_through_plane_ly_um", label: "Vertical pore chord length", unit: "µm", decimals: 3 },
-  { key: "particle_aspect_ratio", testKey: "particle_aspect_ratio", label: "Inclusion aspect ratio", unit: "Dimensionless", decimals: 2 },
+  { key: "particle_aspect_ratio", testKey: "particle_aspect_ratio", label: "Silicon particle aspect ratio", unit: "Dimensionless", decimals: 2 },
 ] as const;
 
 const batches = ["Batch_3", "Batch_1", "Batch_2"] as const;
@@ -39,13 +39,13 @@ export default function PhysicalResults({ rows, features, rawRows }: PhysicalTab
         </h2>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
           Relative to Batch 3, Batch 1 has 16.2% lower mean pore area fraction, 10.0% shorter vertical
-          pore chords and 8.3% higher inclusion aspect ratio. Batch 2 is closer on these measurements:
+          pore chords and 8.3% higher silicon particle aspect ratio. Batch 2 is closer on these measurements:
           6.6% lower pore area, 2.6% shorter vertical chords and 0.8% lower aspect ratio.
         </p>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
           The mean correlation length changes by less than 1% in both batches. The pattern is not uniform:
           Batch 2 is farther from the reference mean for graphite area fraction, pore anisotropy and
-          inclusion diameters D50 and D90. These are observed differences, not validated acceptance limits.
+          silicon particle diameters D50 and D90. These are observed differences, not validated acceptance limits.
         </p>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
           The physical run contains {report.total_samples_processed} sample records:
@@ -113,8 +113,8 @@ export default function PhysicalResults({ rows, features, rawRows }: PhysicalTab
 
       <div className="space-y-2 text-sm leading-6 text-zinc-600">
         <h3 className="text-base font-semibold text-zinc-900">Physical comparison of the test images</h3>
-        <p><span className="font-mono text-xs">3e122cbj</span> has 18.43% inclusion area and 72.42% matrix area, resembling the inclusion-rich subset of Batch 1. Its pore area is 9.16%, and its vertical pore chord length is 0.342 µm.</p>
-        <p><span className="font-mono text-xs">fn0mhxef</span> is closer to the Batch 2 means for inclusion area (6.54%), matrix area (83.79%) and vertical pore chord length (0.411 µm), but overlaps Batch 3. Its inclusion D90 of 0.623 µm exceeds Batch 2's observed maximum of 0.492 µm and falls within Batch 3's range. The physical measurements leave Batch 2 versus Batch 3 unresolved.</p>
+        <p><span className="font-mono text-xs">3e122cbj</span> has 18.43% silicon particle area and 72.42% matrix area, resembling the silicon-rich subset of Batch 1. Its pore area is 9.16%, and its vertical pore chord length is 0.342 µm.</p>
+        <p><span className="font-mono text-xs">fn0mhxef</span> is closer to the Batch 2 means for silicon particle area (6.54%), matrix area (83.79%) and vertical pore chord length (0.411 µm), but overlaps Batch 3. Its silicon particle D90 of 0.623 µm exceeds Batch 2's observed maximum of 0.492 µm and falls within Batch 3's range. The physical measurements leave Batch 2 versus Batch 3 unresolved.</p>
         <p><span className="font-mono text-xs">xrv9xvzb</span> has 12.94% pore area, 81.47% matrix area and a vertical pore chord length of 0.487 µm. Its pore area and chord length lie within the observed Batch 3 ranges and above the observed maxima in Batch 2. This is a descriptive resemblance to the reference, not a confirmed source label.</p>
       </div>
 
@@ -122,7 +122,7 @@ export default function PhysicalResults({ rows, features, rawRows }: PhysicalTab
         <div className="overflow-x-auto">
           <Image
             src="/batch_comparison_qc.png"
-            alt="Image-level distributions of pore-labelled area, graphite-labelled matrix, bright inclusions and vertical pore chord length. Batch 1 includes two images with high inclusion fractions and low matrix fractions."
+            alt="Image-level distributions of pore-labelled area, graphite-labelled matrix, silicon particles and vertical pore chord length. Batch 1 includes two images with high silicon particle fractions and low matrix fractions."
             width={3600}
             height={900}
             unoptimized
@@ -140,14 +140,14 @@ export default function PhysicalResults({ rows, features, rawRows }: PhysicalTab
         <h3 className="text-lg font-semibold text-zinc-900">Batch 1 shows greater variation between images</h3>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
           Graphite-labelled area has a sample standard deviation of 6.51 percentage points in Batch 1,
-          compared with 1.82 in Batch 3. Inclusion area has a standard deviation of 6.58 versus 1.94
+          compared with 1.82 in Batch 3. Silicon particle area has a standard deviation of 6.58 versus 1.94
           percentage points. These correspond to sample variance ratios of 12.8 and 11.5, respectively.
           Batch 2 has standard deviations of 1.66 and 1.54 percentage points on the same measurements.
         </p>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
           Two Batch 1 images, <span className="font-mono text-xs">4ih2ggld</span> and{" "}
-          <span className="font-mono text-xs">5n1q8atc</span>, have inclusion fractions of 19.28% and
-          20.77%; the largest observed in Batch 3 is 12.36%. The Batch 1 inclusion median remains
+          <span className="font-mono text-xs">5n1q8atc</span>, have silicon particle fractions of 19.28% and
+          20.77%; the largest observed in Batch 3 is 12.36%. The Batch 1 silicon particle median remains
           near the reference (7.26% versus 6.95%), so the increased spread is concentrated in a subset
           of images. The low matrix fractions occur in those same two images; these area fractions
           are linked by the segmentation and are not independent findings.
