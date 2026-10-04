@@ -1,28 +1,12 @@
 # Physical feature extraction method
 
-Each sample is described by **13 physical descriptors and an associated porosity uncertainty estimate**. The physical descriptor vector has 13 dimensions; the saved measurement record retains all 14 numerical fields, with the uncertainty in the second column. Storing an uncertainty estimate alongside the descriptors does not itself define an uncertainty-aware prediction model. The dataset contains 31 samples: seven from Batch 1, seven from Batch 2 and seventeen from the Batch 3 reference. The [feature CSV](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/public/physical_feature_vectors.csv) records these values with batch and sample identifiers.
+Each sample is described by **13 physical descriptors and an associated porosity uncertainty estimate**, stored as 14 numerical fields. The current report uses joint BSE, Inlens and ETD/SE segmentation for 31 known crops (seven in Batch 1, seven in Batch 2 and seventeen in the Batch 3 reference) and nine test samples. Full-precision [known vectors](/multichannel/known_batches.csv) and [test vectors](/multichannel/test_1.csv) use the same measurement definitions. The uncertainty estimate accompanies the descriptors; it is not a calibrated assignment probability.
 
 ## Inputs and image preparation
 
-Each sample has corresponding BSE, Inlens and ETD detector images; four known samples use the name SE for the third detector. We compare the original BSE segmentation with joint three-detector segmentation. SE occupies the third-channel position where supplied; this convention does not establish identical acquisition settings.
+Each sample has corresponding BSE, Inlens and ETD detector images; four known samples use the name SE for the third detector. The main report uses joint three-detector segmentation; original BSE segmentation is retained as a control. SE occupies the third-channel position where supplied; this convention does not establish identical acquisition settings.
 
 Both methods select the first stored intensity channel, retain the central 80% of image rows (`int(0.1*h):int(0.9*h)`) and keep every column. Gaussian smoothing uses `sigma=1.0` and `preserve_range=True` separately for each included detector. The pixel-size setting is **0.025 µm/pixel**. It has not been independently verified from the exported TIFF metadata.
-
-### Original BSE segmentation
-
-Multi-Otsu with three classes determines two thresholds independently for each denoised BSE image. The algorithm and its settings are fixed; the numerical thresholds are fitted per image. Destriping, plane correction and reference-fitted intensity quantiles are not part of this calculation. See [image preparation and thresholding](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/extract_physical_features.py#L70).
-
-### Original phase assignment
-
-Here, a phase mask is an operational image-intensity assignment. The project lead identifies the bright material as silicon; intensity clustering alone does not validate its boundaries. Two thresholds fitted separately to each smoothed BSE image define three mutually exclusive masks:
-
-- Pore: `BSE < T_pore`.
-- Graphite-labelled matrix: `T_pore <= BSE < T_inc`.
-- Silicon-labelled material: `BSE >= T_inc`.
-
-Within the pore mask, the median Inlens intensity divides pixels into `open_pore` at or below the median and `cbd` above it. **CBD is a median-split estimate**, approximately half the pore fraction, rather than an independently calibrated binder measurement. All area fractions use the full cropped image as denominator. Reported porosity is the entire dark BSE mask, including the CBD allocation, not only the open-pore subset.
-
-The masks satisfy `porosity = open_pore + cbd` and `porosity + matrix + inclusion = 100%`. CBD is therefore a subdivision of the pore-labelled region and must not be added to the latter three as another independent composition fraction. See [mask definitions](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/extract_physical_features.py#L113).
 
 ### Joint three-detector segmentation
 
@@ -39,6 +23,22 @@ A **BSE-only K-means control** uses the same sampled coordinates, initialization
 The Inlens median split is retained inside each method's pore mask. CBD therefore remains approximately half that mask by construction; adding detectors does not make CBD an independently identified phase. All pore geometry and ImageRep calculations use the full pore mask, including this allocation.
 
 The new preprocessing figures are outputs from these calculations. Their top row shows corresponding smoothed detector windows; the bottom row shows original Multi-Otsu, BSE-only K-means and three-detector K-means masks. Figures display a central 900 × 900 pixel window; measurements use the full crop. Review shows additional bright edges and lines entering the silicon-labelled class in some combined masks. These boundaries require validation before claiming improved phase accuracy. [Inspect the masks](#preprocessing-figures) or expand the [three-detector calculation code](#multichannel-code).
+
+### Original BSE control
+
+Multi-Otsu with three classes determines two thresholds independently for each denoised BSE image. The algorithm and its settings are fixed; the numerical thresholds are fitted per image. Destriping, plane correction and reference-fitted intensity quantiles are not part of this calculation. See [image preparation and thresholding](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/extract_physical_features.py#L70).
+
+### Original BSE control: phase assignment
+
+Here, a phase mask is an operational image-intensity assignment. The project lead identifies the bright material as silicon; intensity clustering alone does not validate its boundaries. Two thresholds fitted separately to each smoothed BSE image define three mutually exclusive masks:
+
+- Pore: `BSE < T_pore`.
+- Graphite-labelled matrix: `T_pore <= BSE < T_inc`.
+- Silicon-labelled material: `BSE >= T_inc`.
+
+Within the pore mask, the median Inlens intensity divides pixels into `open_pore` at or below the median and `cbd` above it. **CBD is a median-split estimate**, approximately half the pore fraction, rather than an independently calibrated binder measurement. All area fractions use the full cropped image as denominator. Reported porosity is the entire dark BSE mask, including the CBD allocation, not only the open-pore subset.
+
+The masks satisfy `porosity = open_pore + cbd` and `porosity + matrix + inclusion = 100%`. CBD is therefore a subdivision of the pore-labelled region and must not be added to the latter three as another independent composition fraction. See [mask definitions](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/extract_physical_features.py#L113).
 
 ## Feature definitions
 
@@ -138,11 +138,11 @@ The controlled before/after comparison uses the same 13 numerical inputs in both
 
 Known and test vectors must come from the same segmentation method. Each method uses its own known-image scaling. Distances from different methods are not directly comparable confidence scores. This rule is a nearest-centroid comparison, not interpolation or a calibrated probability model.
 
-The three initial test assignments remain 3e122cbj → Batch 1, fn0mhxef → Batch 2 and xrv9xvzb → Batch 3 under both segmentations. The organiser later confirmed Batch 2, Batch 1 and Batch 3 respectively. These revealed labels are used only to describe the errors, not to fit the batch centroids.
+The three initial test assignments remain 3e122cbj → Batch 1, fn0mhxef → Batch 2 and xrv9xvzb → Batch 3 under both segmentations. The supplied organiser feedback identifies them as Batch 2, Batch 1 and Batch 3 respectively. These labels were available before the combined-method evaluation and are used only to describe errors, not to fit batch centroids.
 
 ### Assignment confidence
 
-Leave out each known image in turn, refit scaling and batch means using the remaining 30 images, and assign the omitted image. The rule correctly assigns 18 of 31 images (58.1%). For each predicted batch, the reported percentage is the number of correct predictions divided by all predictions of that batch:
+Leave out each known crop in turn, refit scaling and batch means using the remaining 30 crops, and assign the omitted crop. The rule correctly assigns 18 of 31 crops (58.1%). For each predicted batch, the reported percentage is the number of correct predictions divided by all predictions of that batch:
 
 | Predicted batch | Correct / predicted | Validation rate | Confidence band |
 | --- | --- | --- | --- |
@@ -154,7 +154,7 @@ The requested reporting bands are High above 70%, Medium from 50% to 70% inclusi
 
 ### Completed test extraction
 
-The initial test release contained `3e122cbj`, `fn0mhxef` and `xrv9xvzb`, each with BSE, Inlens and ETD images. The original analysis uses BSE and Inlens. The combined analysis uses all three detectors for segmentation, followed by the same geometric calculations and pixel-size setting as the known images. Subsequent test samples are processed individually under this fixed specification and kept separate from the known batches.
+All nine test samples have corresponding BSE, Inlens and ETD images. They are processed individually with the same combined segmentation, geometric calculations and pixel-size setting as the known samples. They do not contribute to batch centroids or feature scaling.
 
 The complete test folder now contains nine samples: the initial three and six additional samples. All nine have been processed with the combined method. The results table shows each image separately alongside the known-batch mean and sample standard deviation. No standard deviation is attached to a single test image. Its ImageRep porosity interval remains a separate estimate of sampling uncertainty conditional on segmentation. Test measurements are exported at full precision; image hashes, settings and the ImageRep revision are recorded in `validation/multichannel/full-test-run.json`.
 
@@ -205,7 +205,7 @@ python scripts/extract_physical_features.py \
 
 To process one sample, add `--sample-id 0grcilhi` and point the batch directory to its image files. The `--full-precision` option preserves unrounded values for statistics; the default remains the two-decimal presentation export. Existing output is protected unless `--overwrite` is supplied. The output status is `EVALUATE`; measurement extraction does not assign a manufacturing release decision.
 
-Use one measurement specification for the reference and test batches: the same crop, scale, smoothing, per-image thresholding rule, median split, scan spacing, component filters, spatial partition and ImageRep settings. Record image identifiers, calibration, dependencies and ImageRep revision. Compare individual sample values and batch distributions against Batch 3. Numerical acceptance limits require separate validation against manufacturing requirements.
+Use one measurement specification for the reference and test batches: the same crop, scale, smoothing, segmentation specification, median split, scan spacing, component filters, spatial partition and ImageRep settings. Record image identifiers, calibration, dependencies and ImageRep revision. Compare individual sample values and batch distributions against Batch 3. Numerical acceptance limits require separate validation against manufacturing requirements.
 
 Preserve all 13 descriptors and the accompanying uncertainty. Do not pool unrelated held-out samples into a single batch mean or infer that one test image must belong to each known batch.
 
@@ -224,7 +224,7 @@ python scripts/compare_physical_batches.py \
 
 The script accepts both the original raw column names and the extractor's column names. Use unique sample identifiers and preserve the reference measurements, feature list and analysis settings before inspecting the test batch. At least two independent observations are needed per batch for a test. Do not choose features or thresholds after seeing the new results.
 
-To reproduce the current report's joint comparison:
+To reproduce the archived original BSE mean comparison:
 
 ```bash
 python scripts/compare_physical_batches.py \
@@ -241,13 +241,13 @@ The initial three-detector comparison processed all 31 known and three initial t
 
 The complete nine-sample test run produced 378 values across the three segmentation conditions. Repeating the initial three samples reproduced all 126 values, nine masks and three diagnostic figures exactly. All nine detector triplets have equal grids; the alignment audit recorded no review flags. This checks numerical reproducibility and image correspondence, not the accuracy of material boundaries or batch assignment.
 
-The extractor was run on all 31 samples: 17 from Batch 3, seven from Batch 1 and seven from Batch 2. All 434 feature values matched the saved measurements to two decimal places, with no differences. Parameters, dependency versions and input hashes are recorded in the [validation record](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/validation/physical-rerun.json).
+The original BSE extractor was run on all 31 known samples: 17 from Batch 3, seven from Batch 1 and seven from Batch 2. All 434 feature values matched the saved measurements to two decimal places, with no differences. Parameters, dependency versions and input hashes are recorded in the [validation record](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/validation/physical-rerun.json).
 
-The full-precision export was separately checked on all 31 samples: all 434 values matched the saved raw measurements exactly. The default two-decimal CSV strings were unchanged for sample `0grcilhi`. This check is recorded in `validation/physical-full-precision.json`.
+The original BSE full-precision export was separately checked on all 31 known samples: all 434 values matched the saved raw measurements exactly. The default two-decimal CSV strings were unchanged for sample `0grcilhi`. This check is recorded in `validation/physical-full-precision.json`.
 
 The original BSE statistical output contains 26 planned tests, of which 24 are estimable. Inclusion D10 is constant in all three batches; both D10 comparisons have null test statistics and p-values, while retaining their Holm adjustment slots. No adjusted p-value is below 0.05. Numerical tests check Welch statistics and confidence intervals against SciPy, known Holm adjustments, constant-valued data, input validation and both raw and extractor column names.
 
-For example, sample `0grcilhi` produced:
+For the archived original BSE method, sample `0grcilhi` produced:
 
 `13.43, 2.26, 79.58, 6.71, 6.99, 2.76, 0.53, 0.62, 1.17, 2.35, 0.09, 0.14, 0.34, 4.05`.
 

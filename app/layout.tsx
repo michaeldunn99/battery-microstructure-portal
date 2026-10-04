@@ -5,11 +5,11 @@ import "katex/dist/katex.min.css";
 export const metadata: Metadata = {
   title: "Electrode microstructure analysis",
   description:
-    "SEM measurements, batch comparisons and physical interpretation for electrode material analysis.",
+    "Combined BSE, Inlens and ETD/SE analysis: 13 physical descriptors, porosity uncertainty and batch assignments for nine test samples.",
   openGraph: {
     title: "Electrode microstructure analysis",
     description:
-      "Physical descriptors, measurement methods and sampling uncertainty.",
+      "Electrode phase fractions, pore geometry, silicon-region measurements and reproducible batch comparisons.",
     type: "website",
   },
 };

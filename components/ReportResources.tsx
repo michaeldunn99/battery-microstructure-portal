@@ -1,34 +1,65 @@
 import verification from "@/validation/physical-rerun.json";
 import precisionVerification from "@/validation/physical-full-precision.json";
+import combinedSummary from "@/public/multichannel/summary.json";
+import combinedRun from "@/validation/multichannel/full-test-run.json";
+import combinedVerification from "@/validation/multichannel/validation.json";
+import testReproduction from "@/validation/multichannel/full-test-reproduction.json";
 
 const downloads = [
-  ["/multichannel/test_assignments.csv", "Test assignments and confidence (CSV)", "All nine images, with the requested confidence bands."],
-  ["/multichannel/test_assignments.json", "Assignment measurements and validation (JSON)", "Per-image evidence, known-image validation and the fixed rule."],
+  ["/multichannel/test_assignments.csv", "Test assignments and confidence (CSV)", "All nine images; percentages are class-level validation rates."],
+  ["/multichannel/test_1.csv", "Test measurements (CSV)", "All nine images, with 13 physical descriptors and porosity uncertainty at full precision."],
+  ["/multichannel/known_batches.csv", "Known-batch measurements (CSV)", "31 known images processed by the same three-detector segmentation."],
+  ["/multichannel/summary.json", "Measurement summaries (JSON)", "Known-batch means, sample standard deviations and all nine individual test vectors."],
+  ["/multichannel/test_assignments.json", "Assignment measurements and validation (JSON)", "Current confidence policy v2; retained v1 diagnostic gates do not set the displayed bands."],
   ["/multichannel/test_feature_evidence.csv", "Assignment feature evidence (CSV)", "Every assignment input compared with the known batch means."],
+  ["/downloads/physical-method.md", "Protocol (Markdown)", "Current measurement and assignment methods, with executable instructions."],
+  ["/physical-feature-vector.tex", "Feature vector (LaTeX)", "The combined-method example for Batch 3, sample 0grcilhi; porosity uncertainty is separate."],
+] as const;
+
+const calculationDownloads = [
   ["/downloads/assign_multichannel_tests.py", "Batch assignment calculation (Python)", "Repeat known-image validation and test assignment."],
-  ["/multichannel/test_1.csv", "Combined method: all test vectors (CSV)", "One full-precision record per test sample, with 13 physical descriptors and porosity uncertainty."],
-  ["/multichannel/known_batches.csv", "Combined method: known-batch vectors (CSV)", "31 known samples processed by the same three-detector segmentation."],
-  ["/multichannel/summary.json", "Original and combined comparisons (JSON)", "Batch means, sample standard deviations and individual test values."],
-  ["/multichannel/original_known.csv", "Original BSE: known-batch vectors (CSV)", "The 14 physical fields used for the original report, at full precision."],
-  ["/test_1_physical_features.csv", "Original BSE: initial three test vectors (CSV)", "Full-precision records from the initial test release."],
-  ["/physical_feature_vectors.csv", "Original BSE: presentation vectors (CSV)", "31 known samples, rounded to two decimal places."],
-  ["/physical_batch_statistics.json", "Original BSE: supplementary mean tests (JSON)", "Mean differences, pointwise 95% intervals, raw and Holm-adjusted p-values, settings and input hashes."],
-  ["/downloads/physical-method.md", "Protocol (Markdown)", "The measurement specification and test-set instructions."],
   ["/downloads/run_multichannel_experiment.py", "Three-detector extractor (Python)", "Repeat segmentation, vector extraction and diagnostic figure generation."],
-  ["/downloads/multichannel-full-test-run.json", "Complete test extraction record (JSON)", "All detector input hashes, fitted centroids, settings and software versions."],
+  ["/downloads/multichannel-full-test-run.json", "Complete test extraction record (JSON)", "All nine images: detector input hashes, fitted centroids, settings and software versions."],
   ["/downloads/multichannel-full-test-alignment.json", "Complete test alignment audit (JSON)", "Image grid and detector alignment diagnostics."],
-  ["/downloads/multichannel-run.json", "Initial combined extraction record (JSON)", "The known-batch run and its three initial test samples."],
-  ["/downloads/multichannel-run-source.py", "Initial combined run source (Python)", "The exact source snapshot recorded with the initial combined run."],
+  ["/downloads/multichannel-run.json", "Known-batch extraction record (JSON)", "The 31 known images; initial test records are retained in this run's history."],
+  ["/downloads/multichannel-run-source.py", "Known-batch run source (Python)", "The source snapshot recorded with the known-batch extraction."],
   ["/downloads/multichannel-validation.json", "Combined extraction verification (JSON)", "Original-value reproduction and repeated pilot checks."],
-  ["/downloads/extract_physical_features.py", "Original BSE extractor (Python)", "The original calculation code shown in Methods."],
-  ["/downloads/compare_physical_batches.py", "Batch comparison (Python)", "Repeat the statistical analysis or compare a new batch with the reference."],
-  ["/downloads/physical-rerun.json", "Verification record (JSON)", "Run settings, dependency versions, input hashes and comparisons."],
-  ["/physical-feature-vector.tex", "Feature vector (LaTeX)", "The 13-descriptor vector with its porosity uncertainty reported separately."],
+] as const;
+
+const archivedDownloads = [
+  ["/multichannel/original_known.csv", "Original BSE: known-batch measurements (CSV)", "The original 31 images and 14 physical fields, at full precision."],
+  ["/test_1_physical_features.csv", "Original BSE: initial test release (CSV)", "Three historical test vectors; not the current nine-image results."],
+  ["/physical_feature_vectors.csv", "Original BSE: presentation vectors (CSV)", "31 known samples, rounded to two decimal places."],
+  ["/physical_batch_statistics.json", "Original BSE: mean tests (JSON)", "Historical Welch/Holm mean comparisons, not the current assignment calculation."],
+  ["/downloads/extract_physical_features.py", "Original BSE extractor (Python)", "Original segmentation and the shared downstream measurement calculations."],
+  ["/downloads/compare_physical_batches.py", "Original BSE: batch mean comparison (Python)", "Reproduce the supplementary statistical comparisons."],
+  ["/downloads/physical-rerun.json", "Original BSE verification (JSON)", "Original run settings, dependency versions, input hashes and reproduction checks."],
 ] as const;
 
 export function VerificationDetails() {
+  const knownCount = combinedSummary.batch_counts.reduce((total, batch) => total + batch.n, 0);
   return (
     <details id="validation-record" className="scroll-mt-6 rounded-md border border-zinc-200">
+      <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Combined-method verification and software versions</summary>
+      <div className="space-y-4 border-t border-zinc-200 p-4 text-sm leading-6 text-zinc-700">
+        <p>The current report contains {knownCount} known images and {combinedSummary.test_counts.total} test images. Summary generation checked {combinedSummary.verification.numeric_fields_checked.toLocaleString("en-GB")} numerical entries against the extraction records, with a maximum absolute difference of {combinedSummary.verification.csv_report_max_error}.</p>
+        <p>The repeated test extraction reproduced {testReproduction.numerical_values_compared} previously saved values and {Object.keys(testReproduction.mask_sha256_matches).length} masks exactly. These are reproducibility checks, not validation of the assigned material phases.</p>
+        <dl className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+          {Object.entries(combinedRun.versions).map(([name, version]) => <div key={name}><dt className="font-medium">{name}</dt><dd>{version}</dd></div>)}
+          <div className="sm:col-span-2"><dt className="font-medium">ImageRep revision</dt><dd className="break-all font-mono text-xs">{combinedRun.imagerep_revision}</dd></div>
+        </dl>
+        <details className="border-t border-zinc-200 pt-3">
+          <summary className="cursor-pointer font-medium">Settings, source hashes and checks</summary>
+          <pre tabIndex={0} aria-label="Combined physical extraction settings and verification" className="mt-3 max-h-96 overflow-auto rounded-md border border-zinc-200 bg-zinc-50 p-4 text-xs leading-6"><code>{JSON.stringify({ method: combinedRun.method, sources: combinedSummary.sources, exports: combinedSummary.exports, summaryChecks: combinedSummary.verification, extractionChecks: combinedVerification, repeatedTestChecks: testReproduction }, null, 2)}</code></pre>
+        </details>
+      </div>
+    </details>
+  );
+}
+
+function OriginalVerificationDetails() {
+  return (
+    <details className="rounded-md border border-zinc-200">
       <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Original BSE verification and software versions</summary>
       <div className="space-y-4 border-t border-zinc-200 p-4 text-sm leading-6 text-zinc-700">
         <p>{verification.comparison.matched_numeric_values} of {verification.numeric_value_count} values matched across {verification.sample_count} samples at two decimal places. This verifies reproduction of the saved measurements; it does not validate phase assignment or release criteria.</p>
@@ -51,10 +82,25 @@ export function ReportDownloads() {
   return (
     <details id="downloads" className="scroll-mt-6 rounded-md border border-zinc-200">
       <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Downloads and repository</summary>
-      <ul className="divide-y divide-zinc-200 border-t border-zinc-200 px-4 text-sm">
+      <div className="space-y-4 border-t border-zinc-200 p-4">
+      <p className="text-sm leading-6 text-zinc-600">Current three-detector analysis: 31 known images, nine test images and 14 saved measurement fields per image.</p>
+      <ul className="divide-y divide-zinc-200 text-sm">
         {downloads.map(([href, label, description]) => <li key={href} className="py-3"><a href={href} download className="font-medium text-zinc-900 underline underline-offset-4">{label}</a><p className="mt-1 leading-6 text-zinc-600">{description}</p></li>)}
-        <li className="py-3"><a href="https://github.com/michaeldunn99/battery-microstructure-portal" target="_blank" rel="noreferrer" className="font-medium text-zinc-900 underline underline-offset-4">Project repository</a><p className="mt-1 leading-6 text-zinc-600">Source code and version history on GitHub.</p></li>
       </ul>
+      <details className="rounded-md border border-zinc-200">
+        <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800">Calculation code and run records</summary>
+        <ul className="divide-y divide-zinc-200 border-t border-zinc-200 px-4 text-sm">{calculationDownloads.map(([href, label, description]) => <li key={href} className="py-3"><a href={href} download className="font-medium text-zinc-900 underline underline-offset-4">{label}</a><p className="mt-1 leading-6 text-zinc-600">{description}</p></li>)}</ul>
+      </details>
+      <details className="rounded-md border border-zinc-200">
+        <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800">Archive: original BSE analysis</summary>
+        <div className="space-y-4 border-t border-zinc-200 p-4">
+          <p className="text-sm leading-6 text-zinc-600">Earlier segmentation results retained for reproduction and method comparison. Current tables use the combined measurements above.</p>
+          <ul className="divide-y divide-zinc-200 text-sm">{archivedDownloads.map(([href, label, description]) => <li key={href} className="py-3"><a href={href} download className="font-medium text-zinc-900 underline underline-offset-4">{label}</a><p className="mt-1 leading-6 text-zinc-600">{description}</p></li>)}</ul>
+          <OriginalVerificationDetails />
+        </div>
+      </details>
+      <p className="text-sm"><a href="https://github.com/michaeldunn99/battery-microstructure-portal" target="_blank" rel="noreferrer" className="font-medium text-zinc-900 underline underline-offset-4">Project repository</a></p>
+      </div>
     </details>
   );
 }

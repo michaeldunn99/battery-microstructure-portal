@@ -10,10 +10,10 @@ const families = [
     definition: "A phase is a distinct material or pore region, such as graphite or void space. Its area fraction is the percentage of the image assigned to it.",
     meaning: "An electrode contains solid material and void space. In a conventional liquid-electrolyte cell, electrolyte in the pores carries ions; active material stores lithium; conductive carbon provides electronic connections. Area fractions describe how much of each assigned region is visible in a cross-section. The project lead identifies the silicon particles as silicon active material; their area fraction is not silicon weight fraction.",
     terms: [
-      ["Phase", "A distinguishable constituent or region. Here, phase names are interpretations of image-intensity classes, rather than independently confirmed chemical identities."],
+      ["Phase", "A distinguishable constituent or region. Phase names use the supplied material identity; the intensity-derived mask boundaries remain unvalidated."],
       ["Area fraction", "The share of the analysed two-dimensional image assigned to a region. It is not a mass fraction or a directly measured three-dimensional volume fraction."],
       ["Porosity", "The area fraction assigned to pore space in this report."],
-      ["Carbon-binder domain (CBD)", "Conductive carbon and polymer binder associated with particle contacts. Our CBD value is an intensity-based allocation within the dark mask."],
+      ["Carbon-binder domain (CBD)", "Conductive carbon and polymer binder associated with particle contacts. Our CBD value is an intensity-based allocation within the pore-labelled cluster."],
     ],
     evidence: [
       ["#ref-moon", "Moon et al. (2021)", "Silicon expansion and electrochemical–mechanical interactions affect degradation in silicon–graphite composites, motivating separate tracking of silicon content."],
@@ -21,10 +21,10 @@ const families = [
       ["#ref-choi", "Choi et al. (2023)", "Experiments with graphite particle-size mixtures linked changes in packing and porosity with changes in electrochemical behaviour."],
     ],
     evidenceScope: "These studies motivate measuring phase proportions. They do not validate our image-intensity labels, CBD allocation or a batch acceptance threshold.",
-    calculation: "Both analyses retain the central 80% of image rows and use Gaussian smoothing (σ = 1 pixel). The original segmentation fits two Multi-Otsu thresholds to BSE alone. The combined method clusters standardized BSE, Inlens and ETD/SE intensities jointly, then orders clusters by BSE intensity. Each method applies the same area and geometry calculations to its own masks.",
+    calculation: "Retain the central 80% of image rows and smooth each detector with Gaussian σ = 1 pixel. Standardize BSE, Inlens and ETD/SE separately within each crop, then cluster their joint pixel vectors with three-class KMeans. Order the fitted centroids by their BSE coordinate to label pore, graphite and silicon. The original BSE segmentation remains a control; area and geometry definitions are unchanged.",
     formula: String.raw`f_k = 100\,\frac{N_k}{N_{\mathrm{crop}}}\;[\%]`,
     boundary: "Pore, graphite and silicon particle fractions sum to 100%. CBD is a subset of the pore-labelled area, so adding it again would double count. The median split has not been independently calibrated as a binder measurement.",
-    calculationLink: "#extractor-L113",
+    calculationLink: "#multichannel-code-L92",
   },
   {
     id: "pore-geometry",
@@ -47,10 +47,10 @@ const families = [
       ["#ref-dahari", "Dahari et al. (2025)", "The two-point correlation function was used to estimate phase-fraction representativity. This supports our correlation length and porosity interval, rather than a direct performance prediction."],
     ],
     evidenceScope: "The transport studies motivate measuring pore geometry. They do not establish that our two-dimensional chord lengths or chord ratio measure tortuosity or predict rate capability.",
-    calculation: "On the pore mask, measure uninterrupted runs along every 40th row and column. Multiply pixel lengths by 0.025 µm/pixel and take the mean in each direction. Divide the horizontal mean by the vertical mean. ImageRep separately calculates the correlation length scale from the same mask.",
+    calculation: "On the full pore-labelled cluster, including its CBD allocation, measure uninterrupted runs along every 40th row and column. Multiply pixel lengths by 0.025 µm/pixel and take the mean in each direction. Divide the horizontal mean by the vertical mean. ImageRep separately calculates the correlation length scale from the same mask. These measurement definitions are retained from the original extraction.",
     formula: String.raw`L_x=s\,\overline{\ell_x},\qquad L_y=s\,\overline{\ell_y},\qquad R=L_x/L_y`,
     boundary: "A longer chord does not establish better transport. These measurements do not recover three-dimensional connectivity or tortuosity. Interpreting image x and y as electrode directions requires known specimen orientation.",
-    calculationLink: "#extractor-L137",
+    calculationLink: "#multichannel-code-L138",
   },
   {
     id: "inclusion-geometry",
@@ -59,7 +59,7 @@ const families = [
     measurements: "Silicon particle aspect ratio and equivalent-diameter percentiles D10, D50 and D90.",
     performance: "The size and shape of identified electrode particles can affect packing and pore geometry, with consequences for transport. Silicon particle size has been linked to degradation in silicon–graphite anodes. Our size and shape measurements describe the segmented regions, not their cycling performance.",
     definition: "The dimensions and elongation of connected silicon particle regions in the image.",
-    meaning: "A silicon particle region is a connected component of the bright mask. Size and shape measurements describe this population so that batches can be compared even when their total bright area is similar. Here they are interpreted as silicon using the project lead’s identification, rather than brightness alone.",
+    meaning: "A silicon particle region is a connected component of the silicon-labelled cluster. Size and shape measurements describe this population so that batches can be compared even when their total silicon area is similar. Silicon identity follows the project lead’s identification; the cluster boundaries remain provisional.",
     terms: [
       ["Equivalent diameter", "The diameter of a circle with the same area as a segmented region."],
       ["D10, D50 and D90", "The diameters below which 10%, 50% and 90% of the measured objects fall. Every retained object contributes one observation."],
@@ -71,10 +71,10 @@ const families = [
       ["#ref-ebner", "Ebner et al. (2014)", "Particle shape and fabrication-induced alignment were linked to directional tortuosity using tomography and diffusion simulations."],
     ],
     evidenceScope: "Silicon size may be relevant to degradation, but our 2D regions may contain merged particles. Silicon aspect ratio remains exploratory; no performance or damage threshold is established.",
-    calculation: "Label connected components in the bright mask and retain components of at least 10 pixels. Convert their areas to equivalent-circle diameters and calculate unweighted diameter percentiles. Average major-axis/minor-axis ratios, with a one-pixel minimum denominator and zero minor axes excluded.",
+    calculation: "Label connected components in the silicon mask and retain components of at least 10 pixels. Convert their areas to equivalent-circle diameters and calculate unweighted diameter percentiles. Average major-axis/minor-axis ratios, with a one-pixel minimum denominator and zero minor axes excluded. These definitions and filters are unchanged from the original extraction.",
     formula: String.raw`d_{\mathrm{eq}}=s\sqrt{\frac{4A}{\pi}},\qquad \overline{A_r}=\operatorname{mean}\!\left(\frac{a}{\max(b,1)}\right)`,
     boundary: "A is component area in pixels; a and b are ellipse axes in pixels. These objects are not separated by watershed, so touching regions may form one component. No defect threshold is inferred from their geometry.",
-    calculationLink: "#extractor-L152",
+    calculationLink: "#multichannel-code-L149",
   },
   {
     id: "spatial-variation",
@@ -97,7 +97,7 @@ const families = [
     calculation: "Divide the silicon particle mask into 4 × 4 tiles. Compute the silicon particle area percentage in each tile, then take the population standard deviation of the 16 percentages (ddof = 0).",
     formula: String.raw`\sigma_{\mathrm{inc}}=\sqrt{\frac{1}{16}\sum_{j=1}^{16}(f_j-\overline f)^2}`,
     boundary: "This value depends on the tile size, image crop and segmentation. Higher variation indicates less uniform local coverage at that scale; it does not identify the manufacturing cause.",
-    calculationLink: "#extractor-L166",
+    calculationLink: "#multichannel-code-L153",
   },
 ] as const;
 
@@ -151,13 +151,13 @@ export default function PhysicalInterpretation() {
                 {family.id === "phase-fractions" && <>
                   <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Phase assignment rules">
                     <table className="w-full min-w-[480px] border-collapse text-left text-sm">
-                      <caption className="pb-2 text-left text-zinc-600">Original BSE phase-assignment rules. In the combined method, joint clustering replaces these thresholds.</caption>
+                      <caption className="pb-2 text-left text-zinc-600">Current three-channel phase assignment. Each pixel is assigned to its nearest fitted centroid in standardized BSE/Inlens/ETD or SE intensity space.</caption>
                       <thead className="border-y border-zinc-200 text-zinc-800"><tr><th scope="col" className="py-2 pr-4 font-medium">Reported region</th><th scope="col" className="py-2 font-medium">Pixel assignment</th></tr></thead>
                       <tbody className="divide-y divide-zinc-200 border-b border-zinc-200">
-                        <tr><th scope="row" className="py-2 pr-4 font-medium">Pore-labelled area</th><td className="py-2">BSE intensity below T₁.</td></tr>
-                        <tr><th scope="row" className="py-2 pr-4 font-medium">Graphite-labelled matrix</th><td className="py-2">BSE intensity at least T₁ and below T₂.</td></tr>
-                        <tr><th scope="row" className="py-2 pr-4 font-medium">Silicon particles</th><td className="py-2">BSE intensity at least T₂; identified as silicon by the project lead; not chemically verified by this intensity rule.</td></tr>
-                        <tr><th scope="row" className="py-2 pr-4 font-medium">Carbon-binder allocation</th><td className="py-2">Within the pore-labelled area, Inlens intensity above its median. Pixels at or below that median form the open-pore subset.</td></tr>
+                        <tr><th scope="row" className="py-2 pr-4 font-medium">Pore-labelled area</th><td className="py-2">Joint cluster whose fitted centroid has the lowest BSE coordinate.</td></tr>
+                        <tr><th scope="row" className="py-2 pr-4 font-medium">Graphite-labelled matrix</th><td className="py-2">Joint cluster whose fitted centroid has the intermediate BSE coordinate.</td></tr>
+                        <tr><th scope="row" className="py-2 pr-4 font-medium">Silicon particles</th><td className="py-2">Joint cluster whose fitted centroid has the highest BSE coordinate. Silicon identity is supplied by the project lead; mask boundaries remain provisional.</td></tr>
+                        <tr><th scope="row" className="py-2 pr-4 font-medium">Carbon-binder allocation</th><td className="py-2">Within the pore-labelled cluster, smoothed Inlens intensity above its within-cluster median. Pixels at or below that median form the open-pore subset.</td></tr>
                       </tbody>
                     </table>
                   </div>

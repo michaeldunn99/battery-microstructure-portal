@@ -5,20 +5,20 @@ import ExtractorCodeViewer from "./ExtractorCodeViewer";
 import PhysicalMethodFigures from "./PhysicalMethodFigures";
 const descriptors = physicalFeatures.filter((feature) => feature.key !== "porosity_ci95_pct");
 const calculationLines: Record<(typeof physicalFeatures)[number]["key"], number> = {
-  porosity_pct: 123,
-  porosity_ci95_pct: 129,
-  active_material_pct: 124,
-  cbd_pct: 118,
-  inclusion_pct: 126,
-  char_length_scale_cls_um: 129,
-  throat_through_plane_ly_um: 137,
-  chord_in_plane_lx_um: 142,
-  pore_anisotropy_ratio: 149,
-  particle_aspect_ratio: 155,
-  particle_d10_um: 162,
-  particle_d50_um: 163,
-  particle_d90_um: 164,
-  slurry_dispersion_index: 166,
+  porosity_pct: 154,
+  porosity_ci95_pct: 138,
+  active_material_pct: 155,
+  cbd_pct: 136,
+  inclusion_pct: 155,
+  char_length_scale_cls_um: 138,
+  throat_through_plane_ly_um: 140,
+  chord_in_plane_lx_um: 140,
+  pore_anisotropy_ratio: 156,
+  particle_aspect_ratio: 151,
+  particle_d10_um: 152,
+  particle_d50_um: 152,
+  particle_d90_um: 152,
+  slurry_dispersion_index: 153,
 };
 
 export default function PhysicalFeatureVector({ example }: { example: Record<string, string> }) {
@@ -30,17 +30,17 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
     <section id="methods" aria-labelledby="feature-vector-heading" className="space-y-6 rounded-md border border-zinc-200 bg-paper p-6 lg:p-8">
       <div className="space-y-2 border-b border-zinc-200 pb-5">
         <h2 id="feature-vector-heading" className="text-2xl font-semibold tracking-tight lg:text-3xl">3. Methods</h2>
-        <p className="max-w-4xl text-sm leading-6 text-zinc-600">One 13-dimensional physical descriptor vector per sample, with porosity uncertainty reported separately. The table defines each descriptor; calculation links expand the relevant code below.</p>
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">The current pipeline jointly segments BSE, Inlens and ETD/SE, then extracts one 13-dimensional physical descriptor vector per sample. Porosity uncertainty is reported separately. Calculation links open the combined extraction code below.</p>
       </div>
 
       <div>
         <h3 className="text-base font-semibold">From image to vector</h3>
-        <p className="mt-2 text-sm leading-6 text-zinc-600">We compare two segmentations of the same samples: the original BSE thresholds and joint clustering of BSE, Inlens and ETD/SE. Each method produces its own masks and vectors using the same physical measurement definitions.</p>
+        <p className="mt-2 text-sm leading-6 text-zinc-600">Three-channel KMeans supplies the current phase masks. Original BSE Multi-Otsu and BSE-only KMeans are controls. All three use the same physical measurement definitions and filters.</p>
         <ol className="mt-4 grid auto-rows-fr gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
             ["1. Prepare", "Match BSE, Inlens and ETD/SE by sample. Retain the first stored intensity channel, crop the central 80% of rows and smooth each detector with Gaussian σ = 1 pixel. Use 0.025 µm/pixel."],
-            ["2. Segment", "Original: three-class Multi-Otsu on BSE. Combined: standardize the three detector intensities and cluster their joint pixel vectors into three classes. Order the classes by BSE intensity."],
-            ["3. Measure", "Count phase pixels; apply ImageRep to the pore mask; sample pore chords; measure silicon particle components and variation across 16 tiles."],
+            ["2. Segment", "Standardize each detector within the crop. Fit three-class KMeans to sampled joint pixel vectors, initialized from BSE Multi-Otsu. Order fitted centroids by their BSE coordinate, then assign every cropped pixel."],
+            ["3. Measure", "Count phase pixels and retain the Inlens median CBD allocation. Apply ImageRep and chord measurements to the full pore mask; measure silicon components and variation across 16 tiles."],
             ["4. Export", "Save 13 physical descriptors and porosity uncertainty for each sample and segmentation. Retain full precision for comparisons; round only for display."],
           ].map(([title, text]) => (
             <li key={title} className="rounded-md border border-zinc-200 p-4">
@@ -83,7 +83,7 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
               <tr key={feature.key}>
                 <th scope="row" className="min-w-[185px] px-3 py-4 align-top font-medium">{feature.label}<span className="mt-1 block text-xs font-normal text-zinc-500">{feature.unit}</span></th>
                 <td className="px-3 py-4 align-top font-mono tabular-nums">{example[feature.key]}</td>
-                <td className="px-3 py-4 align-top leading-6 text-zinc-600">{feature.definition}<span className="mt-1 flex gap-3 text-xs text-blue-800"><a href={`#extractor-L${calculationLines[feature.key]}`} aria-label={`Calculation for ${feature.label.toLowerCase()}`} className="underline underline-offset-4">Calculation</a></span></td>
+                <td className="px-3 py-4 align-top leading-6 text-zinc-600">{feature.definition}<span className="mt-1 flex gap-3 text-xs text-blue-800"><a href={`#multichannel-code-L${calculationLines[feature.key]}`} aria-label={`Calculation for ${feature.label.toLowerCase()}`} className="underline underline-offset-4">Calculation</a></span></td>
               </tr>
             ))}
           </tbody>
@@ -97,7 +97,7 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
           <p>ImageRep estimates an absolute porosity error with confidence 0.95 and target error 0.05. Multiplying its returned absolute error by 100 gives the interval half-width in percentage points, stored as <code className="font-mono text-xs">porosity_ci95_pct</code>.</p>
           <p>The interval estimates how representative the image is of bulk porosity. <a href="#ref-dahari" className="underline underline-offset-4">Dahari et al. (2025)</a> provide the calculation. Measurement-error models such as <a href="#ref-kelly" className="underline underline-offset-4">Kelly (2007)</a> treat uncertainty separately from observed values. Storing an interval alongside the descriptors does not by itself make a predictive model uncertainty-aware.</p>
           <p>A smaller interval indicates a more precise porosity estimate under this model. It does not indicate a better material. The estimate is conditional on the pore mask and does not include segmentation or phase-assignment error.</p>
-          <p><a href="#extractor-L129" className="text-blue-800 underline underline-offset-4">Porosity uncertainty calculation</a></p>
+          <p><a href="#multichannel-code-L138" className="text-blue-800 underline underline-offset-4">Porosity uncertainty calculation</a></p>
         </div>
       </details>
 
