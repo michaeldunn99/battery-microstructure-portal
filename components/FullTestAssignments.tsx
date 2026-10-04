@@ -155,20 +155,23 @@ export default function FullTestAssignments() {
         <div className="space-y-3 border-t border-zinc-200 p-4 text-sm leading-6 text-zinc-600">
           <p>Percentages show relative similarity; the distance is printed beneath each one. Distance is the root-mean-square difference between the image’s 13 assignment inputs and a batch mean, scaled by standard deviations across the 31 known crops. Smaller distance means closer; zero is an exact match to that mean.</p>
           <div className="overflow-x-auto" role="region" aria-label="Standardised distances from each test image to all three batch means" tabIndex={0}>
-            <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+            <table className="w-full min-w-[820px] table-fixed border-collapse text-left text-sm">
               <caption className="pb-3 text-left text-zinc-600">Cell colour shows relative similarity on one fixed scale: red and orange below 33.3%, pale green at 33.3%, and very dark green at 100%. Shares sum to 100% per image and are not prediction confidence. An outlined cell marks the organiser-confirmed batch where known.</caption>
+              <colgroup><col className="w-32" />{batchOrder.map(batch => <col key={batch} />)}</colgroup>
               <thead className="border-y border-zinc-200 bg-zinc-50"><tr><th scope="col" className={head}>Sample ID</th>{batchOrder.map(batch => <th key={batch} scope="col" className={head}>{batchName(batch)}{batch === "Batch_3" ? " (reference)" : ""}</th>)}</tr></thead>
               <tbody className="divide-y divide-zinc-200 border-b border-zinc-200">{results.assignments.map(row => {
                 const shares = similarityShares(row);
                 const ordered = [...batchOrder].sort((a, b) => row.distances[a] - row.distances[b]);
-                return <tr key={row.sample_id}><th scope="row" className={`${cell} font-mono text-xs font-normal`}>{row.sample_id}</th>{batchOrder.map(batch => {
+                return <tr key={row.sample_id}><th scope="row" className="h-24 px-3 py-3 align-middle font-mono text-xs font-normal">{row.sample_id}</th>{batchOrder.map(batch => {
                   const rank = ordered.findIndex(candidate => row.distances[candidate] === row.distances[batch]);
                   const confirmed = labelledBatches.get(row.sample_id) === batch;
                   const rankStyle = rank === 0 ? "border-green-700 bg-green-50 text-green-950" : rank === 1 ? "border-orange-700 bg-orange-50 text-orange-950" : "border-red-700 bg-red-50 text-red-950";
-                  return <td key={batch} style={{ ...similarityStyle(shares[batch]), ...(confirmed ? { boxShadow: "inset 0 0 0 2px #18181b" } : {}) }} className={`${cell} ${batch === row.assigned_batch ? "font-semibold" : ""}`}>
-                    <span className="text-base">{rate(100 * shares[batch])}</span><span className={`ml-2 inline-block rounded-sm border px-1.5 py-0.5 text-xs font-medium ${rankStyle}`}>{batch === row.assigned_batch ? "assigned" : rank === 0 ? "equal closest" : rank === 1 ? "2nd closest" : "furthest"}</span>
-                    <span className="mt-1 block text-xs font-normal">Distance {row.distances[batch].toFixed(3)}</span>
-                    {confirmed && <span className="mt-1 block text-xs font-semibold">Confirmed batch{batch === row.assigned_batch ? " · correct" : " · missed"}</span>}
+                  return <td key={batch} style={{ ...similarityStyle(shares[batch]), ...(confirmed ? { boxShadow: "inset 0 0 0 2px #18181b" } : {}) }} className={`h-24 px-3 py-3 align-middle tabular-nums ${batch === row.assigned_batch ? "font-semibold" : ""}`}>
+                    <div className="grid h-[4.5rem] grid-rows-[1.5rem_1.25rem_1.25rem] gap-y-1">
+                      <div className="flex items-center gap-2 whitespace-nowrap"><span className="inline-block w-16 text-base leading-6">{rate(100 * shares[batch])}</span><span className={`inline-flex h-6 w-24 items-center justify-center rounded-sm border px-1.5 text-xs font-medium ${rankStyle}`}>{batch === row.assigned_batch ? "assigned" : rank === 0 ? "equal closest" : rank === 1 ? "2nd closest" : "furthest"}</span></div>
+                      <span className="text-xs font-normal leading-5">Distance {row.distances[batch].toFixed(3)}</span>
+                      <span aria-hidden={!confirmed} className="whitespace-nowrap text-xs font-semibold leading-5">{confirmed ? `Confirmed batch · ${batch === row.assigned_batch ? "correct" : "missed"}` : ""}</span>
+                    </div>
                   </td>;
                 })}</tr>;
               })}</tbody>
