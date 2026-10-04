@@ -1,4 +1,5 @@
 import report from "@/public/qc_summary_report.json";
+import { physicalFeatures } from "@/lib/physical-vector";
 import Image from "next/image";
 import PhysicalTableExplorer, { type PhysicalTableProps } from "./PhysicalTableExplorer";
 
@@ -12,7 +13,7 @@ const metrics = [
 
 const batches = ["Batch_3", "Batch_1", "Batch_2"] as const;
 
-export default function PhysicalResults({ rows, features }: PhysicalTableProps) {
+export default function PhysicalResults({ rows, features, rawRows }: PhysicalTableProps & { rawRows: Record<string, string>[] }) {
   return (
     <section
       aria-labelledby="physical-results-heading"
@@ -23,7 +24,7 @@ export default function PhysicalResults({ rows, features }: PhysicalTableProps) 
           id="physical-results-heading"
           className="text-2xl font-semibold tracking-tight text-zinc-950 lg:text-3xl"
         >
-          3. Results
+          4. Results
         </h2>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
           Batch 1 has lower mean porosity and vertical pore chord length, and higher mean inclusion aspect
@@ -86,33 +87,54 @@ export default function PhysicalResults({ rows, features }: PhysicalTableProps) 
         </figcaption>
       </figure>
 
-      <PhysicalTableExplorer rows={rows} features={features} />
+      <details id="sample-measurements" className="scroll-mt-6 rounded-md border border-zinc-200 p-4">
+        <summary className="cursor-pointer text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-600">
+          Sample measurements ({rows.length} samples)
+        </summary>
+        <div className="mt-4">
+          <PhysicalTableExplorer rows={rows} features={features} />
+        </div>
+      </details>
+
+      <details id="raw-measurements" className="scroll-mt-6 rounded-md border border-zinc-200 p-4">
+        <summary className="cursor-pointer text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-600">
+          Full-precision measurements
+        </summary>
+        <p className="my-4 text-sm leading-6 text-zinc-600">Unrounded values from the physical run. Scroll within the table to inspect all measurements.</p>
+        <div className="max-h-96 overflow-auto rounded-md border border-zinc-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600" role="region" aria-label="Full-precision physical measurements" tabIndex={0}>
+          <table className="w-full min-w-max text-left text-sm">
+            <caption className="sr-only">Full-precision physical measurements for {rawRows.length} samples.</caption>
+            <thead className="sticky top-0 bg-paper text-zinc-700">
+              <tr>
+                <th scope="col" className="px-4 py-3 font-medium">Batch</th>
+                <th scope="col" className="px-4 py-3 font-medium">Sample ID</th>
+                {physicalFeatures.map((feature) => (
+                  <th key={feature.rawKey} scope="col" className="max-w-64 px-4 py-3 text-right font-medium">
+                    {feature.label}<span className="block text-xs font-normal">{feature.unit}</span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-200">
+              {rawRows.map((row) => (
+                <tr key={`${row.batch}/${row.sample_id}`}>
+                  <td className="whitespace-nowrap px-4 py-3">{row.batch.replace("_", " ")}</td>
+                  <th scope="row" className="px-4 py-3 font-mono text-xs font-normal">{row.sample_id}</th>
+                  {physicalFeatures.map((feature) => (
+                    <td key={feature.rawKey} className="px-4 py-3 text-right font-mono text-xs tabular-nums">{row[feature.rawKey]}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
 
       <p className="text-sm leading-6 text-zinc-600">
-        The downloadable physical vector contains 14 fields rounded for presentation.
+        Each downloadable measurement record contains 13 physical descriptors and a porosity uncertainty estimate, rounded for presentation.
         Batch means use the full-precision physical results.
       </p>
 
-      <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-zinc-200 pt-4 text-sm">
-        <a
-          href="/physical_feature_vectors.csv"
-          className="text-blue-800 underline underline-offset-4 hover:no-underline"
-        >
-          Physical feature vectors (CSV)
-        </a>
-        <a
-          href="/qc_summary_report.json"
-          className="text-blue-800 underline underline-offset-4 hover:no-underline"
-        >
-          Physical summary (JSON)
-        </a>
-        <a
-          href="/qc_dataset_features.csv"
-          className="text-blue-800 underline underline-offset-4 hover:no-underline"
-        >
-          Full-precision measurements (CSV)
-        </a>
-      </div>
     </section>
   );
 }

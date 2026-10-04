@@ -1,6 +1,6 @@
 # Physical feature extraction method
 
-Each SEM sample is represented by **14 numerical values: 13 physical descriptors and one porosity uncertainty estimate**. The dataset contains 31 samples: seven from Batch 1, seven from Batch 2 and seventeen from the Batch 3 reference. The [feature CSV](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/public/physical_feature_vectors.csv) records these values with batch and sample identifiers.
+Each sample is described by **13 physical descriptors and an associated porosity uncertainty estimate**. The physical descriptor vector has 13 dimensions; the saved measurement record retains all 14 numerical fields, with the uncertainty in the second column. Storing an uncertainty estimate alongside the descriptors does not itself define an uncertainty-aware prediction model. The dataset contains 31 samples: seven from Batch 1, seven from Batch 2 and seventeen from the Batch 3 reference. The [feature CSV](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/public/physical_feature_vectors.csv) records these values with batch and sample identifiers.
 
 ## Inputs and image preparation
 
@@ -81,5 +81,3 @@ For example, sample `0grcilhi` produced:
 `13.43, 2.26, 79.58, 6.71, 6.99, 2.76, 0.53, 0.62, 1.17, 2.35, 0.09, 0.14, 0.34, 4.05`.
 
 Its horizontal and vertical mean chords satisfy `0.6151298268974701 / 0.5269602106495027 = 1.1673174073983579`, exported as anisotropy `1.17`. Reproducing these measurements does not validate the phase assignments or establish manufacturing acceptance limits.
-
-[Feature data](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/public/physical_feature_vectors.csv) · [Full-precision results](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/public/qc_dataset_features.csv) · [Extraction code](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/extract_physical_features.py) · [Calculation archive](https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/scripts/provenance/README.md)

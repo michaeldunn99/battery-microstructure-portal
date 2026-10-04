@@ -6,6 +6,10 @@ export const dynamic = "force-static";
 export const dynamicParams = false;
 
 const downloads = {
+  "physical-rerun.json": {
+    source: ["validation", "physical-rerun.json"],
+    contentType: "application/json; charset=utf-8",
+  },
   "physical-method.md": {
     source: ["PHYSICAL_METHOD.md"],
     contentType: "text/markdown; charset=utf-8",

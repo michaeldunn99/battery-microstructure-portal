@@ -1,14 +1,16 @@
-import CorePhysicalFingerprintHero from "@/components/CorePhysicalFingerprintHero";
+import PhysicalInterpretation from "@/components/PhysicalInterpretation";
 import PhysicalFeatureVector from "@/components/PhysicalFeatureVector";
 import { loadPhysicalVector, physicalFeatures } from "@/lib/physical-vector";
-import Link from "next/link";
-import PhysicalMethodFigures from "@/components/PhysicalMethodFigures";
 import PhysicalResults from "@/components/PhysicalResults";
+import PhysicalMethodDetails from "@/components/PhysicalMethodDetails";
+import ReportNavigation from "@/components/ReportNavigation";
+import { ReportDownloads, ReportReferences, VerificationDetails } from "@/components/ReportResources";
 
 export default async function Home() {
-  const { example, rawExample, batchValues, count, rows } = await loadPhysicalVector();
+  const { example, count, rows, rawRows } = await loadPhysicalVector();
   return (
     <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-10 space-y-12">
+      <ReportNavigation />
       <section className="space-y-3 border-b border-zinc-200 pb-6">
         <div className="flex flex-wrap items-center gap-2">
           <span className="px-3 py-1 rounded-md text-xs font-semibold bg-zinc-50 text-zinc-700 border border-zinc-200">
@@ -27,29 +29,37 @@ export default async function Home() {
       </section>
       <section aria-labelledby="abstract-heading" className="space-y-3 border-b border-zinc-200 pb-6">
         <h2 id="abstract-heading" className="text-xl font-semibold">Abstract</h2>
-        <p className="max-w-4xl text-sm leading-7 text-zinc-700">We compare electrode cross-sections from three batches using physical measurements of phase area, pore structure and inclusion geometry. Batch 1 has lower mean pore area fraction and vertical pore chord length than the Batch 3 reference. We report the measurements, calculation code and supporting figures. The comparisons are exploratory; phase assignments and batch acceptance criteria require validation.</p>
+        <p className="max-w-4xl text-sm leading-7 text-zinc-700">We compare electrode cross-sections from three batches by measuring the area occupied by labelled material regions, the geometry of pore space, and the size, shape and distribution of bright inclusions. Batch 1 has lower mean pore area fraction and vertical pore chord length than the Batch 3 reference. We report the measurements, calculation code and supporting figures. The comparisons are exploratory; phase assignments and batch acceptance criteria require validation.</p>
       </section>
       <section aria-labelledby="introduction-heading" className="space-y-3 rounded-md border border-zinc-200 bg-paper p-6 lg:p-8">
         <h2 id="introduction-heading" className="text-2xl font-semibold tracking-tight lg:text-3xl">1. Introduction</h2>
-        <p className="max-w-4xl text-sm leading-7 text-zinc-600">The aim is to identify changes in incoming electrode material relative to an approved baseline. Image-derived fractions, lengths, shapes and spatial variation provide interpretable descriptions of the observed microstructure. We use Batch 3 as the reference and compare Batches 1 and 2. These comparisons describe image differences; they do not by themselves establish a manufacturing defect.</p>
+        <p className="max-w-4xl text-sm leading-7 text-zinc-600">We ask whether incoming electrode material differs from a reference batch in measurable aspects of its microstructure. We compare Batches 1 and 2 with Batch 3 using four feature families: phase area fractions, pore geometry, inclusion size and shape, and inclusion spatial variation.</p>
+        <p className="max-w-4xl text-sm leading-7 text-zinc-600">These measurements describe how much of each assigned phase is present, the dimensions and directionality of pore space, and the geometry and distribution of bright inclusions. Each value can be traced to a mask or geometric calculation. Their physical interpretation is limited by the two-dimensional images and the phase assignments; they do not directly measure transport or establish a manufacturing defect.</p>
       </section>
-      <PhysicalFeatureVector example={example} rawExample={rawExample} />
-      <section id="core-factors"><CorePhysicalFingerprintHero batchValues={batchValues} /></section>
-      <PhysicalMethodFigures />
-      <section id="physical-results"><PhysicalResults rows={rows} features={physicalFeatures.map(({ key, label, unit }) => ({ key, label, unit }))} /></section>
+      <PhysicalInterpretation />
+      <PhysicalFeatureVector example={example} />
+      <section id="physical-results"><PhysicalResults rows={rows} rawRows={rawRows} features={physicalFeatures.map(({ key, label, unit }) => ({ key, label, unit }))} /></section>
       <section aria-labelledby="discussion-heading" className="space-y-3 rounded-md border border-zinc-200 bg-paper p-6 lg:p-8">
-        <h2 id="discussion-heading" className="text-2xl font-semibold tracking-tight lg:text-3xl">4. Discussion and limitations</h2>
+        <h2 id="discussion-heading" className="text-2xl font-semibold tracking-tight lg:text-3xl">5. Discussion and limitations</h2>
         <p className="max-w-4xl text-sm leading-7 text-zinc-600">The observed shifts motivate closer inspection of Batch 1. Sample counts are limited, and the saved results do not establish an acceptance threshold or a causal link to cell performance. Segmentation, image sampling and specimen orientation can affect the measurements.</p>
-        <p className="max-w-4xl text-sm leading-7 text-zinc-600">The 14 entries are not independent physical quantities. The vector includes an uncertainty estimate, an anisotropy ratio derived from two other entries, and a CBD allocation tied to pore fraction. These dependencies matter if the vector is used in a statistical model.</p>
+        <p className="max-w-4xl text-sm leading-7 text-zinc-600">The 13 physical descriptors are not independent: the anisotropy ratio is derived from two chord lengths, and the CBD allocation is tied to pore fraction. Porosity uncertainty is reported separately. These dependencies and measurement uncertainties need explicit treatment if a statistical model is fitted.</p>
+        <details className="rounded-md border border-zinc-200">
+          <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800">Scope relative to published electrode analyses</summary>
+          <div className="space-y-3 border-t border-zinc-200 p-4 text-sm leading-7 text-zinc-600">
+            <p><a href="#ref-polaron" className="text-zinc-900 underline underline-offset-4">Polaron's solid-state electrode case study</a> separates phase identity, interfacial contact, connectivity and transport. It uses segmented images and reconstructed three-dimensional volumes. In solid-state electrodes, contact with solid electrolyte is central; pores do not have the same role as electrolyte-filled pore space in a conventional cell.</p>
+            <p>This report measures two-dimensional area fractions, pore chords and correlation scale, and the size, shape and spatial variation of bright inclusions. It does not measure phase-specific interfaces, graphite-particle alignment, three-dimensional connectivity or tortuosity. These are possible extensions requiring additional calculations or validation.</p>
+            <p>The literature motivates the physical questions. It does not establish that this particular descriptor set detects manufacturing defects. That claim requires evaluation against independent batch outcomes.</p>
+          </div>
+        </details>
       </section>
       <section aria-labelledby="reproducibility-heading" className="space-y-3 rounded-md border border-zinc-200 bg-paper p-6 lg:p-8">
-        <h2 id="reproducibility-heading" className="text-2xl font-semibold tracking-tight lg:text-3xl">5. Reproducibility and test-set use</h2>
-        <p className="max-w-4xl text-sm leading-7 text-zinc-600">The extraction uses the central 80% of image height, a 0.025 µm/pixel scale, Gaussian σ = 1.0 and three-class Multi-Otsu thresholds calculated for each image.</p>
-        <p className="max-w-4xl text-sm leading-7 text-zinc-600">The standalone extractor applies this physical method to a batch of paired BSE and Inlens images. Reuse the same settings and verify acquisition scale before comparing a test set with Batch 3. ImageRep must be available for uncertainty and correlation length; missing dependencies must not produce placeholder measurements.</p>
-        <p className="max-w-4xl text-sm leading-7 text-zinc-600">Reproducibility: all 31 samples were rerun with the standalone extractor. All 434 feature values matched the saved measurements to two decimal places.</p>
-        <Link className="mr-5 inline-block text-sm text-blue-800 underline underline-offset-4" href="/method">Read the method and calculation code</Link>
-        <a className="mr-5 inline-block text-sm text-blue-800 underline underline-offset-4" href="/downloads/extract_physical_features.py" download>Download the extractor</a>
+        <h2 id="reproducibility-heading" className="text-2xl font-semibold tracking-tight lg:text-3xl">6. Reproducibility and test-set use</h2>
+        <p className="max-w-4xl text-sm leading-7 text-zinc-600">The extraction was repeated for all 31 samples. All 434 values matched the saved measurements to two decimal places. To compare a new batch, apply the same measurement specification and verify its image scale.</p>
+        <PhysicalMethodDetails section="test" />
+        <VerificationDetails />
+        <ReportDownloads />
       </section>
+      <ReportReferences />
     </main>
   );
 }

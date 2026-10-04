@@ -50,21 +50,5 @@ export async function loadPhysicalVector() {
   }
   const example = rows.find((row) => row.batch === "Batch_3" && row.sample_id === "0grcilhi");
   if (!example) throw new Error("Missing example physical vector");
-  const rawExample = rawByImage.get(`${example.batch}/${example.sample_id}`)!;
-  const mean = (batch: string, key: string) => {
-    const source = rawRows.filter((row) => row.batch === batch);
-    return source.reduce((sum, row) => sum + Number(row[key]), 0) / source.length;
-  };
-  const batchValues: BatchValues = {};
-  const formatters: Record<string, (batch: string) => string> = {
-    porosity: (batch) => `${mean(batch, "porosity_pct").toFixed(2)}\\%`,
-    "directional-cls": (batch) => `L_y=${mean(batch, "chord_y_um").toFixed(2)}\\,\\mu\\mathrm{m},\\quad L_x=${mean(batch, "chord_x_um").toFixed(2)}\\,\\mu\\mathrm{m}`,
-    "particle-size": (batch) => `D_{10}=${mean(batch, "particle_d10_um").toFixed(2)},\\;D_{50}=${mean(batch, "particle_d50_um").toFixed(2)},\\;D_{90}=${mean(batch, "particle_d90_um").toFixed(2)}\\,\\mu\\mathrm{m}`,
-    "particle-aspect": (batch) => mean(batch, "particle_aspect_ratio").toFixed(2),
-    "inclusion-dispersion": (batch) => `${mean(batch, "slurry_heterogeneity").toFixed(2)}\\,\\text{percentage points}`,
-  };
-  for (const [id, format] of Object.entries(formatters)) {
-    batchValues[id] = { batch3Baseline: format("Batch_3"), batch2Candidate: format("Batch_2"), batch1Defective: format("Batch_1") };
-  }
-  return { example, rawExample, batchValues, count: rows.length, rows };
+  return { example, count: rows.length, rows, rawRows };
 }
