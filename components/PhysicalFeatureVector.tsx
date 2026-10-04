@@ -35,7 +35,7 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
 
       <div>
         <h3 className="text-base font-semibold">From image to vector</h3>
-        <p className="mt-2 text-sm leading-6 text-zinc-600">Three-channel KMeans supplies the current phase masks. Original BSE Multi-Otsu and BSE-only KMeans are controls. All three use the same physical measurement definitions and filters.</p>
+        <p className="mt-2 text-sm leading-6 text-zinc-600">Three-channel KMeans assigns each pixel to a pore, graphite or silicon-labelled region. Physical measurements are calculated from these masks.</p>
         <ol className="mt-4 grid auto-rows-fr gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
             ["1. Prepare", "Match BSE, Inlens and ETD/SE by sample. Retain the first stored intensity channel, crop the central 80% of rows and smooth each detector with Gaussian σ = 1 pixel. Use 0.025 µm/pixel."],
@@ -105,11 +105,10 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
       <PhysicalMethodDetails section="calculations" />
       <div className="space-y-3">
         <h3 className="text-base font-semibold">From measurements to batch comparisons</h3>
-        <p className="max-w-4xl text-sm leading-6 text-zinc-600">Compare each test vector with known vectors from the same segmentation method. Tables show the measured values and between-image spread. A standardized nearest-batch-mean rule provides exploratory assignments; its confidence heuristics are stated with the test results. Supplementary Welch tests apply to the original BSE vectors and address differences in means, not individual batch membership.</p>
-        <PhysicalMethodDetails section="statistics" />
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">Compare each test vector with known vectors from the same extraction. A standardised nearest-batch-mean rule assigns each sample; confidence bands use leave-one-crop-out validation precision.</p>
       </div>
       <ExtractorCodeViewer />
-      <ExtractorCodeViewer script="multichannel" />
+      <ExtractorCodeViewer script="assignment" />
 
     </section>
   );

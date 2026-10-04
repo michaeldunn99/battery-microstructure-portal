@@ -25,16 +25,13 @@ export default function CombinedPhysicalResults() {
       <div className="space-y-2">
         <h3 id="three-detector-heading" className="text-lg font-semibold text-zinc-900">Three-detector measurements</h3>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
-          We repeated the measurements on {knownCount} known images and {comparison.test_ids.length} test images using
-          BSE, Inlens and ETD or SE together. The original analysis uses BSE Multi-Otsu phase masks;
-          the combined analysis uses three-channel K-means masks. The crop, pixel scale and
-          downstream measurement definitions are unchanged.
+          Measurements from {knownCount} known images and {comparison.test_ids.length} test images use
+          BSE, Inlens and ETD/SE jointly. All samples share the same preparation, segmentation and
+          physical measurement settings.
         </p>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">
-          The change in segmentation substantially increases silicon-labelled area and reduces
-          matrix area. Inspection shows additional bright edges and rims entering the silicon mask.
-          These are changes in image interpretation, not changes in the specimens or evidence that
-          the combined masks are more accurate.
+          Some bright edges and rims enter the silicon-labelled mask. Phase boundaries remain
+          unvalidated, and this segmentation uncertainty is not included in the porosity interval.
         </p>
       </div>
 
@@ -108,36 +105,18 @@ export default function CombinedPhysicalResults() {
       </details>
 
       <details className="rounded-md border border-zinc-200">
-        <summary className={summaryStyle}>Comparison with the original segmentation</summary>
-        <div className="space-y-4 border-t border-zinc-200 p-4">
-        <div className="overflow-x-auto" role="region" aria-label="Original and combined batch mean comparison" tabIndex={0}>
-          <table className="w-full min-w-[740px] border-collapse text-left text-sm">
-            <caption className="pb-3 text-left text-sm leading-6 text-zinc-600">Original → combined batch means. These changes arise from segmentation of the same images.</caption>
-            <thead className="border-y border-zinc-200 bg-zinc-50 text-zinc-700">
-              <tr><th scope="col" className={tableHeading}>Measurement</th>{comparison.batch_counts.map(({ batch }) => <th key={batch} scope="col" className={tableHeading}>{batchName(batch)}</th>)}<th scope="col" className={tableHeading}>Units</th></tr>
-            </thead>
-            <tbody className="divide-y divide-zinc-200 border-b border-zinc-200">
-              {comparison.measurements.filter(feature => overviewKeys.has(feature.key)).map(feature => <tr key={feature.key}><th scope="row" className={tableHeading}>{feature.label}</th>{feature.batches.map(batch => <td key={batch.batch} className={tableCell}>{batch.original.mean.toFixed(feature.decimals)} → {batch.combined.mean.toFixed(feature.decimals)}</td>)}<td className={`${tableCell} text-zinc-600`}>{feature.unit}</td></tr>)}
-            </tbody>
-          </table>
-        </div>
-        </div>
-      </details>
-
-      <details className="rounded-md border border-zinc-200">
         <summary className={summaryStyle}>How the assignment comparison was calculated</summary>
         <div className="space-y-3 border-t border-zinc-200 p-4 text-sm leading-6 text-zinc-600">
           <p>
-            For each segmentation method, calculate a mean vector for each known batch. Divide each
+            Calculate a mean vector for each known batch. Divide each
             input by its sample standard deviation across all 31 known images, then assign a test image to
             the batch mean with the smallest root-mean-square standardised distance. Scaling and batch means use known
             images only. Confirmed test labels are used only to check the assignments.
           </p>
           <p>
-            This controlled comparison uses the same 13 inputs for both methods: all 14 saved fields
-            except D10, which is constant in the original known data. It therefore includes porosity
-            uncertainty and several derived, correlated measurements. It is an exploratory comparison
-            of the two segmentations, not a validated independent-feature classifier.
+            The assignment uses a fixed subset of 13 saved fields: all fields except D10. It includes
+            porosity uncertainty and derived, correlated measurements. This differs from the
+            13-descriptor physical vector, which includes D10 and reports uncertainty separately.
           </p>
           <p>
             No class probabilities or acceptance thresholds are fitted. A nearest batch identifies

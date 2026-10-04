@@ -16,8 +16,6 @@ Assignments use the nearest batch mean after scaling by sample standard deviatio
 
 Confidence is the observed leave-one-image-out precision for the predicted class: Batch 1 is Medium (50%, 3/6), Batch 2 Low (20%, 2/10), and Batch 3 High (86.7%, 13/15). Bands are High above 70%, Medium from 50% to 70%, and Low below 50%. These are class-level validation rates, not calibrated probabilities for individual images or manufacturing acceptance decisions. Crop dependence and unvalidated phase boundaries remain limitations.
 
-Original BSE measurements, mean tests and verification records remain in the repository and website archive for method comparison. They are separate from the current combined-method results. Legacy native-image and synthetic-3D assets are not part of the current physical report.
-
 ## Run the report
 
 ```bash

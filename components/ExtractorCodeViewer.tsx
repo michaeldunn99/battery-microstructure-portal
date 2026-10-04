@@ -3,12 +3,11 @@ import path from "node:path";
 import CopyButton from "@/components/CopyButton";
 
 const scripts = {
-  extraction: { filename: "extract_physical_features.py", id: "extractor", label: "Original BSE extraction code (Python)", description: "The original phase segmentation and physical calculations. Feature links open the corresponding calculation; the three-detector experiment preserves these measurement definitions.", codeLabel: "Physical feature extraction Python source" },
-  comparison: { filename: "compare_physical_batches.py", id: "comparison-code", label: "Statistical comparison code (Python)", description: "The executable comparison script used to generate the statistical results. It can compare a new batch with the saved reference measurements.", codeLabel: "Physical batch comparison Python source" },
-  multichannel: { filename: "run_multichannel_experiment.py", id: "multichannel-code", label: "Three-detector extraction code (Python)", description: "Joint pixel clustering, unchanged physical measurements and a BSE-only control. Each run saves vectors, masks, figures, settings and input hashes.", codeLabel: "Three-detector segmentation and physical extraction Python source" },
+  multichannel: { filename: "run_multichannel_experiment.py", id: "multichannel-code", label: "Feature extraction code (Python)", description: "The executed script for detector preparation, joint segmentation and physical measurements. The reported vectors use its stacked_three_channel output.", codeLabel: "Feature extraction Python source" },
+  assignment: { filename: "assign_multichannel_tests.py", id: "assignment-code", label: "Batch assignment code (Python)", description: "The executed assignment script. The reported confidence bands use the empirical_precision_v2 option specified in the protocol.", codeLabel: "Batch assignment Python source" },
 } as const;
 
-export default async function ExtractorCodeViewer({ script = "extraction" }: { script?: keyof typeof scripts }) {
+export default async function ExtractorCodeViewer({ script = "multichannel" }: { script?: keyof typeof scripts }) {
   const config = scripts[script];
   const source = await readFile(path.join(process.cwd(), "scripts", config.filename), "utf8");
   return (

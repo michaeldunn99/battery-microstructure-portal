@@ -54,7 +54,7 @@ function FullResolutionView({ src, alt, label }: {
 function MethodFigure({ sampleId, batch, detector, number }: SampleFigure) {
   const src = `/multichannel/${sampleId}.png`;
   const label = `${number ? `Fig. ${number}. ` : ""}${batch}, sample ${sampleId}`;
-  const alt = `${batch}, sample ${sampleId}: smoothed BSE, Inlens and ${detector} views above the original BSE Multi-Otsu, BSE-only KMeans and three-channel KMeans masks.`;
+  const alt = `${batch}, sample ${sampleId}: smoothed BSE, Inlens and ${detector} views above the BSE Multi-Otsu initialisation, BSE-only clustering control and three-channel result.`;
 
   return (
     <figure>
@@ -86,7 +86,7 @@ export default function PhysicalMethodFigures() {
       <div className="space-y-2">
         <h3 id="preprocessing-figures-heading" className="text-base font-semibold text-zinc-950">Three-channel segmentation</h3>
         <p className="max-w-4xl text-sm leading-6 text-zinc-600">Each pixel contributes separately standardized BSE, Inlens and ETD/SE intensities to KMeans. The channels are stacked, not averaged, and retain their original coordinates without automatic registration.</p>
-        <p className="max-w-4xl text-sm leading-6 text-zinc-600">The top row shows detector views after Gaussian smoothing (σ = 1 pixel). The bottom row compares original BSE Multi-Otsu, BSE-only KMeans and three-channel KMeans. Each figure displays the same central 900 × 900 pixel window; percentages use the whole crop, which retains the central 80% of image height. The separate CBD median allocation is not shown.</p>
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">The top row shows detector views after Gaussian smoothing (σ = 1 pixel). The bottom-right mask is the three-channel segmentation used for the reported measurements. The other masks show the BSE initialisation and clustering control. Each figure displays the same central 900 × 900 pixel window; percentages use the whole crop, which retains the central 80% of image height. The separate CBD median allocation is not shown.</p>
       </div>
 
       <div className="space-y-6 divide-y divide-zinc-200">

@@ -4,31 +4,26 @@ import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import ExtractorCodeViewer from "./ExtractorCodeViewer";
 
 function inlineHref(href: string | undefined) {
   if (!href) return href;
-  const statisticalReferences: Record<string, string> = {
+  const references: Record<string, string> = {
     "https://doi.org/10.1002/advs.202414149": "#ref-dahari",
-    "https://doi.org/10.1038/s41597-022-01744-1": "#ref-microlib",
-    "https://doi.org/10.6028/NIST.TN.2106": "#ref-equivalence",
-    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html": "#ref-welch",
-    "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html": "#ref-holm",
-    "https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf": "#ref-asa",
     "https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html": "#ref-kmeans",
   };
-  if (statisticalReferences[href]) return statisticalReferences[href];
+  if (references[href]) return references[href];
   const base = "https://github.com/michaeldunn99/battery-microstructure-portal/blob/main/";
   if (!href.startsWith(base)) return href;
   const destination = href.slice(base.length);
-  if (destination === "scripts/compare_physical_batches.py") return "#comparison-code";
-  if (destination.startsWith("scripts/extract_physical_features.py")) {
+  const sourceIds: Record<string, string> = {
+    "scripts/run_multichannel_experiment.py": "multichannel-code",
+    "scripts/assign_multichannel_tests.py": "assignment-code",
+  };
+  const sourceId = sourceIds[destination.split("#")[0]];
+  if (sourceId) {
     const line = destination.match(/#L(\d+)$/)?.[1];
-    return line ? `#extractor-L${line}` : "#extractor";
+    return line ? `#${sourceId}-L${line}` : `#${sourceId}`;
   }
-  if (destination === "public/physical_feature_vectors.csv") return "#downloads";
-  if (destination === "public/qc_dataset_features.csv") return "#downloads";
-  if (destination === "validation/physical-rerun.json") return "#validation-record";
   return href;
 }
 
@@ -84,9 +79,9 @@ const markdownComponents: Components = {
 };
 
 const sections = {
-  preparation: { id: "image-preparation", label: "Image preparation and segmentation: original and combined methods", start: "## Inputs and image preparation", end: "## Feature definitions" },
-  calculations: { id: "feature-calculations", label: "Feature calculations and assumptions", start: "### Correlation and porosity uncertainty", end: "## Statistical batch comparison" },
-  statistics: { id: "statistical-method", label: "Original BSE results: supplementary mean tests", start: "## Statistical batch comparison", end: "## Implementation and application" },
+  preparation: { id: "image-preparation", label: "Image preparation and three-detector segmentation", start: "## Inputs and image preparation", end: "## Feature definitions" },
+  calculations: { id: "feature-calculations", label: "Feature calculations and assumptions", start: "### Correlation and porosity uncertainty", end: "## Implementation and application" },
+  statistics: { id: "assignment-validation", label: "Assignment validation and confidence", start: "### Assignment validation and confidence", end: "### Apply the pipeline to new images" },
   test: { id: "test-set-procedure", label: "Test-set procedure", start: "## Implementation and application", end: "## Reproducibility" },
 } as const;
 
@@ -96,7 +91,7 @@ export default async function PhysicalMethodDetails({ section }: { section: keyo
   const from = markdown.indexOf(start);
   const to = markdown.indexOf(end, from + start.length);
   if (from < 0 || to < 0) throw new Error(`Missing method section: ${section}`);
-  const content = markdown.slice(from, to).replace(/^## (?:Implementation and application|Statistical batch comparison)\n/, "");
+  const content = markdown.slice(from, to).replace(/^## Implementation and application\n/, "");
   return (
     <details id={id} className="scroll-mt-6 rounded-md border border-zinc-200">
       <summary className="cursor-pointer p-4 text-sm font-semibold text-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
@@ -106,7 +101,6 @@ export default async function PhysicalMethodDetails({ section }: { section: keyo
         <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} components={markdownComponents} skipHtml>
           {content}
         </ReactMarkdown>
-        {section === "statistics" && <ExtractorCodeViewer script="comparison" />}
       </div>
     </details>
   );
