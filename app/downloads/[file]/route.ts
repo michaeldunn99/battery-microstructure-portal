@@ -6,6 +6,10 @@ export const dynamic = "force-static";
 export const dynamicParams = false;
 
 const downloads = {
+  "test-1-run.json": {
+    source: ["validation", "test-1-run.json"],
+    contentType: "application/json; charset=utf-8",
+  },
   "compare_physical_batches.py": {
     source: ["scripts", "compare_physical_batches.py"],
     contentType: "text/x-python; charset=utf-8",

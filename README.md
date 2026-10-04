@@ -1,58 +1,43 @@
-# Battery Electrode Microstructure Characterization & Transport Portal
+# Electrode microstructure analysis
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
-[![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?logo=vercel)](https://vercel.com/)
-[![Modal](https://img.shields.io/badge/Compute-Modal%20A10G%20CUDA-green)](https://modal.com/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+A scientific report for the Polaron materials-manufacturing challenge. The report describes physical measurements from 31 known image pairs in Batches 1, 2 and 3, plus three held-out image pairs in `test_1`.
 
-An end-to-end characterization and quality control platform for lithium-ion battery electrodes. Combining deterministic 2D cross-section SEM image analysis, 3D grain-boundary reconstruction, and directional tortuosity solving on cloud GPUs via TauFactor.
+Batch 3 is the supplier reference. Batches 1 and 2 represent different microstructural patterns, not confirmed defective or acceptable material. The organisers assembled artificial batches from crops of approximately 15 electrode images.
 
-Developed for **Rudolf-Schwarz Holdings Ltd**.
+## Measurements
 
----
+The physical extractor produces 13 descriptors and a separate porosity uncertainty estimate from paired BSE and Inlens images. The same settings were used for the known data and the three test samples. ETD is not used in this calculation. The report compares phase area, pore geometry, inclusion geometry and inclusion spatial variation in their measured units.
 
-## Key Highlights
+The original known measurements were reproduced: 434 of 434 full-precision numerical values matched. The complete specification and executable commands are in [PHYSICAL_METHOD.md](PHYSICAL_METHOD.md). Test measurements are in [test_1_physical_features.csv](public/test_1_physical_features.csv), with an [extraction record](validation/test-1-run.json).
 
-- **Interactive 3D Digital Twin**: Real-time orthoslice inspection across XY, XZ, and YZ planes with depth scrubbing ($Z = 0$ to $28\ \mu\text{m}$) and 3D isometric cube rendering.
-- **Idiot's Guide to Tortuosity**: Intuitive plain-English breakdown of ion detour factors, why high tortuosity causes lithium dendrite plating, and how to avoid battery thermal runaway.
-- **Microstructural Feature Rationalization**: Focus on 5 primary transport-governing microstructural descriptors to prevent model overfitting on small sample sizes ($N = 31$).
-- **Cloud GPU Accelerated TauFactor**: Solves the complete 3D diffusion flux tensor across all batches in **13.85 seconds** using Modal A10G GPUs.
-- **Automated Candidate Acceptance Matrix**: Production decision rules with statistical confidence intervals to evaluate incoming candidate batches against the Batch 3 baseline reference.
+## Interpretation
 
----
+The website compares individual test vectors with known-batch summaries. Similarity scoring and batch assignment are deferred. The supplementary Welch/Holm analysis tests feature means, not class membership. Its independence assumption is unresolved because the source-image mapping is unavailable. No validated acceptance, rejection or electrochemical-performance claim follows from these results.
 
-## 3-Way Batch Comparison Summary
+Legacy native-image and synthetic-3D assets remain in the repository but are not part of the current physical report.
 
-| Metric | Batch 3 (Baseline) | Batch 2 (Candidate) | Batch 1 (Defective) | Optimal Direction |
-| :--- | :--- | :--- | :--- | :--- |
-| **Active Material Loading** | 84.34% | **86.18%** (+1.84%) | 88.02% (+3.68%) | Higher ($\uparrow$) |
-| **Total Porosity ($\epsilon$)** | 11.16% | **10.42%** | 9.35% (-16.2%) | Balanced (~10-12%) |
-| **Through-Plane Pore Throat ($\bar{L}_y$)** | 0.96 µm | **0.93 µm** ($p = 0.47$) | 0.86 µm ($p = 0.049$) | Wider ($\uparrow$) |
-| **Particle Aspect Ratio ($\mathcal{A}$)** | 1.25 | **1.22** (Normal) | 1.38 (Crushed) | Near 1.0 ($\downarrow$) |
-| **Through-Plane Tortuosity ($\tau_z$)** | 8.94 | **10.57** (Healthy) | **70.78** ($8\times$ bottleneck) | Lower ($\downarrow$) |
-| **In-Plane Tortuosity ($\tau_{xy}$)** | 6.26 | **7.55** | 9.82 | Lower ($\downarrow$) |
-| **3D Anisotropy Ratio ($\tau_z / \tau_{xy}$)** | 1.43 | **1.40** (Isotropic) | **7.21** (Severe block) | Near 1.0 ($\downarrow$) |
-| **MacMullin Number ($N_M$)** | 80.1 | **101.5** | **757.0** ($9.5\times$ resistance) | Lower ($\downarrow$) |
-| **Quality Verdict** | **REFERENCE PASS** | **ACCEPT & PROMOTE** | **REJECT DEFECTIVE** | - |
-
----
-
-## Getting Started
+## Run the report
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
+npm run dev -- --port 3000
 ```
 
-## Cloud GPU Execution (Modal)
+Production build: `npm run build`.
+
+## Reproduce the batch figure
+
+With NumPy, SciPy and Matplotlib installed:
 
 ```bash
-# Run 3D continuous microstructure synthesis & TauFactor tensor solver on Modal A10G
-modal run modal_taufactor_3d.py
+python scripts/plot_physical_batches.py --input-csv public/qc_dataset_features.csv --output /path/to/batch-comparison.png
 ```
+
+## Checks
+
+```bash
+python -m unittest discover -s tests -p 'test_physical*.py'
+node --test tests/math-rendering.cjs
+```
+
+The Python checks require NumPy, SciPy, Pillow and scikit-image. The extraction itself also requires the ImageRep checkout and its dependencies, as recorded in the verification record.

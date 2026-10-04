@@ -9,6 +9,9 @@ import ExtractorCodeViewer from "./ExtractorCodeViewer";
 function inlineHref(href: string | undefined) {
   if (!href) return href;
   const statisticalReferences: Record<string, string> = {
+    "https://doi.org/10.1002/advs.202414149": "#ref-dahari",
+    "https://doi.org/10.1038/s41597-022-01744-1": "#ref-microlib",
+    "https://doi.org/10.6028/NIST.TN.2106": "#ref-equivalence",
     "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html": "#ref-welch",
     "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html": "#ref-holm",
     "https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf": "#ref-asa",

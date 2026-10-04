@@ -104,7 +104,7 @@ export default function PhysicalFeatureVector({ example }: { example: Record<str
       <PhysicalMethodDetails section="calculations" />
       <div className="space-y-3">
         <h3 className="text-base font-semibold">From measurements to batch comparisons</h3>
-        <p className="max-w-4xl text-sm leading-6 text-zinc-600">For each physical descriptor, we estimate the difference between the incoming and reference batch means, its 95% confidence interval and a two-sided Welch p-value. Holm adjustment accounts for the 26 comparisons in this report. These tests provide evidence about mean differences; they do not assign a manufacturing verdict.</p>
+        <p className="max-w-4xl text-sm leading-6 text-zinc-600">Compare each test vector with the known batches dimension by dimension, using the original measurement units. Batch summaries describe means and between-image variation. Exploratory Welch tests address mean differences; they do not assign individual images to a batch. The organisers' source-image clarification makes their independence assumption uncertain.</p>
         <PhysicalMethodDetails section="statistics" />
       </div>
       <ExtractorCodeViewer />

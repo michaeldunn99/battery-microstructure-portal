@@ -2,6 +2,8 @@ import verification from "@/validation/physical-rerun.json";
 import precisionVerification from "@/validation/physical-full-precision.json";
 
 const downloads = [
+  ["/test_1_physical_features.csv", "Test image measurements (CSV)", "Three image pairs, each with the original 13 descriptors and porosity uncertainty at full precision."],
+  ["/downloads/test-1-run.json", "Test extraction record (JSON)", "Input hashes, extractor settings and ImageRep revision for the three test samples."],
   ["/physical_feature_vectors.csv", "Measurements and uncertainty (CSV)", "31 samples, each with 13 descriptors and a porosity uncertainty estimate, rounded to two decimal places."],
   ["/qc_dataset_features.csv", "Full-precision measurements (CSV)", "The saved physical measurements used for batch comparisons."],
   ["/qc_summary_report.json", "Batch summary (JSON)", "Sample counts and batch means."],
@@ -47,6 +49,8 @@ export function ReportDownloads() {
 }
 
 const references = [
+  { id: "ref-microlib", label: "Kench, Squires, Dahari and Cooper (2022)", title: "MicroLib: A library of 3D microstructures generated from 2D micrographs using SliceGAN", journal: "Scientific Data 9, 645", href: "https://doi.org/10.1038/s41597-022-01744-1", use: "Compares phase fraction, surface-area density and two-point correlation to assess generated microstructures. It does not prescribe our Holm correction or a batch-assignment rule." },
+  { id: "ref-equivalence", label: "Yen, Leber and Pibida (2020)", title: "Comparing Instruments", journal: "NIST Technical Note 2106", href: "https://doi.org/10.6028/NIST.TN.2106", use: "Equivalence requires a predefined range of practically acceptable differences. This statistical guidance does not supply electrode acceptance limits." },
   { id: "ref-welch", label: "SciPy", title: "Independent two-sample t-test", journal: "Statistical software documentation", href: "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html", use: "Welch's unequal-variance test and confidence interval for the difference in means." },
   { id: "ref-holm", label: "R Core Team", title: "Adjust P-values for Multiple Comparisons", journal: "stats documentation; Holm (1979)", href: "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html", use: "Holm adjustment controls family-wise error while allowing dependence between valid tests." },
   { id: "ref-asa", label: "American Statistical Association (2016)", title: "Statement on Statistical Significance and P-Values", journal: "Interpretation guidance", href: "https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf", use: "A p-value is not an effect size or a probability of a manufacturing defect. Decisions require scientific context." },

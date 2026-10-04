@@ -94,11 +94,11 @@ Audit date: 4 October 2026. This section records the final glossary, phase defin
 
 The report is a single page, ordered **Abstract → Introduction → Physical interpretation and glossary → Methods → Results → Discussion → Reproducibility → References**. The glossary has four full-width entries, labelled (a) to (d) for the broad physical groups. Each has separate **Physical meaning**, **Relevance to electrode performance** and **How we calculated it** disclosures. Individual descriptor definitions do not have letter labels. The worked chord-ratio example has been removed. The single Methods section presents a **13-dimensional physical descriptor vector** and reports its porosity uncertainty separately. The unchanged CSV measurement record retains all 14 numerical fields.
 
-The final rendered page contains **68 anchor elements with 58 distinct literal hrefs**: **33 locations in the same report, nine file downloads and 16 external destinations**. The external destinations comprise 15 centrally listed references and one project repository. There are no report links to a separate methods page, raw image page, archived calculation file or GitHub data viewer. The old `/method` route redirects to `/#image-preparation` for compatibility. The increased number of citations reflects the expanded physical glossary and statistical method; report explanation and calculation navigation stay on the same page.
+The final rendered page contains **75 anchor elements with 64 distinct literal hrefs**: **35 locations in the same report, eleven file downloads and 18 external destinations**. The external destinations comprise 17 centrally listed references and one project repository. There are no report links to a separate methods page, raw image page, archived calculation file or GitHub data viewer. The old `/method` route redirects to `/#image-preparation` for compatibility. The increased number of citations reflects the expanded physical glossary and statistical method; report explanation and calculation navigation stay on the same page.
 
-### Final link inventory: 58 destinations
+### Final link inventory: 60 destinations
 
-The inventory includes links inside every collapsed disclosure. There are no interpretation-tab states in the current layout. Entries 1 to 48 retain their previous numbering; the ten statistical additions follow them.
+The inventory includes links inside every collapsed disclosure. There are no interpretation-tab states in the current layout. Entries 1 to 48 retain their previous numbering; the twelve statistical additions follow them.
 
 #### Inline literature references: 10 destinations
 
@@ -174,7 +174,7 @@ The repository is linked once in Downloads and repository. Each other external U
 | 47 | `https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops` | Region measurements | References: scikit-image geometric definitions. |
 | 48 | `https://numpy.org/doc/stable/reference/generated/numpy.std.html` | Standard deviation | References: NumPy population standard deviation. |
 
-#### Statistical additions: ten destinations
+#### Statistical additions: twelve destinations
 
 | # | Exact href | Visible label | Location and purpose |
 | --- | --- | --- | --- |
@@ -189,9 +189,16 @@ The repository is linked once in Downloads and repository. Each other external U
 | 57 | `https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html` | Adjust P-values for Multiple Comparisons | References; Holm adjustment and family-wise error. |
 | 58 | `https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf` | Statement on Statistical Significance and P-Values | References; interpretation of statistical evidence. |
 
+| 59 | `#ref-equivalence` | NIST comparison guidance | Statistical method; guidance for a future manufacturing-equivalence assessment. |
+| 60 | `https://doi.org/10.6028/NIST.TN.2106` | Comparing Instruments | References; NIST equivalence guidance, not electrode tolerance values. |
+| 61 | `/test_1_physical_features.csv` | Test image measurements (CSV) | Full-precision measurements for all three test image pairs. |
+| 62 | `/downloads/test-1-run.json` | Test extraction record (JSON) | Input hashes, settings and ImageRep revision. |
+| 63 | `#ref-microlib` | MicroLib, by Kench, Squires, Dahari and Cooper | Inline reference for physical-property comparisons, distinct from Holm. |
+| 64 | `https://doi.org/10.1038/s41597-022-01744-1` | MicroLib | Central reference to the primary paper. |
+
 ### Expandable controls
 
-The page has **34 native disclosure controls**, including nested controls:
+The page has **35 native disclosure controls**, including nested controls:
 
 - Twelve glossary disclosures: physical meaning, relevance to electrode performance, and calculation content for each of four groups. The broad groups are labelled (a) to (d); individual descriptors are named without letter labels.
 - Eight Methods disclosures: image preparation, 13 descriptor definitions, porosity uncertainty, calculation assumptions, extraction code, preprocessing figures, statistical comparison and nested comparison code.
@@ -199,13 +206,13 @@ The page has **34 native disclosure controls**, including nested controls:
 - Four Results disclosures: two batch-comparison tables, the sample explorer and full-precision table.
 - One Discussion disclosure: scope relative to published electrode analyses.
 - Four Reproducibility disclosures: test-set procedure, verification record, nested run settings/input hashes, and downloads.
-- One References disclosure containing the 15 sources.
+- One References disclosure containing the 16 sources.
 
 Image inspection expands inside the report instead of navigating to a PNG. Citation hashes reveal the References disclosure; code and measurement hashes reveal their containing disclosures. The report has no separate Full method control or duplicated methods page content.
 
 ### Final checks and evidence
 
-- All **33 local hash destinations** exist in the rendered HTML. No duplicate element IDs were found.
+- All **35 local hash destinations** exist in the rendered HTML. No duplicate element IDs were found.
 - Every linked calculation line exists in the current standalone extractor. The page has no links to archived source files.
 - The live heading order matches the report sequence above. The legacy `CorePhysicalFingerprintHero` is not mounted.
 - The active Methods component and downloadable LaTeX specify a 13-dimensional descriptor vector, with porosity uncertainty separate. The canonical method and download labels distinguish this from the preserved 14-field measurement record. No active claim of a 14-dimensional physical vector was found.
@@ -218,3 +225,14 @@ Image inspection expands inside the report instead of navigating to a PNG. Citat
 - The phase glossary states a short physical definition before its disclosures. Its calculation disclosure specifies BSE-only three-class segmentation, the Inlens median subdivision, the shared area denominator and the overlap between reported porosity and CBD allocation.
 - Both statistical tables contain 13 descriptors. Results distinguish observed differences from equivalence. Welch intervals are pointwise, and Holm adjustment covers all 26 planned comparisons; the two constant D10 comparisons are unavailable. Independent SciPy calculations matched all 24 estimable results within 1e-15. All 13 Python tests passed.
 - The optional full-precision export reproduced all 434 raw values across 31 samples exactly. The original two-decimal record is retained. Expanded phase and statistics tables produced no page overflow at a 390-pixel viewport; no browser or math-rendering errors were observed.
+
+- The report follows the organisers' clarification: the batches are constructed microstructural groups, and the challenge eventually requires image-level assignment. The present update compares original physical measurements dimension by dimension. Parent-image dependence is explicitly unresolved; supplementary Welch/Holm results are provisional, not classification scores.
+
+
+### Test-image update
+
+- Three test samples each have BSE, Inlens and ETD files. One vector was extracted per BSE/Inlens pair using the unchanged physical pipeline.
+- The main table adds three individual test-image columns. The inline disclosure compares all 13 descriptors with the three known-batch summaries and reports porosity uncertainty separately.
+- All 42 numerical test fields match the exported CSV and rendered JSON. Phase fractions sum to 100%, and the extraction record hashes match the scripts and data.
+- All eleven downloads returned HTTP 200. The 35 local anchors resolve; no browser exceptions or KaTeX errors were found. The page has no outer horizontal overflow at 390 pixels.
+- The production build passed. The 13 physical Python tests and two math-rendering tests passed. Classifier development is deferred; the exploratory similarity experiment is not part of the report or the test-vector update.

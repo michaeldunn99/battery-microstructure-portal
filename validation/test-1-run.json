@@ -1,0 +1,24 @@
+{
+  "recorded_at": "2026-10-04T11:38:19.959029+00:00",
+  "scope": "Three test image pairs measured with the original physical extractor and compared directly with the known batch measurements.",
+  "pixel_size_um": 0.025,
+  "pixel_size_status": "Same setting as known physical run; absolute calibration not independently verified from exported TIFF metadata.",
+  "imagerep_revision": "2c51ffbcd3f9bc00237f4348e7063d92f7efbfb0",
+  "files": {
+    "scripts/extract_physical_features.py": "076dbf9da2bca0defe0d05ec918492aca10a5162c22b79f65b0ac2824dcad600",
+    "scripts/compare_physical_batches.py": "849327da6c4d6258526d89173535a4551b2ee3b7d10ce19e2dc87897e548a3e5",
+    "public/qc_dataset_features.csv": "6170b4840024d62b29468ed61a705b7900557b3621de62e3959c03bc9762db6a",
+    "validation/test-1-physical-features.csv": "330a9a17502341218a870b663073ef6ff0cfe1e8ef28a8124ee08696f6f2596e"
+  },
+  "test_inputs": {
+    "img_fn0mhxef_Inlens.tif": "670ea5dc3006b20a847e2aeaf134d063927c172be71adbb189cc1bac0cecbfad",
+    "img_xrv9xvzb_BSE.tif": "2bb8f7cb564a15879e49a99b7ff9f319472585ef2ba524bf4816ec5c74ffa222",
+    "img_3e122cbj_Inlens.tif": "c03147055308da8bd2e06b4b6d6f58efe1237aa1c17067545be886f6502c4436",
+    "img_3e122cbj_BSE.tif": "efad123af7f20e762d44b0de140dea5ac3c7593d7b323d4da020eef2d1159374",
+    "img_xrv9xvzb_Inlens.tif": "19b9e6f2a0445b4584e3a77224bbe609ec213a8f4e77112d964d53187ca88e30",
+    "img_fn0mhxef_BSE.tif": "be7677781389261f500c317fe20ebf972fa1389f32447b777072e82ecdcd7958"
+  },
+  "source_image_mapping": "Known batch directories and detector pairing found; no crop-to-parent mapping found in files or TIFF description tags.",
+  "feature_record_fields": 14,
+  "physical_descriptors": 13
+}

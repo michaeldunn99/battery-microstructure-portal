@@ -29,13 +29,21 @@ export default async function PhysicalBatchStatistics() {
   }
   return (
     <div id="batch-statistics" className="scroll-mt-6 space-y-4 border-t border-zinc-200 pt-6">
-      <h3 className="text-lg font-semibold text-zinc-900">Statistical comparisons with Batch 3</h3>
+      <h3 className="text-lg font-semibold text-zinc-900">Uncertainty in mean differences</h3>
+      <p className="max-w-4xl text-sm leading-6 text-zinc-600">
+        <strong className="font-semibold text-zinc-900">Exploratory mean comparisons.</strong>{" "}
+        These tests assume independent observations. The organisers describe crops drawn from approximately
+        15 source electrode images and assembled into artificial batches; the crop-to-source mapping has not
+        been established here. The p-values and intervals are provisional and do not assign a test image to a batch.
+      </p>
       <p className="max-w-4xl text-sm leading-6 text-zinc-600">
         Batch 1 has a mean pore-area decrease of 1.81 percentage points (pointwise 95% CI: −3.34 to −0.27).
-        Its raw p-value is 0.0246, increasing to 0.6405 after adjustment. Batch 2 has a smaller decrease of
+        This is about 16% below the reference mean. Batch 2 has a smaller decrease of
         0.73 percentage points (95% CI: −2.25 to 0.79). With seven observations per incoming batch,
-        these estimates leave substantial uncertainty about the true batch differences.
+        these estimates leave substantial uncertainty about the true batch differences. Batch 2 is closer
+        on this measurement, but neither batch has demonstrated equivalence.
       </p>
+      <h4 className="text-base font-semibold text-zinc-900">Tests for differences</h4>
       <p className="max-w-4xl text-sm leading-6 text-zinc-600">
         {significant.length === 0
           ? "No feature-mean difference meets the Holm-adjusted 0.05 criterion in this analysis. This does not establish batch equivalence or justify acceptance."
@@ -43,7 +51,10 @@ export default async function PhysicalBatchStatistics() {
         {" "}{estimable.length} of {statistics.method.family_size} planned comparisons are estimable. Both inclusion D10 comparisons have zero observed variance and cannot support a Welch test.
       </p>
       <p className="max-w-4xl text-sm leading-6 text-zinc-600">
-        Differences are incoming minus reference. Intervals are pointwise 95% confidence intervals for those differences. Holm-adjusted p-values account for all {statistics.method.family_size} planned tests. <a href="#statistical-method" className="text-zinc-900 underline underline-offset-4">Statistical method and assumptions</a>.
+        Differences are incoming minus reference. Intervals are pointwise 95% confidence intervals for those differences.
+        Holm adjustment accounts for testing 13 descriptors in each of two batches ({statistics.method.family_size} comparisons),
+        reducing the risk of chance findings across the analysis. It adjusts p-values, not measured differences,
+        and does not test similarity. <a href="#statistical-method" className="text-zinc-900 underline underline-offset-4">Statistical method and assumptions</a>.
       </p>
       {statistics.comparisons.map((comparison, index) => (
         <details key={comparison.batch} id={`statistics-${comparison.batch.toLowerCase()}`} className="scroll-mt-6 rounded-md border border-zinc-200">
