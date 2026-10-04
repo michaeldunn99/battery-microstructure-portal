@@ -153,7 +153,7 @@ export default function FullTestAssignments() {
       <details id="batch-distances" className="scroll-mt-6 rounded-md border border-zinc-200">
         <summary className={summaryStyle}>How close is each image to the three batches?</summary>
         <div className="space-y-3 border-t border-zinc-200 p-4 text-sm leading-6 text-zinc-600">
-          <p>Each value is the root-mean-square distance from the image’s 13 assignment inputs to a batch mean, after dividing each difference by its standard deviation across the 31 known crops. Smaller means closer; zero means an exact match to that mean. These distances are not probabilities.</p>
+          <p>Percentages show relative similarity; the distance is printed beneath each one. Distance is the root-mean-square difference between the image’s 13 assignment inputs and a batch mean, scaled by standard deviations across the 31 known crops. Smaller distance means closer; zero is an exact match to that mean.</p>
           <div className="overflow-x-auto" role="region" aria-label="Standardised distances from each test image to all three batch means" tabIndex={0}>
             <table className="w-full min-w-[560px] border-collapse text-left text-sm">
               <caption className="pb-3 text-left text-zinc-600">Cell colour shows relative similarity on one fixed scale: red and orange below 33.3%, pale green at 33.3%, and very dark green at 100%. Shares sum to 100% per image and are not prediction confidence. An outlined cell marks the organiser-confirmed batch where known.</caption>
